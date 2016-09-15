@@ -35,19 +35,28 @@
     <section class="menu-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+               
                     <div class="navbar-collapse collapse ">
-                        <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a class="menu-top-active" href="index.html">Dashboard</a></li>
-                            <li><a href="ui.html">UI Elements</a></li>
-                            <li><a href="table.html">Data Tables</a></li>
-                            <li><a href="forms.html">Forms</a></li>
-                             <li><a href="login.html">Login Page</a></li>
-                            <li><a href="blank.html">Blank Page</a></li>
+                        <ul id="menu-top" class="nav navbar-nav">
+                            <li><a class="menu-top-active" href="index.html">Inicio</a></li>
+                            <li><a href="ui.html">Usuarios</a></li>
+                            <li class="dropdown">
+                            	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Catálogos
+                            		<span class="caret"></span>
+                            	</a>
+                            	<ul class="dropdown-menu">
+								     <li class="sub-menu"><a href="../../Unidad/listar/">Unidades</a></li>
+								     <li class="sub-menu"><a href="../../Tipo/listar/">Tipos de Personal</a></li>
+								     <li class="sub-menu"><a href="../../TipoNovedad/listar/">Tipos de Novedades</a></li>
+								     <li class="sub-menu"><a href="../../Grado/listar/">Grados de Personal</a></li>
+								</ul>
+                            </li>
+                             <li><a href="login.html">Configuración</a></li>
+                            <li><a href="blank.html">Importar</a></li>
 
                         </ul>
                     </div>
-                </div>
+                
 
             </div>
         </div>

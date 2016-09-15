@@ -2,6 +2,7 @@
         $('#dataTables-example').DataTable({
                 responsive: true,
                 lengthChange: false,
+                // iDisplayLength: 2,
                 info: false,
                 oLanguage: {
                	sProcessing:     "Procesando...",
@@ -16,6 +17,7 @@
                 sUrl:            "",
                 sInfoThousands:  ",",
                 sLoadingRecords: "Cargando...",
+               
                 oPaginate: {
                 sFirst:    "Primero",
                 sLast:     "Último",
