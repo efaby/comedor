@@ -6,7 +6,7 @@ require_once(PATH_ROOT . "/app/config/config.inc");
 session_start();
 if(isset($_GET['action'])){
 	$redirect = ($_GET['action']!='')?$_GET['action']:"listar";
-	$url .= "?action=".$redirect;
+	$url = "?action=".$redirect;
 }
  
 /*

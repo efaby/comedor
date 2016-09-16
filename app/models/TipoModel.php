@@ -17,7 +17,7 @@ class TipoModel {
 			$sql = "select * from tipo_persona where id = ?";
 			$result = $model->execSql($sql, array($tipo));				
 		} else {
-			$result = new stdClass();			
+			$result = (object) array('id'=>0,'nombre'=>'','descripcion'=>'');			
 		}
 		
 		return $result;

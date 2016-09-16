@@ -25,7 +25,7 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Nombre</th>
-		    <th>Descripcion</th>
+		    <th>Descripción</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
