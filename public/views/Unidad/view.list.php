@@ -1,10 +1,10 @@
-<?php $title = "Grados Personal";?>
+<?php $title = "Unidades";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Grados de Personal</h1>
+    	<h1 class="page-header">Unidades</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -26,7 +26,8 @@
 	    	<th>ID</th>
 		    <th>Nombre</th>
 		    <th>Abreviatura</th>
-		    <th>Descripción</th>
+		    <th>Conscriptos</th>
+		    <th>Hora Almuerzo</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -34,8 +35,10 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->abreviatura."</td>";    
-    		echo "<td>".$item->descripcion."</td>";
+    		echo "<td>".$item->abreviatura."</td>";  
+    		echo "<td>".$item->num_conscriptos."</td>";
+    		echo "<td style='text-align: center;'>".date('H:i',strtotime($item->hora_inicio))." - ".date('H:i',strtotime($item->hora_fin))."</td>";
+    		
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a></td>";
     	}?>
@@ -48,7 +51,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Grado Personal</h3>
+				<h3>Unidad</h3>
 			</div>
 
 			<div class="modal-body"></div>

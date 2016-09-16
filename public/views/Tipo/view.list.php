@@ -60,7 +60,8 @@
 <script src="<?php echo PATH_JS; ?>/jquery.dataTables.min.js"></script>
 <script src="<?php echo PATH_JS; ?>/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo PATH_JS; ?>/table.js"></script>
-<script src="<?php echo PATH_JS; ?>/bootstrapValidator.min.js"></script>
+<script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
+<script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 

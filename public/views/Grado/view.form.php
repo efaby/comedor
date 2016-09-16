@@ -30,7 +30,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('#frmItem').bootstrapValidator({
+    $('#frmItem').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',

@@ -17,7 +17,7 @@ class GradoModel {
 			$sql = "select * from grado_persona where id = ?";
 			$result = $model->execSql($sql, array($grado));				
 		} else {
-			$result = $result = (object) array('id'=>0,'nombre'=>'','descripcion'=>'','abreviatura'=>'');			
+			$result = (object) array('id'=>0,'nombre'=>'','descripcion'=>'','abreviatura'=>'');			
 		}
 		
 		return $result;
