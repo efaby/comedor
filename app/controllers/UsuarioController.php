@@ -1,21 +1,21 @@
 <?php
 require_once (PATH_MODELS . "/UsuarioModel.php");
-/**
- * Controlador de Usuarios
- */
+
+
 class UsuarioController {
 	
 	public function listar() {
 		$model = new UsuarioModel();
-		$datos = $model->getlistadoUsuarios();
+		$datos = $model->getlistadoUsuario();
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.list.php";
 	}
 	
 	public function editar(){
 		$model = new UsuarioModel();
-		$usuario = $model->getUsuario();		
-		$tipos = $model->getTipoUsuario();
+		$item = $model->getUsuario();	
+		$tipos = $model->getCatalogo('tipo_usuario');
+		$unidades = $model->getCatalogo('unidad');
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.form.php";
 	}
@@ -23,20 +23,15 @@ class UsuarioController {
 	public function guardar() {
 		
 		$usuario ['id'] = $_POST ['id'];
-		$usuario ['identificacion'] = $_POST ['identificacion'];
-		$usuario ['nombres'] = $_POST ['nombres'];
-		$usuario ['apellidos'] = $_POST ['apellidos'];
-		$usuario ['direccion'] = $_POST ['direccion'];
-		$usuario ['tipo_usuario_id'] = $_POST ['tipo_usuario_id'];
-		$usuario ['telefono'] = $_POST ['telefono'];
-		$usuario ['password'] = $_POST ['password'];
-		$usuario ['email'] = $_POST ['email'];
-		$usuario ['celular'] = $_POST ['celular'];	
+		$usuario ['persona_id'] = $_POST ['persona_id'];
+		$usuario ['tipo_persona_id'] = $_POST ['tipo_persona_id'];
 		$usuario ['usuario'] = $_POST ['usuario'];
-		$usuario ['genero'] = $_POST ['genero'];
+		$usuario ['password'] = $_POST ['password'];
+		$usuario ['unidad_id'] = $_POST ['unidad_id'];
+		
 		$model = new UsuarioModel();
 		try {
-			$datos = $model->saveUsuario( $usuario );
+			$datos = $model->saveUsuario( $unidad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();

@@ -42,7 +42,7 @@ class BaseModel
 	}
 	
 	public function getCatalogo($tabla){
-		$sql = "Select * from ".$tabla;
+		$sql = "Select * from ".$tabla." where activo = 1";
 		return $this->execSql($sql, array(),true);
 	}
 	

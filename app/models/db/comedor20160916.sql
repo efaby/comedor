@@ -31,6 +31,7 @@ CREATE TABLE `confronta` (
   `fecha_registro` date NOT NULL,
   `fecha_acceso` date NOT NULL,
   `acceso` tinyint(4) NOT NULL DEFAULT '1',
+  `guardia` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_confronta_persona1_idx` (`persona_id`),
   CONSTRAINT `fk_confronta_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -78,6 +79,33 @@ LOCK TABLES `confronta_general` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `extra_confronta`
+--
+
+DROP TABLE IF EXISTS `extra_confronta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `extra_confronta` (
+  `id` int(11) NOT NULL,
+  `persona_id` int(11) NOT NULL,
+  `tipo_servicio` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_extra_confronta_persona1_idx` (`persona_id`),
+  CONSTRAINT `fk_extra_confronta_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `extra_confronta`
+--
+
+LOCK TABLES `extra_confronta` WRITE;
+/*!40000 ALTER TABLE `extra_confronta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `extra_confronta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `grado_persona`
 --
 
@@ -121,8 +149,8 @@ CREATE TABLE `novedad` (
   PRIMARY KEY (`id`),
   KEY `fk_novedad_tipo_novedad1_idx` (`tipo_novedad_id`),
   KEY `fk_novedad_persona1_idx` (`persona_id`),
-  CONSTRAINT `fk_novedad_tipo_novedad1` FOREIGN KEY (`tipo_novedad_id`) REFERENCES `tipo_novedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_novedad_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_novedad_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_novedad_tipo_novedad1` FOREIGN KEY (`tipo_novedad_id`) REFERENCES `tipo_novedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,16 +208,16 @@ CREATE TABLE `persona` (
   `telefono` varchar(10) DEFAULT NULL,
   `celular` varchar(10) DEFAULT NULL,
   `tarjeta` tinyint(4) NOT NULL DEFAULT '0',
-  `usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) DEFAULT '0',
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_persona_unidad1_idx` (`unidad_id`),
   KEY `fk_persona_grado_persona1_idx` (`grado_persona_id`),
   KEY `fk_persona_tipo_persona1_idx` (`tipo_persona_id`),
-  CONSTRAINT `fk_persona_unidad1` FOREIGN KEY (`unidad_id`) REFERENCES `unidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_persona_grado_persona1` FOREIGN KEY (`grado_persona_id`) REFERENCES `grado_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_persona_tipo_persona1` FOREIGN KEY (`tipo_persona_id`) REFERENCES `tipo_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_persona_tipo_persona1` FOREIGN KEY (`tipo_persona_id`) REFERENCES `tipo_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_persona_unidad1` FOREIGN KEY (`unidad_id`) REFERENCES `unidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +226,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (1,1,1,1,'0603718575','Jose alfredo','peres alvarez','tytyty','','',0,0,1),(2,1,2,1,'0603718577','Jose maria','peres alvarez','tytyty','','',0,0,1);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +295,7 @@ CREATE TABLE `tipo_usuario` (
   `descripcion` varchar(256) NOT NULL,
   `activo` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,6 +304,7 @@ CREATE TABLE `tipo_usuario` (
 
 LOCK TABLES `tipo_usuario` WRITE;
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
+INSERT INTO `tipo_usuario` VALUES (1,'Administrador','Admnsitra el sistema',1),(2,'Amanuence','Admnsitra Unidad',1),(3,'Supervisor','Supervisa el proceso',1),(4,'Ranchero','Verifica el consumo',1);
 /*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,8 +322,10 @@ CREATE TABLE `unidad` (
   `abreviatura` varchar(64) NOT NULL,
   `num_conscriptos` int(11) DEFAULT '0',
   `activo` tinyint(4) NOT NULL DEFAULT '1',
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,6 +334,7 @@ CREATE TABLE `unidad` (
 
 LOCK TABLES `unidad` WRITE;
 /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
+INSERT INTO `unidad` VALUES (1,'unidad12','desc','u12',278,1,'12:30:00','16:30:00'),(2,'unidad2','dessds','u2',15,1,'11:50:00','13:15:00'),(3,'unidad','texto','u3',456,1,'12:00:00','13:00:00');
 /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,11 +352,12 @@ CREATE TABLE `usuario` (
   `usuario` varchar(64) NOT NULL,
   `password` varchar(128) NOT NULL,
   `activo` tinyint(4) NOT NULL DEFAULT '1',
+  `unidad_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_tipo_usuario_idx` (`tipo_usuario_id`),
   KEY `fk_usuario_persona1_idx` (`persona_id`),
-  CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_usuario_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_usuario_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -345,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-15 16:29:05
+-- Dump completed on 2016-09-16 17:08:07

@@ -1,10 +1,10 @@
-<?php $title = "Usuarios";?>
+<?php $title = "Personal";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Usuarios</h1>
+    	<h1 class="page-header">Personal</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -23,22 +23,30 @@
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
 	    <tr>
-	    	<th>Nombre</th>
-	    	<th>Usuario</th>
-		    <th>Tipo</th>
+	   		<th>Id</th>
+	    	<th>Identificación</th>
+		    <th>Nombres</th>
+		    <th>Apellidos</th>
 		    <th>Unidad</th>
+		    <th>Grado</th>
+		    <th>Arma</th>		     
 		    <th style="text-align: center;">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
-    		echo "<tr><td>".$item->nombres." ".$item->apellidos."</td>";
+    		echo "<tr><td>".$item->id."</td>";
+    		echo "<td>".$item->identificacion."</td>";
     		echo "<td>".$item->nombres."</td>";
-    		echo "<td>".$item->usuario."</td>";
-    		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->unidad." </td>";    		
-    		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
-					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
+    		echo "<td>".$item->apellidos."</td>";
+    		echo "<td>".$item->unidad."</td>";
+    		echo "<td>".$item->nombre." -".$item->grado." </td>";  
+    		echo "<td>".$item->arma."</td>";
+    		echo "<td align='center'>
+					<a href='javascript: loadModal(".$item->id.")' class='btn btn-primary btn-sm' title='Generar Tarjeta' ><i class='fa fa-credit-card'></i></a>
+					<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>					
+					<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a>
+				</td>";
     	}?>
     </tbody>
     </table>
@@ -49,7 +57,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Usuario</h3>
+				<h3>Persona</h3>
 			</div>
 
 			<div class="modal-body"></div>
@@ -63,7 +71,8 @@
 <script src="<?php echo PATH_JS; ?>/jquery.dataTables.min.js"></script>
 <script src="<?php echo PATH_JS; ?>/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo PATH_JS; ?>/table.js"></script>
-<script src="<?php echo PATH_JS; ?>/bootstrapValidator.min.js"></script>
+<script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
+<script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 

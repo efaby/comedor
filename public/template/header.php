@@ -39,7 +39,7 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav">
                             <li><a class="menu-top-active" href="index.html">Inicio</a></li>
-                            <li><a href="ui.html">Usuarios</a></li>
+                            <li><a href="../../Usuario/listar/">Usuarios</a></li>
                             <li class="dropdown">
                             	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Catálogos
                             		<span class="caret"></span>
@@ -53,6 +53,7 @@
                             </li>
                              <li><a href="login.html">Configuración</a></li>
                             <li><a href="blank.html">Importar</a></li>
+                            <li><a href="../../Persona/listar/">Personal</a></li>
 
                         </ul>
                     </div>
