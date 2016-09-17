@@ -1,5 +1,7 @@
 <?php
 require_once (PATH_MODELS . "/UsuarioModel.php");
+require_once (PATH_MODELS . "/PersonaModel.php");
+
 
 
 class UsuarioController {
@@ -24,14 +26,14 @@ class UsuarioController {
 		
 		$usuario ['id'] = $_POST ['id'];
 		$usuario ['persona_id'] = $_POST ['persona_id'];
-		$usuario ['tipo_persona_id'] = $_POST ['tipo_persona_id'];
+		$usuario ['tipo_usuario_id'] = $_POST ['tipo_usuario_id'];
 		$usuario ['usuario'] = $_POST ['usuario'];
 		$usuario ['password'] = $_POST ['password'];
 		$usuario ['unidad_id'] = $_POST ['unidad_id'];
 		
 		$model = new UsuarioModel();
 		try {
-			$datos = $model->saveUsuario( $unidad );
+			$datos = $model->saveUsuario( $usuario );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -48,6 +50,13 @@ class UsuarioController {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../listar/" );
+	}
+	
+	public function getPersona() {
+		$cedula = $_GET ['identificacion'];
+		$model = new PersonaModel();
+		$persona = $model->getPersonaPorCedula($cedula);		
+		echo json_encode ($persona);
 	}
 	
 }

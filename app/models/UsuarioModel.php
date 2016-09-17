@@ -20,9 +20,12 @@ class UsuarioModel {
 		$usuario = $_GET['id'];
 		$model = new BaseModel();		
 		if($usuario > 0){
-			$sql = "select * from usuario where id = ?";
-			$result = $model->execSql($sql, array($unidad));
+			$sql = "select u.*, p.identificacion, p.nombres, p.apellidos from usuario as u
+					inner join persona as p on p.id = u.persona_id
+					where u.id = ?";
+			$result = $model->execSql($sql, array($usuario));
 			$result->password = $result->password1 = $this->pattern;
+			$result->nombres = $result->nombres ." ". $result->apellidos;
 		} else {
 			$result = (object) array('id'=>0,'persona_id'=>0,'unidad_id'=>0,'usuario'=>'', 'password'=>'', 'password1'=>'','identificacion' =>'','nombres'=>'','tipo_usuario_id'=>0);			
 		}
@@ -38,7 +41,7 @@ class UsuarioModel {
 			unset($usuario['password']);
 		}
 		$model = new BaseModel();
-		return $model->saveDatos($unidad,'unidad');
+		return $model->saveDatos($usuario,'usuario');
 	}
 	
 	public function delUsuario(){
@@ -52,4 +55,6 @@ class UsuarioModel {
 		$model = new BaseModel();
 		return $model->getCatalogo($tabla);
 	}
+	
+	
 }

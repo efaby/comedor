@@ -1,7 +1,7 @@
 <?php 	
 	define('HOSTNAME_DATABASE', 'localhost');
 	define('USERNAME', 'root');
-	define('PASSWORD', 'sistemas');
+	define('PASSWORD', '');
 	define('DATABASE', 'comedor'); 	 
 	define('PATH_MODELS', PATH_ROOT."/app/models");
 	define('PATH_CONTROLLERS', PATH_ROOT."/app/controllers");
