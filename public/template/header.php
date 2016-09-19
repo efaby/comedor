@@ -6,6 +6,7 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo PATH_CSS; ?>/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo PATH_CSS; ?>/google-fonts.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
     <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -54,6 +55,7 @@
                              <li><a href="login.html">Configuración</a></li>
                             <li><a href="blank.html">Importar</a></li>
                             <li><a href="../../Persona/listar/">Personal</a></li>
+                            <li><a href="../../Novedad/listar/">Novedad</a></li>
 
                         </ul>
                     </div>

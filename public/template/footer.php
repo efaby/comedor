@@ -19,7 +19,7 @@
         <script src="<?php echo PATH_JS; ?>/jquery.min.js" type="text/javascript"></script>
 
         <!-- jQuery UI 1.10.3 -->
-        <script src="<?php echo PATH_JS; ?>/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+        <script src="<?php echo PATH_JS; ?>/jquery-ui.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="<?php echo PATH_JS; ?>/bootstrap.min.js" type="text/javascript"></script>
 

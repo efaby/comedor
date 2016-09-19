@@ -33,6 +33,7 @@ class PersonaController {
 		$persona ['arma'] = $_POST ['arma'];
 		$persona ['telefono'] = $_POST ['telefono'];
 		$persona ['celular'] = $_POST ['celular'];
+		$persona ['usuario_id'] = 0; // getUserSesion
 		
 		$model = new PersonaModel();
 		try {

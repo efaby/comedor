@@ -42,17 +42,6 @@ class File {
 		return $this->uploadFileToServer($prefix, $key,PATH_FILES);	
 	}
 	
-	public function uploadFilePersonal($prefix,$key){
-		$path = PATH_FILES;
-		if($key == 'url_foto'){
-			$path = PATH_FILES_IMAGE;	
-		}
-		
-		if($_POST['fileName'] != ''){		
-			unlink(PATH_FILES.$_POST['fileName']);			
-		}
-		return $this->uploadFileToServer($prefix, $key, $path);	
-	}
 	
 	private function uploadFileToServer($prefix,$key,$path){
 		
