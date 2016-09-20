@@ -13,7 +13,8 @@ class GradoController {
 	
 	public function editar(){
 		$model = new GradoModel();
-		$item = $model->getGradoPersona();		
+		$item = $model->getGradoPersona();	
+		$tipos = $model->getTipoPersona();
 		$message = "";
 		require_once PATH_VIEWS."/Grado/view.form.php";
 	}
@@ -24,6 +25,7 @@ class GradoController {
 		$grado ['nombre'] = $_POST ['nombre'];
 		$grado ['descripcion'] = $_POST ['descripcion'];
 		$grado ['abreviatura'] = $_POST ['abreviatura'];
+		$grado ['tipo_persona_id'] = $_POST ['tipo_persona_id'];
 		
 		$model = new GradoModel();
 		try {

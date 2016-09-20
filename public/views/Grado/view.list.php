@@ -25,8 +25,8 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Nombre</th>
+		    <th>Tipo</th>
 		    <th>Abreviatura</th>
-		    <th>Descripción</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -34,8 +34,8 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->abreviatura."</td>";    
-    		echo "<td>".$item->descripcion."</td>";
+    		echo "<td>".$item->tipo."</td>";    
+    		echo "<td>".$item->abreviatura."</td>";
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a></td>";
     	}?>

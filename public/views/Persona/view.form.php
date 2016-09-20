@@ -1,15 +1,6 @@
 <form id="frmUsuario" method="post" action="../guardar/">
 <div style="overflow: auto;">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Tipo Persona</label>
-		<select class='form-control' name="tipo_persona_id">
-			<option value="" >Seleccione</option>
-		<?php foreach ($tipos as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  <?php if($item->tipo_persona_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
-		<?php }?>
-		</select>
-
-	</div>
+	
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Grado Persona</label>
 		<select class='form-control' name="grado_persona_id">
@@ -18,6 +9,12 @@
 			<option value="<?php echo $dato->id;?>"  <?php if($item->grado_persona_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 		<?php }?>
 		</select>
+
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="control-label">Arma</label> <input type='text'
+			name='arma' class='form-control'
+			value="<?php echo $item->arma; ?>">
 
 	</div>
 	</div>
@@ -53,13 +50,8 @@
 
 	</div>
 	</div>
-	<div class="form-group col-sm-12">
-		<label class="control-label">Arma</label> <input type='text'
-			name='arma' class='form-control'
-			value="<?php echo $item->arma; ?>">
-
-	</div>
 	
+	<div style="overflow: auto;">
 	<div class="form-group col-sm-6">
 		<label class="control-label">Teléfono</label>
 		<input type='text'
@@ -75,7 +67,7 @@
 			value="<?php echo $item->celular; ?>">
 
 	</div>
-	
+	</div>
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
 		<button type="submit" class="btn btn-success boton">Guardar</button>
@@ -148,13 +140,7 @@ $(document).ready(function() {
 						}
 				
 			},
-			tipo_persona_id: {
-				validators: {
-					notEmpty: {
-						message: 'Seleccione un Tipo de Persona'
-					}
-				}
-			},
+			
 			grado_persona_id: {
 				validators: {
 					notEmpty: {

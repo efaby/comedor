@@ -1,5 +1,15 @@
 <form id="frmItem" method="post" action="../guardar/">
 
+<div class="form-group  col-sm-12">
+		<label class="control-label">Tipo Persona</label>
+		<select class='form-control' name="tipo_persona_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($tipos as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->tipo_persona_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+
+	</div>
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Nombre</label>
 		<input type='text'
@@ -72,6 +82,13 @@ $(document).ready(function() {
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9_ ,-\.]+$/,
 						message: 'Ingrese una Descripción válida.'
+					}
+				}
+			},
+			tipo_persona_id: {
+				validators: {
+					notEmpty: {
+						message: 'Seleccione un Tipo de Persona'
 					}
 				}
 			},

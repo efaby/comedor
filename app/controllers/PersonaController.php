@@ -25,7 +25,7 @@ class PersonaController {
 		
 		$persona ['id'] = $_POST ['id'];
 		$persona ['unidad_id'] = $_POST ['unidad_id'];
-		$persona ['tipo_persona_id'] = $_POST ['tipo_persona_id'];
+		
 		$persona ['grado_persona_id'] = $_POST ['grado_persona_id'];
 		$persona ['identificacion'] = $_POST ['identificacion'];
 		$persona ['nombres'] = $_POST ['nombres'];
