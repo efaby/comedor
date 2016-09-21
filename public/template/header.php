@@ -56,6 +56,7 @@
                             <li><a href="blank.html">Importar</a></li>
                             <li><a href="../../Persona/listar/">Personal</a></li>
                             <li><a href="../../Novedad/listar/">Novedad</a></li>
+                            <li><a href="../../Confronta/listar/">Confronta</a></li>
 
                         </ul>
                     </div>

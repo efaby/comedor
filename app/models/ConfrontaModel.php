@@ -5,9 +5,23 @@ class ConfrontaModel {
 
 	public function getlistadoConfrontaUnidad($unidad){
 		$model = new BaseModel();	
-		$sql = "select * from confonta_general where unidad_id = ?";		
+		$sql = "select c.*, u.abreviatura as unidad from confronta_general as c
+				inner join unidad as u on u.id = c.unidad_id
+				where unidad_id = ?";		
 		return $model->execSql($sql, array($unidad),true);
 	}	
+	
+	public function getListadoPersonaUnidad($unidad){
+		$model = new BaseModel();
+		$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre from persona as p
+				inner join grado_persona as g on g.id = p.grado_persona_id
+				left join novedad as n on p.id = n.persona_id and ('".date('Y-m-d')."' between n.fecha_inicio and n.fecha_fin) 
+                left join tipo_novedad as t on t.id = n.tipo_novedad_id
+				where p.unidad_id = ?
+                group by p.id";
+		return $model->execSql($sql, array($unidad),true);
+	}
+	
 	/*
 	public function getUnidad()
 	{
