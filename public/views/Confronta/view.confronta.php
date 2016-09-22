@@ -108,7 +108,7 @@
     			echo "<td class='servicio'><input type='checkbox' name='merienda[]' value='".$item->id."' checked onclick='calcularTotal(\"mer\",\"".$tipo."\",this)' /></td></tr>";
     				
     		} else {
-    			echo "<td colspan='3'>".$item->nombre."</td></tr>";
+    			echo "<td colspan='3' style='text-align: center; width: 15%;'>".$item->nombre."</td></tr>";
     		}
     		
     	}?>
@@ -191,6 +191,7 @@
     </div>
     <div class="form-group col-sm-12">
 		<button type="submit" class="btn btn-success">Guardar</button>
+		<a href="../listar/" class="btn btn-info">Cancelar</a>		
 	</div>
     
     </form>
@@ -261,7 +262,7 @@ $(document).ready(function() {
 						message: 'Ingrese un número de Desayunos de Conscriptos válido.'
 					},
 					between: {
-                        min: 1,
+                        min: 0,
                         max: <?php echo $cons?>,
                         message: 'Ingrese un número de Desayunos de Conscriptos válido. Máximo <?php echo $cons?> Desayunos.'
                     }
@@ -278,7 +279,7 @@ $(document).ready(function() {
 						message: 'Ingrese un número de Almuerzos de Conscriptos válido.'
 					},
 					between: {
-                        min: 1,
+                        min: 0,
                         max: <?php echo $cons?>,
                         message: 'Ingrese un número de Almuerzos de Conscriptos válido. Máximo <?php echo $cons?> Almuerzos.'
                     }
@@ -295,7 +296,7 @@ $(document).ready(function() {
 						message: 'Ingrese un número de Meriendas de Conscriptos válido.'
 					},
 					between: {
-                        min: 1,
+                        min: 0,
                         max: <?php echo $cons?>,
                         message: 'Ingrese un número de Meriendas de Conscriptos válido. Máximo <?php echo $cons?> Meriendas.'
                     }
