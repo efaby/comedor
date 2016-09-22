@@ -3,35 +3,38 @@
 <style>
 <!--
 
-        table1 {
+        .table1 {
             width: 100%;
         }
 
-        table1 thead, table1 tbody, table1 tr, table1 td, table1 th { display: block; }
+        .table1 thead, .table1 tbody, .table1 tr, .table1 td, .table1 th { display: block; }
 
-        table1 tr:after {
+        .table1 tr:after {
             content: ' ';
             display: block;
             visibility: hidden;
             clear: both;
         }
 
-        table1 thead th {
-
+		.table1 thead tr{
+			width: 98%;
+		}
+        .table1 thead th {
+			
             /*text-align: left;*/
         }
 
-        table1 tbody {
+        .table1 tbody {
             height: 400px;
             overflow-y: auto;
         }
 
-        table1 thead {
+        .table1 thead {
             /* fallback */
         }
 
 
-        table1 tbody td,table1 thead th {
+        .table1 tbody td, .table1 thead th {
             float: left;
         }
         .ci {
@@ -47,6 +50,12 @@
         	text-align: center;
         	width: 5%;
         }
+        .help-block {
+        
+        color:#a94442;
+        }
+        
+        
 -->
 </style>
 <!-- Main row -->
@@ -63,9 +72,9 @@
 								</div>
 		<?php endif;?>
 <div class="row">
-<form id="frmItem" method="post" action="../guardar/">
 
-	<table class="table table1 table-striped table-bordered table-hover" id="dataTables-example1">
+
+	<table class="table table1 table-striped table-hover" id="dataTables-example1">
     <thead>
 	    <tr>
 	    	<th class="ci">Indentificación</th>
@@ -105,13 +114,82 @@
     	}?>
     </tbody>
     </table>
-    <table class="table table-bordered table-hover" style="width: 40%;">
-    <tr><th></th><th align='center'>Oficiales</th><th align='center'>Voluntarios</th><th align='center'>Conscriptos</th><th align='center'>Total</th></tr>
-    <tr><td>Desayunos </td><td align='center'><input type="text" name="desOfi" id="desOfi" value="<?php echo $desOfi;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="des" id="des" value="<?php echo $des;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="desCons" id="desCons" value="<?php echo $cons;?>" size="3"></td><td align='center'><input type="text" name="desTotal" id="desTotal" value="<?php echo $des + $desOfi + $cons?>" readonly="readonly" size="3"></td></tr>
-    <tr><td>Almuersos </td><td align='center'><input type="text" name="almOfi" id="almOfi" value="<?php echo $almOfi;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="alm" id="alm" value="<?php echo $alm;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="almCons" id="almCons" value="<?php echo $cons;?>" size="3"></td><td align='center'><input type="text" name="almTotal" id="almTotal" value="<?php echo $alm + $almOfi + $cons?>" readonly="readonly" size="3"></td></tr>
-    <tr><td>Meriendas </td><td align='center'><input type="text" name="merOfi" id="merOfi" value="<?php echo $merOfi;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="mer" id="mer" value="<?php echo $mer;?>" readonly="readonly" size="3"></td><td align='center'><input type="text" name="merCons" id="merCons" value="<?php echo $cons;?>" size="3"></td><td align='center'><input type="text" name="merTotal" id="merTotal" value="<?php echo $mer + $merOfi + $cons?>" readonly="readonly" size="3"></td></tr>
-    </table>
-    <div class="form-group">
+    <form id="frmItem" method="post" action="../guardar/">
+    
+    <div style="width: 50%; ">
+    <div class="col-sm-12">
+    		<div class="col-sm-2">    		
+    		</div>
+    		<div class="col-sm-2">
+    		<label class="control-label">Oficiales</label>
+    		</div>
+    		<div class="col-sm-2">
+    		<label class="control-label">Voluntarios</label>
+    		</div>
+    		<div class="col-sm-2">
+    		<label class="control-label">Conscriptos</label>
+    		</div>
+    		<div class="col-sm-2">
+    		<label class="control-label">Total</label>
+    		</div>
+    	</div>
+    	<div class="col-sm-12">
+    		<div class="col-sm-2">
+    		Desayunos 
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="desOfi" id="desOfi" value="<?php echo $desOfi;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="des" id="des" value="<?php echo $des;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2 form-group">
+    		<input type="text" name="desCons" id="desCons" value="<?php echo $cons;?>" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="desTotal" id="desTotal" value="<?php echo $des + $desOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    	</div>
+    	<div class="col-sm-12">
+    		<div class="col-sm-2">
+    		Almuersos 
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="almOfi" id="almOfi" value="<?php echo $almOfi;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="alm" id="alm" value="<?php echo $alm;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2 form-group">
+    		<input type="text" name="almCons" id="almCons" value="<?php echo $cons;?>" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="almTotal" id="almTotal" value="<?php echo $alm + $almOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    	</div>
+    	<div class="col-sm-12">
+    		<div class="col-sm-2">
+    		Meriendas 
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="merOfi" id="merOfi" value="<?php echo $merOfi;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="mer" id="mer" value="<?php echo $mer;?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    		<div class="col-sm-2 form-group">
+    		<input type="text" name="merCons" id="merCons" value="<?php echo $cons;?>" size="3" class="form-control" class="form-control">
+    		</div>
+    		<div class="col-sm-2">
+    		<input type="text" name="merTotal" id="merTotal" value="<?php echo $mer + $merOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		</div>
+    	</div>
+    </div>
+    <div class="form-group col-sm-12">
+        
+            <div id="messages1" style="color: #a94442;"></div>
+    </div>
+    <div class="form-group col-sm-12">
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
     
@@ -143,9 +221,91 @@ function calcularTotal(tipo,grado,item){
 	
 };
 
+function calcularTotal1(tipo){
+	$('#'+tipo+'Total').val(parseInt($('#'+tipo+'Ofi').val()) + parseInt($('#'+tipo).val()) + parseInt($('#'+tipo+'Cons').val()));	
+};
+
 $(document).ready(function() {
 
+	$("#desCons").keyup(function(){
+	   calcularTotal1('des');
+	});
+	$("#almCons").keyup(function(){
+		   calcularTotal1('alm');
+		});
+	$("#merCons").keyup(function(){
+		   calcularTotal1('mer');
+		});
+
 	
+	$('#frmItem').formValidation({
+    	message: 'This value is not valid',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		err: {
+            container: '#messages1'
+        },
+		fields: {			
+
+			desCons: {
+				message: 'El número de Conscriptos no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El número de Desayunos de Conscriptos no puede ser vacío.'
+					},					
+					regexp: {
+						regexp: /^\d*$/,
+						message: 'Ingrese un número de Desayunos de Conscriptos válido.'
+					},
+					between: {
+                        min: 1,
+                        max: <?php echo $cons?>,
+                        message: 'Ingrese un número de Desayunos de Conscriptos válido. Máximo <?php echo $cons?> Desayunos.'
+                    }
+				}
+			},
+			almCons: {
+				message: 'El número de Conscriptos no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El número de Almuersos de Conscriptos no puede ser vacío.'
+					},					
+					regexp: {
+						regexp: /^\d*$/,
+						message: 'Ingrese un número de Almuerzos de Conscriptos válido.'
+					},
+					between: {
+                        min: 1,
+                        max: <?php echo $cons?>,
+                        message: 'Ingrese un número de Almuerzos de Conscriptos válido. Máximo <?php echo $cons?> Almuerzos.'
+                    }
+				}
+			},
+			merCons: {
+				message: 'El número de Conscriptos no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El número de Meriendas de Conscriptos no puede ser vacío.'
+					},					
+					regexp: {
+						regexp: /^\d*$/,
+						message: 'Ingrese un número de Meriendas de Conscriptos válido.'
+					},
+					between: {
+                        min: 1,
+                        max: <?php echo $cons?>,
+                        message: 'Ingrese un número de Meriendas de Conscriptos válido. Máximo <?php echo $cons?> Meriendas.'
+                    }
+				}
+			},
+			
+		}
+	});
+	
+		
 });
 
 </script>
