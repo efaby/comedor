@@ -73,7 +73,7 @@
 		<?php endif;?>
 <div class="row">
 
-
+<form id="frmItem" method="post" action="../guardar/">
 	<table class="table table1 table-striped table-hover" id="dataTables-example1">
     <thead>
 	    <tr>
@@ -88,7 +88,7 @@
 	    </tr>
     </thead>
     <tbody>
-    <?php $des = $alm = $mer = $desOfi = $almOfi = $merOfi = 0;?>
+    <?php $des = $alm = $mer = $desOfi = $almOfi = $merOfi = 0; ?>
     	<?php foreach ($listado as $item) {
     		echo "<tr><td class='ci'>".$item->identificacion."</td>";
     		echo "<td class='texto'>".$item->nombres."</td>";
@@ -103,9 +103,9 @@
     				$alm = $mer = $des = $des + 1;
     				$tipo = "";
     			}
-    			echo "<td class='servicio'><input type='checkbox' name='desayuno[]' value='".$item->id."' checked onclick='calcularTotal(\"des\",\"".$tipo."\",this)' /></td>";
-    			echo "<td class='servicio'><input type='checkbox' name='almuerzo[]' value='".$item->id."' checked onclick='calcularTotal(\"alm\",\"".$tipo."\",this)' /></td>";
-    			echo "<td class='servicio'><input type='checkbox' name='merienda[]' value='".$item->id."' checked onclick='calcularTotal(\"mer\",\"".$tipo."\",this)' /></td></tr>";
+    			echo "<td class='servicio'><input type='checkbox' name='desayuno[]' value='".$item->id."' checked onclick='calcularTotal(\"des\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
+    			echo "<td class='servicio'><input type='checkbox' name='almuerzo[]' value='".$item->id."' checked onclick='calcularTotal(\"alm\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
+    			echo "<td class='servicio'><input type='checkbox' name='merienda[]' value='".$item->id."' checked onclick='calcularTotal(\"mer\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td></tr>";
     				
     		} else {
     			echo "<td colspan='3' style='text-align: center; width: 15%;'>".$item->nombre."</td></tr>";
@@ -114,7 +114,7 @@
     	}?>
     </tbody>
     </table>
-    <form id="frmItem" method="post" action="../guardar/">
+    
     
     <div style="width: 50%; ">
     <div class="col-sm-12">
@@ -206,8 +206,9 @@
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 <script type="text/javascript">
-
-function calcularTotal(tipo,grado,item){
+var ckecksArray = {};
+ckecksArray['teste'] = 'hola';
+function calcularTotal(tipo,grado,item,i){
 
 	var sum = 0;
 	if(item.checked){
@@ -219,6 +220,12 @@ function calcularTotal(tipo,grado,item){
 	$('#'+tipo+grado).val(parseInt($('#'+tipo+grado).val()) + sum);
 	$('#'+tipo+'Total').val(parseInt($('#'+tipo+'Ofi').val()) + parseInt($('#'+tipo).val()) + parseInt($('#'+tipo+'Cons').val()));
 
+
+	if(ckecksArray[i] != undefined) {
+		ckecksArray[i] = ckecksArray[i] + sum;
+	} else {
+		ckecksArray[i] = 2;
+	}
 	
 };
 
@@ -304,7 +311,24 @@ $(document).ready(function() {
 			},
 			
 		}
-	});
+	}).on('success.form.fv', function(e) {
+		var id = -1;
+		
+		for (var key in ckecksArray){
+			if(ckecksArray[key] == 0){
+				id = key;
+				break;
+			}
+		}
+		
+        if(id!=-1){
+        	e.preventDefault();        	
+        	alert('La persona con Identidicación ' + id + ' no tiene asignado ningun servicio.');
+        }
+        var $form = $(e.target);
+        $form.formValidation('disableSubmitButtons', false);
+    });
+	
 	
 		
 });

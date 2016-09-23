@@ -72,6 +72,8 @@ class BaseModel
 		return $this->execSql($sql, $usuarioData,false,true);
 	}
 	
-	
+	public function saveMultipleData($objetoPadre, $listado){
+		
+	}
 	
 }

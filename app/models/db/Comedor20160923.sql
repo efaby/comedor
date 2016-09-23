@@ -34,6 +34,8 @@ CREATE TABLE `confronta` (
   `acceso` tinyint(4) NOT NULL DEFAULT '1',
   `guardia` tinyint(4) NOT NULL DEFAULT '0',
   `usuario_id` int(11) DEFAULT NULL,
+  `unidad_id` int(11) DEFAULT NULL,
+  `novedad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_confronta_persona1_idx` (`persona_id`),
   KEY `fk_confronta_confronta_general1_idx` (`confronta_general_id`),
@@ -175,7 +177,7 @@ CREATE TABLE `novedad` (
 
 LOCK TABLES `novedad` WRITE;
 /*!40000 ALTER TABLE `novedad` DISABLE KEYS */;
-INSERT INTO `novedad` VALUES (1,1,1,'2016-09-20','2016-09-23','novedad201609211109051_1540318128.pdf',0,1),(2,1,2,'2016-09-21','2016-09-21','novedad201609211109171_1784309635.pdf',0,1),(3,55,2,'2016-09-21','2016-09-30','novedad2016092111091655_165729210.pdf',0,1);
+INSERT INTO `novedad` VALUES (1,1,1,'2016-09-20','2016-09-23','novedad201609211109051_1540318128.pdf',0,1),(2,1,2,'2016-09-21','2016-09-21','novedad201609211109171_1784309635.pdf',0,0),(3,55,2,'2016-09-21','2016-09-30','novedad2016092111091655_165729210.pdf',0,1);
 /*!40000 ALTER TABLE `novedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,4 +394,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-22 14:28:19
+-- Dump completed on 2016-09-23 16:57:08
