@@ -30,31 +30,31 @@ class ConfrontaController {
 		$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 		$usuario = 1; // obtener usuario
 		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		
+		$fieldsListado = array('persona_id', 'desayuno', 'almuerzo', 'merienda', 'fecha_acceso', 'fecha_registro', 'acceso','guardia','usuario_id','unidad_id','novedad_id','confronta_general_id');
 		$listado = $this->getConfrontaListado($model, $fecha, $nuevafecha, $usuario,$unidad);		
 		
-		$general['desOfi'] = $_POST ['desOfi'];
-		$general['almOfi'] = $_POST ['almOfi'];
-		$general['merOfi'] = $_POST ['merOfi'];
+		$fieldsGeneral = array('desayuno_ofi','almuerzo_ofi','merienda_ofi','desayuno_vol','almuerzo_vol','merienda_vol','desayuno_con','almuerzo_con','merienda_con','estado','fecha_registro','fecha_acceso','usuario_id','unidad_id');
 		
-		$general['des'] = $_POST ['des'];
-		$general['alm'] = $_POST ['alm'];
-		$general['mer'] = $_POST ['mer'];
-		
-		$general['desCons'] = $_POST ['desCons'];
-		$general['almCons'] = $_POST ['almCons'];
-		$general['merCons'] = $_POST ['merCons'];
-		
-		$general['estado'] = 1;
-		
-		$general['fecha_registro'] = $fecha;
-		$general['fecha_acceso'] = $nuevafecha;
-		$general['usuario_id'] = $usuario; // obtener usuario
-		$general['unidad_id'] = $unidad;
+		$general[] = $_POST ['desOfi'];
+		$general[] = $_POST ['almOfi'];
+		$general[] = $_POST ['merOfi'];		
+		$general[] = $_POST ['des'];
+		$general[] = $_POST ['alm'];
+		$general[] = $_POST ['mer'];		
+		$general[] = $_POST ['desCons'];
+		$general[] = $_POST ['almCons'];
+		$general[] = $_POST ['merCons'];		
+		$general[] = 1;		
+		$general[] = $fecha;
+		$general[] = $nuevafecha;
+		$general[] = $usuario; // obtener usuario
+		$general[] = $unidad;
 		
 		
 
 		try {
-			$datos = $model->saveUnidad( $unidad );
+			$datos = $model->saveConfronta( $fieldsGeneral,$general,$fieldsListado,$listado);
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -69,16 +69,18 @@ class ConfrontaController {
 		$listado = $model->getListadoPersonaUnidad($unidad);
 		$listadoArray = array();
 		foreach ($listado as $item){
-			$row = array('persona_id'=>$item->id, 'desayuno' => 0, 'almuerzo' => 0, 'merienda' => 0, 'fecha_acceso'=>$fecha_acceso, 'fecha_registro'=>$fecha, 'acceso'=>1,'guardia'=>1,'usuario_id'=>$usuario,'unidad_id'=>$unidad,'novedad_id' => $item->novedad);
-			if(in_array($item->id, $desayunos)){
-				$row['desayuno'] = 1;
-			}
-			if(in_array($item->id, $almuerzos)){
-				$row['almuerzo'] = 1;
-			}
-			if(in_array($item->id, $meriendas)){
-				$row['merienda'] = 1;
-			}
+			$row = array();
+			$row[] = $item->id;
+			$row[] = (in_array($item->id, $desayunos))?1:0;
+			$row[] = (in_array($item->id, $almuerzos))?1:0;
+			$row[] = (in_array($item->id, $meriendas))?1:0;
+			$row[] = $fecha_acceso;
+			$row[] = $fecha;
+			$row[] = 1;
+			$row[] = 1;
+			$row[] = $usuario;
+			$row[] = $unidad;
+			$row[] = $item->novedad;
 			$listadoArray[] = $row;
 		}
 		

@@ -72,8 +72,38 @@ class BaseModel
 		return $this->execSql($sql, $usuarioData,false,true);
 	}
 	
-	public function saveMultipleData($objetoPadre, $listado){
+	public function saveMultipleData($fieldsGeneral, $general, $fieldsListado, $listado){
 		
+		$this->openConexion();
+		try	{
+			
+			$this->pdo->beginTransaction();
+			
+			$args = array_fill(0, count($general), '?');
+			
+			$sql = "INSERT INTO confronta_general (" . implode( ',', ( $fieldsGeneral ) ) . ") VALUES (".implode(',', $args).")";
+			
+			$stm = $this->pdo->prepare($sql);
+			$stm->execute($general);			
+			$result = $this->pdo->lastInsertId();
+			
+			$args = array_fill(0, count($listado[0]) + 1, '?');
+			$sql = "INSERT INTO confronta (" . implode( ',', ( $fieldsListado ) ) . ") VALUES (".implode(',', $args).")";	
+			
+			$stm = $this->pdo->prepare($sql);
+			
+			foreach ($listado as $row){
+				$row[] = $result;				
+				$stm->execute($row);
+			}			
+			$this->pdo->commit();				
+		} catch(PDOException $ex) {
+		    //Something went wrong rollback!
+		    $this->pdo->rollBack();
+		    die($ex->getMessage());
+		}
+		
+		$this->closeConexion();		
 	}
 	
 }

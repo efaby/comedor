@@ -22,6 +22,11 @@ class ConfrontaModel {
 		return $model->execSql($sql, array($unidad),true);
 	}
 	
+	public function saveConfronta($fieldsGeneral, $general, $fieldsListado, $listado){
+		$model = new BaseModel();
+		$model->saveMultipleData($fieldsGeneral, $general, $fieldsListado, $listado);		
+	}
+	
 	/*
 	public function getUnidad()
 	{
