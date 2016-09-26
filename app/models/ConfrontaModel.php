@@ -1,6 +1,7 @@
 <?php
 require_once(PATH_MODELS."/BaseModel.php");
 
+
 class ConfrontaModel {
 
 	public function getlistadoConfrontaUnidad($unidad){
@@ -11,51 +12,58 @@ class ConfrontaModel {
 		return $model->execSql($sql, array($unidad),true);
 	}	
 	
-	public function getListadoPersonaUnidad($unidad){
+	public function getlistadoConfrontaHoy($unidad){
 		$model = new BaseModel();
-		$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, t.id as novedad from persona as p
+		$sql = "select c.* from confronta_general as c				
+				where unidad_id = ? and fecha_registro = ?";
+		return $model->execSql($sql, array($unidad,date('Y-m-d')),true);
+	}
+	
+	public function getListadoPersonaUnidad($unidad,$confronta){
+
+		$model = new BaseModel();
+		$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, t.id as novedad, c.almuerzo, c.desayuno, c.merienda from persona as p
 				inner join grado_persona as g on g.id = p.grado_persona_id
 				left join novedad as n on p.id = n.persona_id and ('".date('Y-m-d')."' between n.fecha_inicio and n.fecha_fin) and n.activo = 1
                 left join tipo_novedad as t on t.id = n.tipo_novedad_id
-				where p.unidad_id = ?
-                group by p.id";
-		return $model->execSql($sql, array($unidad),true);
+				left join confronta as c on c.persona_id = p.id
+				where p.unidad_id = ?";
+		$parametros =  array($unidad);
+		if($confronta>0){
+			$sql .= " and c.confronta_general_id = ? ";
+			$parametros[] = $confronta;
+		}
+        $sql .= " group by p.id";
+		return $model->execSql($sql, $parametros,true);
 	}
 	
 	public function saveConfronta($fieldsGeneral, $general, $fieldsListado, $listado){
 		$model = new BaseModel();
 		$model->saveMultipleData($fieldsGeneral, $general, $fieldsListado, $listado);		
+	}	
+	
+	public function updateConfronta($fieldsGeneral, $general, $fieldsListado, $listado,$confrontaId){
+		$model = new BaseModel();
+		$model->updateMultipleData($fieldsGeneral, $general, $fieldsListado, $listado, $confrontaId);
 	}
 	
-	/*
-	public function getUnidad()
-	{
-		$unidad = $_GET['id'];
+	public function getGeneral($confronta){
+		
 		$model = new BaseModel();		
-		if($unidad > 0){
-			$sql = "select * from unidad where id = ?";
-			$result = $model->execSql($sql, array($unidad));				
+		if($confronta > 0){
+			$sql = "select * from confronta_general where id = ?";
+			$result = $model->execSql($sql, array($confronta));				
 		} else {
-			$result = (object) array('id'=>0,'nombre'=>'','descripcion'=>'','abreviatura'=>'', 'num_conscriptos'=>0,'hora_inicio'=>'00:00','hora_fin'=>'00:00');			
+			$result = null;
 		}
 		
 		return $result;
 	}
 	
-	
-	public function saveUnidad($unidad)
-	{
+	public function delConfronta($confrontaId){
+		
 		$model = new BaseModel();
-		return $model->saveDatos($unidad,'unidad');
-	}
-	
-	public function delUnidad(){
-		$unidad = $_GET['id'];
-		$sql = "update unidad set activo = 0 where id = ?";
-		$model = new BaseModel();
-		$result = $model->execSql($sql, array($unidad),false,true);
-	}
-	
-	*/
+		$model->deleteMultipleData($confrontaId);
+	}	
 
 }

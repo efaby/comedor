@@ -79,17 +79,13 @@ class BaseModel
 			
 			$this->pdo->beginTransaction();
 			
-			$args = array_fill(0, count($general), '?');
-			
+			$args = array_fill(0, count($general), '?');			
 			$sql = "INSERT INTO confronta_general (" . implode( ',', ( $fieldsGeneral ) ) . ") VALUES (".implode(',', $args).")";
-			
 			$stm = $this->pdo->prepare($sql);
 			$stm->execute($general);			
-			$result = $this->pdo->lastInsertId();
-			
+			$result = $this->pdo->lastInsertId();			
 			$args = array_fill(0, count($listado[0]) + 1, '?');
 			$sql = "INSERT INTO confronta (" . implode( ',', ( $fieldsListado ) ) . ") VALUES (".implode(',', $args).")";	
-			
 			$stm = $this->pdo->prepare($sql);
 			
 			foreach ($listado as $row){
@@ -98,12 +94,67 @@ class BaseModel
 			}			
 			$this->pdo->commit();				
 		} catch(PDOException $ex) {
-		    //Something went wrong rollback!
 		    $this->pdo->rollBack();
 		    die($ex->getMessage());
 		}
 		
 		$this->closeConexion();		
+	}
+	
+	public function updateMultipleData($fieldsGeneral, $general, $fieldsListado, $listado,$confrontaId){
+	
+		$this->openConexion();
+		try	{
+				
+			$this->pdo->beginTransaction();
+			
+			$fields = implode( ' = ? ,',  $fieldsGeneral ).' = ?';
+			$sql = "Update confronta_general SET ".$fields." where id = ?";		
+			$stm = $this->pdo->prepare($sql);
+			$general[] = $confrontaId;
+			$stm->execute($general);
+			unset($fieldsListado[11]);	
+			$fields = implode( ' = ? ,',  $fieldsListado).' = ?';
+			$sql = "Update confronta SET ".$fields." where confronta_general_id = ? and persona_id = ?";
+				
+			$stm = $this->pdo->prepare($sql);
+				
+			foreach ($listado as $row){
+				$row[] = $confrontaId;
+				$row[] = $row[0];
+				$stm->execute($row);
+			}
+			$this->pdo->commit();
+		} catch(PDOException $ex) {
+			$this->pdo->rollBack();
+			die($ex->getMessage());
+		}
+	
+		$this->closeConexion();
+	}
+	
+	public function deleteMultipleData($confrontaId){
+	
+		$this->openConexion();
+		try	{
+	
+			$this->pdo->beginTransaction();				
+			
+			$sql = "delete from confronta where confronta_general_id = ?";
+			$stm = $this->pdo->prepare($sql);			
+			$stm->execute(array($confrontaId));
+			
+			$sql = "delete from confronta_general where id = ?";	
+			$stm = $this->pdo->prepare($sql);
+			$stm->execute(array($confrontaId));
+			
+			$this->pdo->commit();
+		} catch(PDOException $ex) {
+			$this->pdo->rollBack();
+			die($ex->getMessage());
+		}
+	
+		$this->closeConexion();
 	}
 	
 }

@@ -52,8 +52,8 @@
     		echo "<td>".$item->merienda_ofi."</td>";
     		echo "<td>".$item->merienda_vol."</td>";
     		echo "<td>".$item->merienda_con."</td>";
-    		echo "<td style='text-align: center;'>".date('H:i',strtotime($item->fecha_registro))."</td>";    		
-    		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
+    		echo "<td style='text-align: center;'>".$item->fecha_registro."</td>";    		
+    		echo "<td align='center'><a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a></td></tr>";
     	}?>
     </tbody>
@@ -69,6 +69,13 @@
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 
+<script type="text/javascript">
+
+function redirect(id){
+		var url = '../eliminar/' + id;
+		location.href = url;
+	}
+</script>
 
 </body>
 </html>

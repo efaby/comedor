@@ -1,6 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/ConfrontaModel.php");
-
+require_once(PATH_MODELS."/ParametroModel.php");
 
 class ConfrontaController {
 	
@@ -13,15 +13,41 @@ class ConfrontaController {
 	}
 	
 	public function editar(){
-		$model = new ConfrontaModel();
+		// revisar hora
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
 		$unidad = 13; // obtener unidad del usurio amanuence logueado
-		$listado = $model->getListadoPersonaUnidad($unidad);	
-		$cons = 20;
-		$message = "";
-		require_once PATH_VIEWS."/Confronta/view.confronta.php";
+		$model = new ConfrontaModel();		
+		if($this->validarHorario($confrontaId, $model,$unidad)){
+			$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
+			$general = $model->getGeneral($confrontaId);
+			$desCon = $almCon = $merCon = $cons = 20;
+			$message = "";
+			require_once PATH_VIEWS."/Confronta/view.confronta.php";
+		} else {
+			$_SESSION ['message'] = "No se puede realizar la acción solicitada porque No esta dentro de la hora definida para realizar esta accion";
+			header ( "Location: ../listar/" );
+		}	
+		
 	}
 	
-	
+	private function validarHorario($confrontaId,$modelConfronta,$unidadId){
+		$model = new ParametroModel();
+		$parametro = $model->getsParametroByKey('confronta.key.hora');
+		$result =  false;
+		if(strtotime(date('H:s'))<= strtotime($parametro->valor)){
+			$confrontas = $modelConfronta->getlistadoConfrontaHoy($unidadId);
+			if(count($confrontas)>0){
+				if($confrontas[0]->id==$confrontaId){
+					$result = true;
+				}				
+			} else {
+				if($confrontaId==0){
+					$result = true;
+				}
+			}
+		} 
+		return $result;		
+	}
 	
 	public function guardar() {
 		$model = new ConfrontaModel();
@@ -51,10 +77,15 @@ class ConfrontaController {
 		$general[] = $usuario; // obtener usuario
 		$general[] = $unidad;
 		
-		
+		$confronta_id = isset($_POST['confronta_id'])?$_POST['confronta_id']:0;
 
 		try {
-			$datos = $model->saveConfronta( $fieldsGeneral,$general,$fieldsListado,$listado);
+
+			if($confronta_id){
+				$datos = $model->updateConfronta($fieldsGeneral,$general,$fieldsListado,$listado,$confronta_id);
+			} else {
+				$datos = $model->saveConfronta( $fieldsGeneral,$general,$fieldsListado,$listado);
+			}
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -66,7 +97,7 @@ class ConfrontaController {
 		$desayunos = $_POST ['desayuno'];
 		$almuerzos = $_POST ['almuerzo'];
 		$meriendas = $_POST ['merienda'];		
-		$listado = $model->getListadoPersonaUnidad($unidad);
+		$listado = $model->getListadoPersonaUnidad($unidad,0);
 		$listadoArray = array();
 		foreach ($listado as $item){
 			$row = array();
@@ -88,18 +119,23 @@ class ConfrontaController {
 		
 	}
 	
-	
-	
-	/*
 	public function eliminar() {
-		$model = new UnidadModel();
-		try {
-			$datos = $model->delUnidad();
-			$_SESSION ['message'] = "Datos eliminados correctamente.";
-		} catch ( Exception $e ) {
-			$_SESSION ['message'] = $e->getMessage ();
-		}
-		header ( "Location: ../listar/" );
+		
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
+		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$model = new ConfrontaModel();
+		if($this->validarHorario($confrontaId, $model,$unidad)){	
+			try {
+				$datos = $model->delConfronta($confrontaId);
+				$_SESSION ['message'] = "Datos eliminados correctamente.";
+			} catch ( Exception $e ) {
+				$_SESSION ['message'] = $e->getMessage ();
+			}
+			header ( "Location: ../listar/" );
+		} else {
+			$_SESSION ['message'] = "No se puede realizar la acción solicitada porque No esta dentro de la hora definida para realizar esta accion";
+			header ( "Location: ../listar/" );
+		}	
 	}
-	*/
+
 }

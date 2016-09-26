@@ -103,9 +103,12 @@
     				$alm = $mer = $des = $des + 1;
     				$tipo = "";
     			}
-    			echo "<td class='servicio'><input type='checkbox' name='desayuno[]' value='".$item->id."' checked onclick='calcularTotal(\"des\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
-    			echo "<td class='servicio'><input type='checkbox' name='almuerzo[]' value='".$item->id."' checked onclick='calcularTotal(\"alm\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
-    			echo "<td class='servicio'><input type='checkbox' name='merienda[]' value='".$item->id."' checked onclick='calcularTotal(\"mer\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td></tr>";
+    			$check = ($item->desayuno!=null)?($item->desayuno==1)?"checked":"":"checked";    			
+    			echo "<td class='servicio'><input type='checkbox' name='desayuno[]' value='".$item->id."' ".$check." onclick='calcularTotal(\"des\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
+    			$check = ($item->almuerzo!=null)?($item->almuerzo==1)?"checked":"":"checked";
+    			echo "<td class='servicio'><input type='checkbox' name='almuerzo[]' value='".$item->id."' ".$check." onclick='calcularTotal(\"alm\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td>";
+    			$check = ($item->merienda!=null)?($item->merienda==1)?"checked":"":"checked";
+    			echo "<td class='servicio'><input type='checkbox' name='merienda[]' value='".$item->id."' ".$check." onclick='calcularTotal(\"mer\",\"".$tipo."\",this,\"".$item->identificacion."\")' /></td></tr>";
     				
     		} else {
     			echo "<td colspan='3' style='text-align: center; width: 15%;'>".$item->nombre."</td></tr>";
@@ -115,7 +118,15 @@
     </tbody>
     </table>
     
+    <?php $confronta_id = 0;
+    if(is_object($general)){
+    	$almOfi = $general->almuerzo_ofi;  	$merOfi = $general->merienda_ofi;   	$desOfi = $general->desayuno_ofi;
+    	$alm = $general->almuerzo_vol;  	$mer = $general->merienda_vol;   	$des = $general->desayuno_vol;
+    	$almCon = $general->almuerzo_con;  	$merCon = $general->merienda_con;   	$desCon = $general->desayuno_con;
+    	$confronta_id = $general->id;
+    }
     
+    ?>
     <div style="width: 50%; ">
     <div class="col-sm-12">
     		<div class="col-sm-2">    		
@@ -144,10 +155,10 @@
     		<input type="text" name="des" id="des" value="<?php echo $des;?>" readonly="readonly" size="3" class="form-control">
     		</div>
     		<div class="col-sm-2 form-group">
-    		<input type="text" name="desCons" id="desCons" value="<?php echo $cons;?>" size="3" class="form-control">
+    		<input type="text" name="desCons" id="desCons" value="<?php echo $desCon;?>" size="3" class="form-control">
     		</div>
     		<div class="col-sm-2">
-    		<input type="text" name="desTotal" id="desTotal" value="<?php echo $des + $desOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		<input type="text" name="desTotal" id="desTotal" value="<?php echo $des + $desOfi + $desCon?>" readonly="readonly" size="3" class="form-control">
     		</div>
     	</div>
     	<div class="col-sm-12">
@@ -161,10 +172,10 @@
     		<input type="text" name="alm" id="alm" value="<?php echo $alm;?>" readonly="readonly" size="3" class="form-control">
     		</div>
     		<div class="col-sm-2 form-group">
-    		<input type="text" name="almCons" id="almCons" value="<?php echo $cons;?>" size="3" class="form-control">
+    		<input type="text" name="almCons" id="almCons" value="<?php echo $almCon;?>" size="3" class="form-control">
     		</div>
     		<div class="col-sm-2">
-    		<input type="text" name="almTotal" id="almTotal" value="<?php echo $alm + $almOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		<input type="text" name="almTotal" id="almTotal" value="<?php echo $alm + $almOfi + $almCon?>" readonly="readonly" size="3" class="form-control">
     		</div>
     	</div>
     	<div class="col-sm-12">
@@ -178,10 +189,10 @@
     		<input type="text" name="mer" id="mer" value="<?php echo $mer;?>" readonly="readonly" size="3" class="form-control">
     		</div>
     		<div class="col-sm-2 form-group">
-    		<input type="text" name="merCons" id="merCons" value="<?php echo $cons;?>" size="3" class="form-control" class="form-control">
+    		<input type="text" name="merCons" id="merCons" value="<?php echo $merCon;?>" size="3" class="form-control" class="form-control">
     		</div>
     		<div class="col-sm-2">
-    		<input type="text" name="merTotal" id="merTotal" value="<?php echo $mer + $merOfi + $cons?>" readonly="readonly" size="3" class="form-control">
+    		<input type="text" name="merTotal" id="merTotal" value="<?php echo $mer + $merOfi + $merCon?>" readonly="readonly" size="3" class="form-control">
     		</div>
     	</div>
     </div>
@@ -190,6 +201,7 @@
             <div id="messages1" style="color: #a94442;"></div>
     </div>
     <div class="form-group col-sm-12">
+    	<input type="hidden" name="confronta_id" value="<?php echo $confronta_id; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>
 		<a href="../listar/" class="btn btn-info">Cancelar</a>		
 	</div>
@@ -207,7 +219,6 @@
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 <script type="text/javascript">
 var ckecksArray = {};
-ckecksArray['teste'] = 'hola';
 function calcularTotal(tipo,grado,item,i){
 
 	var sum = 0;
