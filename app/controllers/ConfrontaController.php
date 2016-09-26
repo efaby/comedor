@@ -137,5 +137,13 @@ class ConfrontaController {
 			header ( "Location: ../listar/" );
 		}	
 	}
+	
+	public function imprimir(){
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
+		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$model = new ConfrontaModel();
+		$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
+		require_once PATH_VIEWS."/Confronta/view.imprimir.php";
+	}
 
 }

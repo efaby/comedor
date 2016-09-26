@@ -54,7 +54,9 @@
     		echo "<td>".$item->merienda_con."</td>";
     		echo "<td style='text-align: center;'>".$item->fecha_registro."</td>";    		
     		echo "<td align='center'><a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
-					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a></td></tr>";
+					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a>
+		    		<a href='javascript:imprimir(".$item->id.");' class='btn btn-success btn-sm' title='Imprimir'>Imprimir</a>
+		    		</td></tr>";
     	}?>
     </tbody>
     </table>
@@ -75,6 +77,20 @@ function redirect(id){
 		var url = '../eliminar/' + id;
 		location.href = url;
 	}
+
+function imprimir(id){
+	var posicion_x; 
+	var posicion_y; 
+	var ancho = 900;
+	var alto = 550;
+	posicion_x=(screen.width/2)-(ancho/2); 
+	posicion_y=(screen.height/2)-(alto/2); 
+	var accion = "../imprimir/" + id;
+	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
+	window.open(accion,"",opciones);
+}
+
+
 </script>
 
 </body>
