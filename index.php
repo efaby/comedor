@@ -49,7 +49,7 @@ if (isset($_SESSION['SESSION_USER'])){
 
 if(!isset($app)){
 	$app = 'Seguridad';
-	$redirect = "mostrar";
+	$redirect = "login";
 }	
 
 
