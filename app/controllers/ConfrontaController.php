@@ -138,12 +138,30 @@ class ConfrontaController {
 		}	
 	}
 	
-	public function imprimir(){
+	public function verListado(){
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
 		$unidad = 13; // obtener unidad del usurio amanuence logueado
 		$model = new ConfrontaModel();
+		$general = $model->getGeneral($confrontaId);
 		$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
-		require_once PATH_VIEWS."/Confronta/view.imprimir.php";
+		
+		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$fecha = $dias[date('w',strtotime($general->fecha_acceso))]." ".date('d',strtotime($general->fecha_acceso))." de ".$meses[date('n',strtotime($general->fecha_acceso))-1]. " del ".date('Y',strtotime($general->fecha_acceso)) ;
+		
+		require_once PATH_VIEWS."/Confronta/view.verListado.php";
+	}
+	
+	public function verGeneral(){
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
+		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$model = new ConfrontaModel();
+		$general = $model->getGeneral($confrontaId);	
+		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$fecha = $dias[date('w',strtotime($general->fecha_acceso))]." ".date('d',strtotime($general->fecha_acceso))." de ".$meses[date('n',strtotime($general->fecha_acceso))-1]. " del ".date('Y',strtotime($general->fecha_acceso)) ;
+	
+		require_once PATH_VIEWS."/Confronta/view.verGeneral.php";
 	}
 
 }

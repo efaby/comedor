@@ -53,9 +53,10 @@
     		echo "<td>".$item->merienda_vol."</td>";
     		echo "<td>".$item->merienda_con."</td>";
     		echo "<td style='text-align: center;'>".$item->fecha_registro."</td>";    		
-    		echo "<td align='center'><a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' >Editar</a>
-					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'>Eliminar</a>
-		    		<a href='javascript:imprimir(".$item->id.");' class='btn btn-success btn-sm' title='Imprimir'>Imprimir</a>
+    		echo "<td align='center'><a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
+					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a>
+		    		<a href='javascript:imprimir(".$item->id.",\"verGeneral\");' class='btn btn-info btn-sm' title='Ver Resumen'><i class='fa fa-file-text-o'></i></a>  
+		    		<a href='javascript:imprimir(".$item->id.",\"verListado\");' class='btn btn-success btn-sm' title='Ver Listado'><i class='fa fa-book'></i></a>		    		  
 		    		</td></tr>";
     	}?>
     </tbody>
@@ -78,14 +79,14 @@ function redirect(id){
 		location.href = url;
 	}
 
-function imprimir(id){
+function imprimir(id,url){
 	var posicion_x; 
 	var posicion_y; 
 	var ancho = 900;
 	var alto = 550;
 	posicion_x=(screen.width/2)-(ancho/2); 
 	posicion_y=(screen.height/2)-(alto/2); 
-	var accion = "../imprimir/" + id;
+	var accion = "../"+url+"/" + id;
 	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
 	window.open(accion,"",opciones);
 }

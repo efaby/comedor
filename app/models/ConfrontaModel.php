@@ -51,7 +51,9 @@ class ConfrontaModel {
 		
 		$model = new BaseModel();		
 		if($confronta > 0){
-			$sql = "select * from confronta_general where id = ?";
+			$sql = "select g.*, u.abreviatura as unidad from confronta_general as g
+					inner join unidad as u on g.unidad_id =  u.id
+					where g.id = ?";
 			$result = $model->execSql($sql, array($confronta));				
 		} else {
 			$result = null;
