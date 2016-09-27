@@ -52,8 +52,7 @@
 								     <li class="sub-menu"><a href="../../Grado/listar/">Grados de Personal</a></li>
 								</ul>
                             </li>
-                             <li><a href="login.html">Configuración</a></li>
-                            <li><a href="blank.html">Importar</a></li>
+                             <li><a href="../../Parametro/editar/">Configuración</a></li>
                             <li><a href="../../Persona/listar/">Personal</a></li>
                             <li><a href="../../Novedad/listar/">Novedad</a></li>
                             <li><a href="../../Confronta/listar/">Confronta</a></li>

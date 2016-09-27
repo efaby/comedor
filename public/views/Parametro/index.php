@@ -1,4 +1,4 @@
 <?php 
-$app = "Grado";
+$app = "Parametro";
 require_once("../../../index.php");
 ?>

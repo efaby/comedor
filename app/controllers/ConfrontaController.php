@@ -32,9 +32,10 @@ class ConfrontaController {
 	
 	private function validarHorario($confrontaId,$modelConfronta,$unidadId){
 		$model = new ParametroModel();
-		$parametro = $model->getsParametroByKey('confronta.key.hora');
+		$parametro = $model->getsParametroByKey('confrontaKeyHora');
 		$result =  false;
-		if(strtotime(date('H:s'))<= strtotime($parametro->valor)){
+
+		if(strtotime(date('H:i'))<= strtotime($parametro->valor)){
 			$confrontas = $modelConfronta->getlistadoConfrontaHoy($unidadId);
 			if(count($confrontas)>0){
 				if($confrontas[0]->id==$confrontaId){
