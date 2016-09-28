@@ -35,7 +35,7 @@ class UsuarioModel {
 	
 	
 	public function saveUsuario($usuario){
-		if((($usuario['id']>0) && ($usuario['password']!=$this->patron))||($usuario['id']==0)){
+		if((($usuario['id']>0) && ($usuario['password']!=$this->pattern))||($usuario['id']==0)){
 			$usuario['password'] =  md5($usuario['password']);
 		} else {
 			unset($usuario['password']);

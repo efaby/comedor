@@ -18,10 +18,14 @@
 <body>
 
 <div class="container">
-        <div class="card card-container">            
+        <div class="card card-container">  
+        <p id="profile-name" class="profile-name-card">Sistema de Gestión de Confrontas</p>          
             <img id="profile-img" class="profile-img-card" src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" />            
+             <div class="alert alert-danger fade in alert-dismissable" style="display: none; padding: 6px;" id="mensaje">
+				<span id="mensajeValidacion"></span>
+			</div>             
              <?php $url = $_SERVER["REQUEST_URI"];?>
-             <form action="<?php echo (strpos($url, '/Seguridad/mostrar/'))?'../validar/':'Seguridad/validar/';?>" id="frmLogin" method="post" class="form-signin">
+             <form action="<?php echo (strpos($url, '/Seguridad/listar/'))?'../validar/':'Seguridad/validar/';?>" id="frmLogin" method="post" class="form-signin">
             <div class="form-group"> 
                 <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" >
              </div>
@@ -77,20 +81,33 @@
 									},
 													
 									
-								},
-								 submitHandler: function(validator, form, submitButton) {
-									 $.post(form.attr('action'), form.serialize(), function(result) {
-										 var obj = JSON.parse(JSON.stringify(result));
+								},								
+							}) .on('success.form.fv', function(e) {
+					            // Prevent form submission
+					            e.preventDefault();
+
+					            var $form = $(e.target),
+					                fv    = $form.data('formValidation');
+
+					            // Use Ajax to submit form data
+					            $.ajax({
+					                url: $form.attr('action'),
+					                type: 'POST',
+					                data: $form.serialize(),
+					                dataType: 'json',
+					                success: function(result) {
+						                console.log(result)
+					                	var obj = JSON.parse(JSON.stringify(result));
 										 if( obj.band === 1 ){											
-											 $("#mensajeLogin").html(obj.data);
-									     	 $("#mensajeContenedor").css('display','block');	
+											 $("#mensajeValidacion").html(obj.data);
+									     	 $("#mensaje").css('display','block');	
 										 } else {
 											 window.location = obj.data;
 										      return false;
 										 }
-									 }, 'json');					   
-								 }
-							});
+					                }
+					            });
+					        });
 
 
 						

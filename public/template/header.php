@@ -29,6 +29,7 @@
                 <a class="navbar-brand" href="index.html">
                     <img src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" width="70px"/>
                 </a>
+                <h1>Sistema de Gestión de Confrontas</h1>
             </div>            
         </div>
     </div>
@@ -39,7 +40,7 @@
                <?php $url = $_SERVER["REQUEST_URI"];?>
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav">
-                            <li class="<?php echo (strpos($url, '/Seguridad/inicio/'))?'menu-top-active':'';?>"><a href="index.html">Inicio</a></li>
+                            <li class="<?php echo (strpos($url, '/Seguridad/inicio/'))?'menu-top-active':'';?>"><a href="../../Seguridad/inicio/">Inicio</a></li>
                             <li class="<?php echo (strpos($url, '/Usuario/listar/'))?'menu-top-active':'';?>"><a href="../../Usuario/listar/">Usuarios</a></li>
                             <li class="dropdown <?php echo ((strpos($url, '/Unidad/'))||(strpos($url, '/Tipo/'))||(strpos($url, '/TipoNovedad/'))||(strpos($url, '/Grado/')))?'menu-top-active':'';?>">
                             	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Catálogos
@@ -56,8 +57,31 @@
                             <li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
                             <li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
                             <li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
-
+							<li><a href="../../Seguridad/cerrarSesion/">Salir</a></li>
                         </ul>
+                        
+                        <div class="navbar-right">
+                    <ul class="nav navbar-nav" id="menu-top">                         
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span><?php echo $_SESSION['SESSION_USER']->usuario; ?><i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                <li class="sub-menu">
+                                        <a href="../../Seguridad/cambiarContrasena/">                                        
+                                            Cambiar Contraseña
+                                        </a>                                        
+                                        </li>
+                                        <li class="sub-menu">
+                                            <a href="../../Seguridad/cerrarSesion/"><i class="fa fa-sign-out fa-fw pull-right"></i> Cerrar Sesión</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        
                     </div>
                 
 
