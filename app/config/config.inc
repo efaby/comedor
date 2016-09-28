@@ -14,9 +14,14 @@
 	define('PATH_TEMPLATE', PATH_ROOT."/public/template");
 	define('PATH_HELPERS', PATH_ROOT."/lib");
 	define('PATH_FILES', PATH_ROOT."/public/web/files/");
+	define('PUBLIC_URLS', serialize(array('Seguridadlogin','Seguridadvalidar','Seguridaderror404','Seguridaderror403','Seguridaderror500')));
 	
-	define('PATH_IMAGES_USER',  "../../assets/images/users/");
-	define('PATH_FILES_USER',  "../../files/");
-	define('PUBLIC_URLS', serialize(array('Seguridadlogin','Seguridadvalidar')));
+	define('PRIVATE_URLS', serialize(
+			array(
+			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad'),
+			'SUPER_URLS' => array('Seguridad'),
+			'RANCH_URLS' => array('Seguridad'),
+			'AMANA_URLS' => array('Seguridad')
+			)));	
 	
 ?>

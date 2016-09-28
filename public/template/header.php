@@ -12,17 +12,8 @@
     <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="<?php echo PATH_CSS; ?>/style.css" rel="stylesheet" type="text/css" />
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-          <![endif]-->
       </head>
-      <body class="skin-black">
-        <!-- header logo: style can be found in header.less -->
-        
+      <body class="skin-black">        
          <div class="navbar navbar-inverse set-radius-zero">
         <div class="container">
             <div class="navbar-header">                
@@ -57,7 +48,7 @@
                             <li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
                             <li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
                             <li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
-							<li><a href="../../Seguridad/cerrarSesion/">Salir</a></li>
+							
                         </ul>
                         
                         <div class="navbar-right">
@@ -79,11 +70,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </div>                
                         
-                        
-                    </div>
-                
+                    </div>               
 
             </div>
         </div>

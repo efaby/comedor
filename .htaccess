@@ -1,16 +1,17 @@
-ErrorDocument 404 /comedor/Seguridad/error404/
-ErrorDocument 403 /comedor/Seguridad/error403/
-ErrorDocument 500 /comedor/Seguridad/error500/
+ErrorDocument 403 /comedor/public/views/Seguridad/index.php?action=error403
+ErrorDocument 404 /comedor/public/views/Seguridad/index.php?action=error404
+ErrorDocument 500 /comedor/public/views/Seguridad/index.php?action=error500
 
 Options +FollowSymlinks
 DirectoryIndex index.php
 RewriteEngine On
 RewriteBase /comedor 
+
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^public/views/(.*)$ public/views/Seguridad/index.php?action=error404 [L]
 
-RewriteRule ^(.*)/(.*)/(.*)$ public/views/$1/index.php?action=$2&id=$3 [L,QSA]
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(.*)/(.*)/(.*)$ public/views/$1/index.php?action=$2&id=$3 [QSA,L]
 
-RewriteCond %{REQUEST_FILENAME} -d [OR]
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]

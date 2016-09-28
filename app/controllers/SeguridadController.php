@@ -76,5 +76,16 @@ class SeguridadController {
 		header("Location: ../cambiarContrasena/");
 	}
 	
+	public function error404(){
+		require_once PATH_VIEWS."/Seguridad/view.error404.php";
+	}
+	
+	public function error403(){
+		require_once PATH_VIEWS."/Seguridad/view.error403.php";
+	}
+	
+	public function error500(){
+		require_once PATH_VIEWS."/Seguridad/view.error500.php";
+	}
 
 }
