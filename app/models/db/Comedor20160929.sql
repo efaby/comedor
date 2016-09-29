@@ -170,7 +170,7 @@ CREATE TABLE `novedad` (
   KEY `fk_novedad_persona1_idx` (`persona_id`),
   CONSTRAINT `fk_novedad_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_novedad_tipo_novedad1` FOREIGN KEY (`tipo_novedad_id`) REFERENCES `tipo_novedad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +179,7 @@ CREATE TABLE `novedad` (
 
 LOCK TABLES `novedad` WRITE;
 /*!40000 ALTER TABLE `novedad` DISABLE KEYS */;
-INSERT INTO `novedad` VALUES (1,1,1,'2016-09-20','2016-09-23','novedad201609211109051_1540318128.pdf',0,1),(2,1,2,'2016-09-21','2016-09-21','novedad201609211109171_1784309635.pdf',0,0),(3,55,2,'2016-09-21','2016-09-30','novedad2016092111091655_165729210.pdf',0,1);
+INSERT INTO `novedad` VALUES (1,1,1,'2016-09-20','2016-09-23','novedad201609211109051_1540318128.pdf',0,0),(2,1,2,'2016-09-21','2016-09-21','novedad201609211109171_1784309635.pdf',0,1),(3,55,2,'2016-09-21','2016-09-30','novedad2016092111091655_165729210.pdf',0,1),(4,1,1,'2016-09-29','2016-09-30','novedad201609291409511_1795143773.pdf',0,1);
 /*!40000 ALTER TABLE `novedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +199,7 @@ CREATE TABLE `parametros` (
   `tipo` varchar(45) NOT NULL,
   `orden` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +208,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES (1,'Hora Max. de envio Confronta','confrontaKeyHora','15:15','([0-1][0-9]|2[0-3]):[0-5][0-9]','input',0);
+INSERT INTO `parametros` VALUES (1,'Hora Max. de envio Confronta','confrontaKeyHora','15:05','([0-1][0-9]|2[0-3]):[0-5][0-9]','input',0),(2,'Precio Desayuno','confrontaKeyDesayuno','0.60','^\\d+(\\.\\d{2})?$','',0),(3,'Precio Almuerzo','confrontaKeyAlmuerzo','1.50','^\\d+(\\.\\d{2})?$','',0),(4,'Precio Merienda','confrontaKeyMerienda','0.90','^\\d+(\\.\\d{2})?$','',0);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +237,7 @@ CREATE TABLE `persona` (
   KEY `fk_persona_grado_persona1_idx` (`grado_persona_id`),
   CONSTRAINT `fk_persona_grado_persona1` FOREIGN KEY (`grado_persona_id`) REFERENCES `grado_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_persona_unidad1` FOREIGN KEY (`unidad_id`) REFERENCES `unidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,6 +314,7 @@ CREATE TABLE `tipo_usuario` (
   `nombre` varchar(128) NOT NULL,
   `descripcion` varchar(256) NOT NULL,
   `activo` tinyint(4) NOT NULL DEFAULT '1',
+  `clave` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -324,7 +325,7 @@ CREATE TABLE `tipo_usuario` (
 
 LOCK TABLES `tipo_usuario` WRITE;
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
-INSERT INTO `tipo_usuario` VALUES (1,'Administrador','Admnsitra el sistema',1),(2,'Amanuence','Admnsitra Unidad',1),(3,'Supervisor','Supervisa el proceso',1),(4,'Ranchero','Verifica el consumo',1);
+INSERT INTO `tipo_usuario` VALUES (1,'Administrador','Admnsitra el sistema',1,'ADMIN_URLS'),(2,'Amanuence','Admnsitra Unidad',1,'AMANA_URLS'),(3,'Supervisor','Supervisa el proceso',1,'SUPER_URLS'),(4,'Ranchero','Verifica el consumo',1,'RANCH_URLS');
 /*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +355,7 @@ CREATE TABLE `unidad` (
 
 LOCK TABLES `unidad` WRITE;
 /*!40000 ALTER TABLE `unidad` DISABLE KEYS */;
-INSERT INTO `unidad` VALUES (1,'CEM-11','CEM-11','CEM-11',0,1,'12:00:00','14:00:00'),(2,'GCB-30','GCB-30','GCB-30',0,1,'12:00:00','14:00:00'),(3,'GCB-31','GCB-31','GCB-31',0,1,'12:00:00','14:00:00'),(4,'ECABLIN','ECABLIN','ECABLIN',0,1,'12:00:00','14:00:00'),(5,'GCB-32','GCB-32','GCB-32',0,1,'12:00:00','14:00:00'),(6,'UNIDAD TIPO','UNIDAD TIPO','UNIDAD TIPO',0,1,'12:00:00','14:00:00'),(7,'GCB-33','GCB-33','GCB-33',0,1,'12:00:00','14:00:00'),(8,'GCB-34','GCB-34','GCB-34',0,1,'12:00:00','14:00:00'),(9,'GAAP-11','GAAP-11','GAAP-11',0,1,'12:00:00','14:00:00'),(10,'GAAA 4/5','GAAA 4/5','GAAA 4/5',0,1,'12:00:00','14:00:00'),(11,'CAL-11','CAL-11','CAL-11',0,1,'12:00:00','14:00:00'),(12,'ERS-11','ERS-11','ERS-11',0,1,'12:00:00','14:00:00'),(13,'EC-11','EC-11','EC-11',0,1,'12:00:00','14:00:00'),(14,'EEB-11','EEB-11','EEB-11',0,1,'12:00:00','14:00:00'),(15,'EPM-11','EPM-11','EPM-11',0,1,'12:00:00','14:00:00'),(16,'CABALL','CABALL','CABALL',0,1,'12:00:00','14:00:00'),(17,'PBM-11','PBM-11','PBM-11',0,1,'12:00:00','14:00:00'),(18,'COMIL-6','COMIL-6','COMIL-6',0,1,'12:00:00','14:00:00'),(19,'EADYA-11','EADYA-11','EADYA-11',0,1,'12:00:00','14:00:00'),(20,'CEMAB.','CEMAB.','CEMAB.',0,1,'12:00:00','14:00:00'),(21,'CI-11','CI-11','CI-11',0,1,'12:00:00','14:00:00'),(22,'S.P.','S.P.','S.P.',0,1,'12:00:00','14:00:00');
+INSERT INTO `unidad` VALUES (1,'CEM-11','CEM-11','CEM-11',0,1,'12:00:00','14:00:00'),(2,'GCB-30','GCB-30','GCB-30',0,1,'12:00:00','14:00:00'),(3,'GCB-31','GCB-31','GCB-31',0,1,'12:00:00','14:00:00'),(4,'ECABLIN','ECABLIN','ECABLIN',0,1,'12:00:00','14:00:00'),(5,'GCB-32','GCB-32','GCB-32',0,1,'12:00:00','14:00:00'),(6,'UNIDAD TIPO','UNIDAD TIPO','UNIDAD TIPO',0,1,'12:00:00','14:00:00'),(7,'GCB-33','GCB-33','GCB-33',0,1,'12:00:00','14:00:00'),(8,'GCB-34','GCB-34','GCB-34',0,1,'12:00:00','14:00:00'),(9,'GAAP-11','GAAP-11','GAAP-11',0,1,'12:00:00','14:00:00'),(10,'GAAA 4/5','GAAA 4/5','GAAA 4/5',0,1,'12:00:00','14:00:00'),(11,'CAL-11','CAL-11','CAL-11',0,1,'12:00:00','14:00:00'),(12,'ERS-11','ERS-11','ERS-11',0,1,'12:00:00','14:00:00'),(13,'EC-11','EC-11','EC-11',28,1,'12:00:00','14:00:00'),(14,'EEB-11','EEB-11','EEB-11',0,1,'12:00:00','14:00:00'),(15,'EPM-11','EPM-11','EPM-11',0,1,'12:00:00','14:00:00'),(16,'CABALL','CABALL','CABALL',0,1,'12:00:00','14:00:00'),(17,'PBM-11','PBM-11','PBM-11',0,1,'12:00:00','14:00:00'),(18,'COMIL-6','COMIL-6','COMIL-6',0,1,'12:00:00','14:00:00'),(19,'EADYA-11','EADYA-11','EADYA-11',0,1,'12:00:00','14:00:00'),(20,'CEMAB.','CEMAB.','CEMAB.',0,1,'12:00:00','14:00:00'),(21,'CI-11','CI-11','CI-11',0,1,'12:00:00','14:00:00'),(22,'S.P.','S.P.','S.P.',0,1,'12:00:00','14:00:00');
 /*!40000 ALTER TABLE `unidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,7 +379,7 @@ CREATE TABLE `usuario` (
   KEY `fk_usuario_persona1_idx` (`persona_id`),
   CONSTRAINT `fk_usuario_persona1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,6 +388,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,35,1,'admin','fcea920f7412b5da7be0cf42b8c93759',1,13),(2,1,2,'amanuence','e10adc3949ba59abbe56e057f20f883e',1,13);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -399,4 +401,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-27 17:14:09
+-- Dump completed on 2016-09-29 17:14:50

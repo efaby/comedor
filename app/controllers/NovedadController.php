@@ -7,8 +7,7 @@ class NovedadController {
 	
 	public function listar() {
 		$model = new NovedadModel();
-		// Obtenemos el id de la unidad
-		$unidad_id = 0;
+		$unidad_id = $this->getUnidad();		
 		$datos = $model->getlistadoNovedad($unidad_id);
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.list.php";
@@ -18,8 +17,7 @@ class NovedadController {
 		$model = new NovedadModel();
 		$item = $model->getNovedad();	
 		$tipos = $model->getTiposNovedad();
-		// Obtenemos el id de la unidad
-		$unidad_id = 0;
+		$unidad_id = $this->getUnidad();
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.form.php";
 	}
@@ -31,7 +29,7 @@ class NovedadController {
 		$novedad ['tipo_novedad_id'] = $_POST ['tipo_novedad_id'];
 		$novedad ['fecha_inicio'] = $_POST ['fecha_inicio'];
 		$novedad ['fecha_fin'] = $_POST ['fecha_fin'];
-		$novedad ['usuario_id'] = 0; // getUserSesion
+		$novedad ['usuario_id'] = $_SESSION['SESSION_USER']->id; // getUserSesion
 		
 		//Subir el archivo		
 		$upload = new File();
@@ -63,4 +61,20 @@ class NovedadController {
 		$upload = new File();
 		return $upload->download($nombre);
 	}
+	
+	public function getPersona() {
+		$cedula = $_GET ['identificacion'];
+		$model = new PersonaModel();
+		$persona = $model->getPersonaPorCedula($cedula);
+		echo json_encode ($persona);
+	}
+	
+	private function getUnidad(){
+		$unidad_id = 0;
+		if($_SESSION['SESSION_USER']->tipo==2){
+			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		}
+		return $unidad_id;
+	}
+	
 }

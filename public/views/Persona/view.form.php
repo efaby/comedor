@@ -3,7 +3,7 @@
 	
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Grado Persona</label>
-		<select class='form-control' name="grado_persona_id">
+		<select class='form-control' name="grado_persona_id" >
 			<option value="" >Seleccione</option>
 		<?php foreach ($grados as $dato) { ?>
 			<option value="<?php echo $dato->id;?>"  <?php if($item->grado_persona_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
@@ -21,7 +21,14 @@
 	<div style="overflow: auto;">
 	<div class="form-group  col-sm-6"> <!-- desactivar si es de un amanuence poner por defecto la unidad selecionada -->
 		<label class="control-label">Unidad</label>
-		<select class='form-control' name="unidad_id">
+		<?php $disabled = ''; 
+			if($unidad_id>0): 
+				$disabled = 'disabled="disabled"'; 
+				$item->unidad_id = $unidad_id; 
+				echo '<input type="hidden" name="unidad_id" id="unidad_id" value="'.$unidad_id.'">';
+			endif;?> 
+			
+		<select class='form-control' name="unidad_id" <?php echo $disabled;?> >
 			<option value="" >Seleccione</option>
 		<?php foreach ($unidades as $dato) { ?>
 			<option value="<?php echo $dato->id;?>"  <?php if($item->unidad_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
@@ -85,7 +92,10 @@ $(document).ready(function() {
 			invalid: 'glyphicon glyphicon-remove',
 			validating: 'glyphicon glyphicon-refresh'
 		},
-		fields: {			
+		fields: {		
+			id: {
+
+			},	
 			identificacion: {
 				message: 'El Número de Identificación no es válido',
 				validators: {
@@ -99,8 +109,10 @@ $(document).ready(function() {
 							remote: {
 		                        message: 'El Número de Identificación ya esta registrado.',
 		                        url: '../verificarPersona/',
-		                        data: {
-		                            identificacion: 'identificacion'
+		                        data: function(validator, $field, value) {
+		                            return {
+		                                id: validator.getFieldElements('id').val()
+		                            };
 		                        },
 		                        type: 'GET'
 		               },

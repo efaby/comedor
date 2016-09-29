@@ -82,7 +82,7 @@ $(document).ready(function() {
 	    	jQuery.ajax({
 		        type: "GET",
 		        dataType: "json",
-		        url: "../../Usuario/getPersona/",
+		        url: "../getPersona/",
 		        data: {
 		        	"identificacion": ci
 		        },

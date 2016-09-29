@@ -3,14 +3,14 @@ require_once(PATH_MODELS."/BaseModel.php");
 
 class PersonaModel {
 
-	public function getlistadoPersona(){
+	public function getlistadoPersona($unidad_id){
 		$model = new BaseModel();	
 		$sql = "select p.id, p.identificacion, p.nombres, p.apellidos, p.arma, u.abreviatura as unidad, g.abreviatura as grado, t.nombre from persona as p 
 				inner join unidad as u on u.id = p.unidad_id
 				inner join grado_persona as g on g.id = p.grado_persona_id
 				inner join tipo_persona as t on t.id = g.tipo_persona_id
-				where p.activo = 1";		
-		return $model->execSql($sql, array(),true);
+				where p.activo = 1 and (u.id = ? or 0 = ?)";		
+		return $model->execSql($sql, array($unidad_id,$unidad_id),true);
 	}	
 	
 	public function getPersona()

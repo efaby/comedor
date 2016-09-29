@@ -6,21 +6,21 @@ class ConfrontaController {
 	
 	public function listar() {
 		$model = new ConfrontaModel();
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$unidad = $this->getUnidad();
 		$datos = $model->getlistadoConfrontaUnidad($unidad);
 		$message = "";
 		require_once PATH_VIEWS."/Confronta/view.list.php";
 	}
 	
 	public function editar(){
-		// revisar hora
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$unidad = $this->getUnidad(); 
 		$model = new ConfrontaModel();		
 		if($this->validarHorario($confrontaId, $model,$unidad)){
 			$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
 			$general = $model->getGeneral($confrontaId);
-			$desCon = $almCon = $merCon = $cons = 20;
+			$unidad = $model->getUnidad($unidad);
+			$desCon = $almCon = $merCon = $cons = $unidad->num_conscriptos;
 			$message = "";
 			require_once PATH_VIEWS."/Confronta/view.confronta.php";
 		} else {
@@ -34,7 +34,6 @@ class ConfrontaController {
 		$model = new ParametroModel();
 		$parametro = $model->getsParametroByKey('confrontaKeyHora');
 		$result =  false;
-
 		if(strtotime(date('H:i'))<= strtotime($parametro->valor)){
 			$confrontas = $modelConfronta->getlistadoConfrontaHoy($unidadId);
 			if(count($confrontas)>0){
@@ -55,8 +54,8 @@ class ConfrontaController {
 		$fecha = date('Y-m-d');
 		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
 		$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
-		$usuario = 1; // obtener usuario
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$usuario = $_SESSION['SESSION_USER']->id;
+		$unidad = $this->getUnidad();
 		
 		$fieldsListado = array('persona_id', 'desayuno', 'almuerzo', 'merienda', 'fecha_acceso', 'fecha_registro', 'acceso','guardia','usuario_id','unidad_id','novedad_id','confronta_general_id');
 		$listado = $this->getConfrontaListado($model, $fecha, $nuevafecha, $usuario,$unidad);		
@@ -75,7 +74,7 @@ class ConfrontaController {
 		$general[] = 1;		
 		$general[] = $fecha;
 		$general[] = $nuevafecha;
-		$general[] = $usuario; // obtener usuario
+		$general[] = $usuario; 
 		$general[] = $unidad;
 		
 		$confronta_id = isset($_POST['confronta_id'])?$_POST['confronta_id']:0;
@@ -123,7 +122,7 @@ class ConfrontaController {
 	public function eliminar() {
 		
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$unidad = $this->getUnidad();
 		$model = new ConfrontaModel();
 		if($this->validarHorario($confrontaId, $model,$unidad)){	
 			try {
@@ -141,7 +140,7 @@ class ConfrontaController {
 	
 	public function verListado(){
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$unidad = $this->getUnidad();
 		$model = new ConfrontaModel();
 		$general = $model->getGeneral($confrontaId);
 		$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
@@ -155,7 +154,7 @@ class ConfrontaController {
 	
 	public function verGeneral(){
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
-		$unidad = 13; // obtener unidad del usurio amanuence logueado
+		$unidad = $this->getUnidad();
 		$model = new ConfrontaModel();
 		$general = $model->getGeneral($confrontaId);	
 		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
@@ -165,4 +164,11 @@ class ConfrontaController {
 		require_once PATH_VIEWS."/Confronta/view.verGeneral.php";
 	}
 
+	private function getUnidad(){
+		$unidad_id = 0;
+		if($_SESSION['SESSION_USER']->tipo==2){
+			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		}
+		return $unidad_id;
+	}
 }

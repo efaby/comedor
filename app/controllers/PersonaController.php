@@ -6,7 +6,8 @@ class PersonaController {
 	
 	public function listar() {
 		$model = new PersonaModel();
-		$datos = $model->getlistadoPersona();
+		$unidad_id = $this->getUnidad();
+		$datos = $model->getlistadoPersona($unidad_id);
 		$message = "";
 		require_once PATH_VIEWS."/Persona/view.list.php";
 	}
@@ -17,6 +18,7 @@ class PersonaController {
 		$unidades = $model->getCatalogo('unidad');
 		$tipos = $model->getCatalogo('tipo_persona');
 		$grados = $model->getCatalogo('grado_persona');
+		$unidad_id = $this->getUnidad();
 		$message = "";
 		require_once PATH_VIEWS."/Persona/view.form.php";
 	}
@@ -24,8 +26,7 @@ class PersonaController {
 	public function guardar() {
 		
 		$persona ['id'] = $_POST ['id'];
-		$persona ['unidad_id'] = $_POST ['unidad_id'];
-		
+		$persona ['unidad_id'] = $_POST ['unidad_id'];		
 		$persona ['grado_persona_id'] = $_POST ['grado_persona_id'];
 		$persona ['identificacion'] = $_POST ['identificacion'];
 		$persona ['nombres'] = $_POST ['nombres'];
@@ -33,7 +34,7 @@ class PersonaController {
 		$persona ['arma'] = $_POST ['arma'];
 		$persona ['telefono'] = $_POST ['telefono'];
 		$persona ['celular'] = $_POST ['celular'];
-		$persona ['usuario_id'] = 0; // getUserSesion
+		$persona ['usuario_id'] = $_SESSION['SESSION_USER']->id; // getUserSesion
 		
 		$model = new PersonaModel();
 		try {
@@ -58,12 +59,26 @@ class PersonaController {
 	
 	public function verificarPersona() {
 		$cedula = $_GET ['identificacion'];
+		$id = $_GET ['id'];
 		$persona = 0;
 		if(strlen($cedula)>9){
 			$model = new PersonaModel();
 			$persona = $model->getPersonaPorCedula($cedula);
 		}
-		echo json_encode ((is_object($persona))?array('valid'=>false):array('valid'=>true));
+		$validate = array('valid'=>true);
+		if(is_object($persona)){
+			if($persona->id != $id){
+				$validate = array('valid'=>false);
+			}
+		}
+		echo json_encode ($validate);
 	}
 	
+	private function getUnidad(){
+		$unidad_id = 0;
+		if($_SESSION['SESSION_USER']->tipo==2){
+			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		}
+		return $unidad_id;
+	}
 }

@@ -49,4 +49,30 @@ class UnidadController {
 		header ( "Location: ../listar/" );
 	}
 	
+	public function configurar(){
+		$model = new UnidadModel();
+		$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		$item = $model->getUnidadById($unidad_id);		
+		$message = "";
+		require_once PATH_VIEWS."/Unidad/view.configuracion.php";
+	}
+	
+	public function guardarConfiguracion() {
+	
+		$unidad ['id'] = $_POST ['id'];
+		$unidad ['hora_inicio'] = $_POST ['hora_inicio'].":".$_POST ['minuto_inicio'];
+		$unidad ['hora_fin'] = $_POST ['hora_fin'].":".$_POST ['minuto_fin'];
+		$unidad ['num_conscriptos'] = $_POST ['num_conscriptos'];
+	
+		$model = new UnidadModel();
+		try {
+			$datos = $model->saveUnidad( $unidad );
+			$_SESSION ['message'] = "Datos almacenados correctamente.";
+		} catch ( Exception $e ) {
+			$_SESSION ['message'] = $e->getMessage ();
+		}
+		header ( "Location: ../configurar/" );
+	}
+	
+	
 }

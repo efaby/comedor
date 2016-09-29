@@ -62,6 +62,12 @@ class ConfrontaModel {
 		return $result;
 	}
 	
+	public function getUnidad($unidad){
+		$model = new BaseModel();
+		$sql = "select * from unidad where id = ?";
+		return $model->execSql($sql, array($unidad));
+	}
+	
 	public function delConfronta($confrontaId){
 		
 		$model = new BaseModel();

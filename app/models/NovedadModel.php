@@ -8,7 +8,7 @@ class NovedadModel {
 		$sql = "select n.*, p.nombres, p.apellidos, p.identificacion, t.nombre from novedad as n
 				inner join persona as p on p.id = n.persona_id
 				inner join tipo_novedad as t on t.id = n.tipo_novedad_id
-				where p.unidad_id = ? or 0 = ? and n.activo = 1";		
+				where n.activo = 1 and (p.unidad_id = ? or 0 = ?)";		
 		return $model->execSql($sql, array($unidad_id,$unidad_id),true);
 	}	
 	

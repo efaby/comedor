@@ -9,8 +9,7 @@ class UnidadModel {
 		return $model->execSql($sql, array(),true);
 	}	
 	
-	public function getUnidad()
-	{
+	public function getUnidad(){
 		$unidad = $_GET['id'];
 		$model = new BaseModel();		
 		if($unidad > 0){
@@ -21,11 +20,9 @@ class UnidadModel {
 		}
 		
 		return $result;
-	}
+	}	
 	
-	
-	public function saveUnidad($unidad)
-	{
+	public function saveUnidad($unidad)	{
 		$model = new BaseModel();
 		return $model->saveDatos($unidad,'unidad');
 	}
@@ -35,6 +32,12 @@ class UnidadModel {
 		$sql = "update unidad set activo = 0 where id = ?";
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array($unidad),false,true);
+	}
+	
+	public function getUnidadById($unidad){
+		$model = new BaseModel();
+		$sql = "select * from unidad where id = ?";
+		return $model->execSql($sql, array($unidad));		
 	}
 
 }

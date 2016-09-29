@@ -19,7 +19,8 @@
 <form id="frmItem" method="post" action="../guardar/">
 	
     <div style="width: 40%; overflow: auto; margin-bottom: 20px;">
-    <?php foreach ($datos as $item):?>
+    <?php $validacion = '';
+    	foreach ($datos as $item):?>
     
     <div class="form-group col-sm-12">
     		<div class="col-sm-4">
@@ -29,8 +30,8 @@
     			<input type="<?php echo $item->tipo;?>" name="<?php echo $item->clave;?>" id="<?php echo $item->clave;?>" value="<?php echo $item->valor;?>" class="form-control">
     		</div>    		
     </div>
-    </div>
-    <?php $validacion = $item->clave.": {
+    
+    <?php $validacion .= $item->clave.": {
 				message: 'El campo ".$item->etiqueta." no es válido',
 				validators: {
 					notEmpty: {
@@ -40,8 +41,9 @@
 						regexp: /^".$item->patron."/,
 						message: 'Ingrese un valor de campo ".$item->etiqueta." válido.'
 					}
-				} }" ?>
+				} }," ?>
     <?php endforeach;?>
+    </div>
     <div class="form-group col-sm-12">
     	<input type="hidden" name="confronta_id" value="<?php echo $confronta_id; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>	
