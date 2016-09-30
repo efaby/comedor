@@ -11,10 +11,12 @@
 <div class="col-sm-12 hidden-print" style="text-align: right;">
 				<a href="javascript:window.print()"> <span class="glyphicon glyphicon-print"></span>&nbsp;Imprimir</a>								
 			</div>	
-			<div class="divHeader" style="display: ;">
+			<div class="divHeader col-sm-12  rows" style="display: ;">
 <table style="width: 100%">
   <tbody><tr><td width="8%"><img width="60px" src="<?php echo PATH_IMAGES . '/ejercito.jpg';?>" ></td>
-  <td width="82%" align="center"><b>Confronta de Rancho de <?php echo $general->unidad;?><br>Para el dia <?php echo $fecha;?></b></td>
+  <td width="82%" align="center">
+  <b><p style="font-size: 18px;  margin-bottom: 0px;">Confronta de Rancho de <?php echo $general->unidad;?></p>
+  Para el dia <?php echo $fecha;?></b></td>
   <td width="5%"></td></tr>
 </tbody></table>
 <hr>

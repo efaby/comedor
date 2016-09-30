@@ -163,7 +163,7 @@
     	</div>
     	<div class="col-sm-12">
     		<div class="col-sm-2">
-    		Almuersos 
+    		Almuerzos 
     		</div>
     		<div class="col-sm-2">
     		<input type="text" name="almOfi" id="almOfi" value="<?php echo $almOfi;?>" readonly="readonly" size="3" class="form-control">

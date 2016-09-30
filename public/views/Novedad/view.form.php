@@ -174,7 +174,8 @@ $(document).ready(function() {
 					},
 					file: {
 	                    extension: 'pdf,docx,doc',
-	                    message: 'Seleccione un archivo válido. (pdf, doc, docx)'
+	                    maxSize: 2097152,
+	                    message: 'Seleccione un archivo válido. (pdf, doc, docx) y no mayor a 2 MB.'
 	                }
 				}
 			},
@@ -182,7 +183,8 @@ $(document).ready(function() {
 				validators: {							
 					file: {
 	                    extension: 'pdf,docx,doc',
-	                    message: 'Seleccione un archivo válido. (pdf, doc, docx)'
+	                    maxSize: 2097152,
+	                    message: 'Seleccione un archivo válido. (pdf, doc, docx) y no mayor a 2 MB.'
 	                }
 				}
 			}		
