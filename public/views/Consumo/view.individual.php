@@ -1,0 +1,184 @@
+<?php $title = "Consumo Individual";?>
+<?php include_once PATH_TEMPLATE.'/header.php';?>
+
+<!-- Main row -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Consumo Individual</h1>
+	</div>
+</div>
+<?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
+<div class="alert alert-success fade in alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert"
+		aria-hidden="true">&times;</button>
+								  <?php echo $_SESSION['message'];$_SESSION['message'] = ''?>
+								</div>
+<?php endif;?>
+<div class="row">
+<form id="frmUsuario" method="post" action="" >
+	<div class="col-lg-12">
+		<div class="form-group col-sm-3">
+			<label class="control-label">Identificación</label> <input
+				type='text' name='identificacion' class='form-control'
+				value="<?php echo $item->identificacion; ?>" id="identificacion">
+
+		</div>
+		<div class="form-group col-sm-4">
+			<label class="control-label">Persona</label> <input type='text'
+				name='nombres' class='form-control' readonly="readonly"
+				value="<?php echo $item->nombres ." ". $item->apellidos; ?>" id="nombres">
+
+		</div>
+		<div class="form-group col-sm-3">
+		<input type='hidden' name='id' id='id' class='form-control' value="<?php echo $item->id; ?>">
+			<button type="submit" class="btn btn-success boton" id="boton">Buscar</button>
+
+		</div>
+	</div>
+	<div class="col-lg-12">
+	<div class="form-group col-sm-3">
+		<label class="control-label">Desde</label>
+		<input type="text"
+			name='fecha_inicio' id='fecha_inicio' class='form-control'
+			value="<?php echo $fechaInicio; ?>">
+
+	</div>
+	<div class="form-group col-sm-3">
+		<label class="control-label">Hasta</label>
+		<input type="text"
+			name='fecha_fin' id='fecha_fin' class='form-control'
+			value="<?php echo $fechaFin; ?>">
+
+	</div>
+	</div>
+</form>
+
+<table class="table">
+<tr><th colspan="4" style="text-align: center;">Tabla de Consumo del Servicio de Confronta</th></tr>
+<tr><td>Nombre</td><td><?php echo $item->nombres ." ". $item->apellidos; ?></td><td>Identificación</td><td><?php echo $item->identificacion?></td></tr>
+<?php foreach ($datos as $item):?>
+<tr>
+<td colspan="4">
+Mes <?php $total = 0; $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?>
+<table>
+<tr><th></th><th>Cantidad</th><th>Total</th></tr>
+<tr><td>Desayuno</td><td><?php echo $item->desayuno;?></td><td><?php $total = $total + $item->desayuno * $precioDes; echo $item->desayuno * $precioDes; ?></td></tr>
+<tr><td>Almuerzo</td><td><?php echo $item->almuerzo;?></td><td><?php $total = $total + $item->almuerzo * $precioAlm; echo $item->almuerzo * $precioAlm; ?></td></tr>
+<tr><td>Merienda</td><td><?php echo $item->merienda;?></td><td><?php $total = $total + $item->merienda * $precioMer; echo $item->merienda * $precioMer; ?></td></tr>
+<tr><td>Total</td><td></td><td><?php echo $total; ?></td></tr>
+</table>
+</td>
+</tr>
+<?php endforeach;?>
+</table>
+
+</div>
+
+<?php include_once PATH_TEMPLATE.'/footer.php';?>
+<script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
+<script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
+<script src="<?php echo PATH_JS; ?>/currentList.js"></script>
+<link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css"
+	rel="stylesheet">
+	
+<script type="text/javascript">
+$(document).ready(function() {
+
+	jQuery( "#fecha_inicio" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		onClose: function( selectedDate ) {
+	        $( "#fecha_fin" ).datepicker( "option", "minDate", selectedDate );
+	        $('#frmUsuario').formValidation('revalidateField', 'fecha_inicio');
+	      }  		
+	});
+    
+	jQuery( "#fecha_fin" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		onClose: function( selectedDate ) {
+	        $( "#fecha_inicio" ).datepicker( "option", "maxDate", selectedDate );
+	        $('#frmUsuario').formValidation('revalidateField', 'fecha_fin');
+	      }  		
+	});
+    
+	
+	$('#identificacion').keyup(function(){
+	    var ci = jQuery("#identificacion").val();
+	    if(ci.length == 10){
+	    	jQuery.ajax({
+		        type: "GET",
+		        dataType: "json",
+		        url: "../getPersona/",
+		        data: {
+		        	"identificacion": ci
+		        },
+		        success:function(data) {
+		        	jQuery("#nombres").val('');		        	
+		        	jQuery("#id").val(0);
+			        if(data){
+			        	jQuery("#nombres").val(data.nombres + ' ' + data.apellidos);			        	
+			        	jQuery("#id").val(data.id);
+			        	
+			        } else {
+						alert("La persona no exite por favor regístrelo en la sección Personal");
+						jQuery("#boton").addClass('disabled');
+			        }
+		        	
+		        }
+		    });
+	    }
+	});
+
+		
+    $('#frmUsuario').formValidation({
+    	message: 'This value is not valid',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {			
+			identificacion: {
+				message: 'El Número de Identificación no es válido',
+				validators: {
+							notEmpty: {
+								message: 'El Número de Identificación no puede ser vacío.'
+							},					
+							regexp: {
+								regexp: /^(?:\+)?\d{10,13}$/,
+								message: 'Ingrese un Número de Identificación válido.'
+							}
+						}
+					},
+					fecha_inicio: {
+						 validators: {
+							 notEmpty: {
+								 message: 'La fecha de inicio es requerida y no puede ser vacia'
+							 },
+							 date:{	 
+								    format: 'YYYY-MM-DD',
+				                    message: 'La fecha de inicio no es válida.'				                    
+							 },
+							 							 
+						 }
+					 },
+					 
+			        fecha_fin: {
+			        	 validators: {
+							 notEmpty: {
+								 message: 'La fecha de fin es requerida y no puede ser vacia'
+							 },
+							 date: {
+								 format: 'YYYY-MM-DD',
+				                 message: 'La fecha de fin no es válida.'
+							 }							 
+						 }
+			        },
+			
+			
+		}
+	});
+});
+</script>
+
+</body>
+</html>

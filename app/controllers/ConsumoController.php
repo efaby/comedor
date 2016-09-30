@@ -1,48 +1,51 @@
 <?php
 require_once (PATH_MODELS . "/ConsumoModel.php");
-
+require_once (PATH_MODELS . "/PersonaModel.php");
+require_once(PATH_MODELS."/ParametroModel.php");
 
 class ConsumoController {
 	
 	public function individual() {
-		$model = new TipoModel();
-		$datos = $model->getlistadoTiposPersona();
-		$message = "";
-		require_once PATH_VIEWS."/Tipo/view.list.php";
-	}
-	
-	public function editar(){
-		$model = new TipoModel();
-		$item = $model->getTipoPersona();		
-		$message = "";
-		require_once PATH_VIEWS."/Tipo/view.form.php";
-	}
-	
-	public function guardar() {
-		
-		$tipo ['id'] = $_POST ['id'];
-		$tipo ['nombre'] = $_POST ['nombre'];
-		$tipo ['descripcion'] = $_POST ['descripcion'];
-		
-		$model = new TipoModel();
-		try {
-			$datos = $model->saveTipoPersona( $tipo );
-			$_SESSION ['message'] = "Datos almacenados correctamente.";
-		} catch ( Exception $e ) {
-			$_SESSION ['message'] = $e->getMessage ();
+		$usuario = (isset($_POST ['id']))?$_POST ['id']:0;	
+		$fechaInicio = (isset($_POST ['fecha_inicio']))?$_POST ['fecha_inicio']:'';	
+		$fechaFin = (isset($_POST ['fecha_fin']))?$_POST ['fecha_fin']:'';
+		$item = (object) array('persona_id'=>0,'identificacion' =>'','nombres'=>'','apellidos'=>'');			;
+		$datos =  array();
+		if($usuario > 0){
+			$model = new ConsumoModel();
+			$datos = $model->getConsumo($usuario, $fechaInicio, $fechaFin);
+			$model = new PersonaModel();
+			$cedula = (isset($_POST ['identificacion']))?$_POST ['identificacion']:0;
+			$item = $model->getPersonaPorCedula($cedula);
+			$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+			$model = new ParametroModel();
+			$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
+			$precioDes = $parametro->valor;
+			$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
+			$precioMer = $parametro->valor;
+			$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
+			$precioAlm = $parametro->valor;
+			
 		}
-		header ( "Location: ../listar/" );
+		require_once PATH_VIEWS."/Consumo/view.individual.php";
 	}
 	
-	public function eliminar() {
-		$model = new TipoModel();
-		try {
-			$datos = $model->delTipoPersona();
-			$_SESSION ['message'] = "Datos eliminados correctamente.";
-		} catch ( Exception $e ) {
-			$_SESSION ['message'] = $e->getMessage ();
+	public function listado() {
+
+		$fechaInicio = (isset($_POST ['fecha_inicio']))?$_POST ['fecha_inicio']:'';
+		$datos = null;
+		if($fechaInicio != ''){
+			$model = new ConsumoModel();
+			$datos = $model->getConsumo(0, $fechaInicio, $fechaInicio);
 		}
-		header ( "Location: ../listar/" );
+		require_once PATH_VIEWS."/Consumo/view.listado.php";
+	}
+	
+	public function getPersona() {
+		$cedula = $_GET ['identificacion'];
+		$model = new PersonaModel();
+		$persona = $model->getPersonaPorCedula($cedula);
+		echo json_encode ($persona);
 	}
 	
 }
