@@ -117,7 +117,7 @@ $(document).ready(function() {
 			        if(data){
 			        	jQuery("#nombres").val(data.nombres + ' ' + data.apellidos);			        	
 			        	jQuery("#id").val(data.id);
-			        	
+			        	jQuery("#boton").removeClass('disabled');
 			        } else {
 						alert("La persona no exite por favor regístrelo en la sección Personal");
 						jQuery("#boton").addClass('disabled');
