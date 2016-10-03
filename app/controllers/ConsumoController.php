@@ -57,14 +57,27 @@ class ConsumoController {
 	
 	
 	public function listado() {
-
 		$fechaInicio = (isset($_POST ['fecha_inicio']))?$_POST ['fecha_inicio']:'';
 		$datos = null;
 		if($fechaInicio != ''){
 			$model = new ConsumoModel();
-			$datos = $model->getConsumo(0, $fechaInicio, $fechaInicio);
+			$datos = $model->getConsumoListado($fechaInicio);
+			$parametros = $this->getParametros();
+			$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		}
 		require_once PATH_VIEWS."/Consumo/view.listado.php";
+	}
+	
+	public function imprimirListado() {
+		
+		$fechaInicio = $_GET ['fecha_inicio'];
+		$model = new ConsumoModel();
+		$datos = $model->getConsumoListado($fechaInicio);
+		$parametros = $this->getParametros();
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		require_once PATH_VIEWS."/Consumo/view.imprimirListado.php";
+		
+		
 	}
 	
 	public function getPersona() {

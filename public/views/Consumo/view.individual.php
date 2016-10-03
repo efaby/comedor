@@ -29,7 +29,7 @@
 				value="<?php echo $item->nombres ." ". $item->apellidos; ?>" id="nombres">
 
 		</div>
-		<div class="form-group col-sm-3">
+		<div class="form-group col-sm-3" style="padding-top: 25px;">
 		<input type='hidden' name='id' id='id' class='form-control' value="<?php echo $item->id; ?>">
 		<input type='hidden' name='imprimir' id='imprimir' class='form-control' value="0">
 			<button type="submit" class="btn btn-success boton" id="boton">Buscar</button>
