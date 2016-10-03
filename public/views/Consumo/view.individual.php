@@ -31,6 +31,7 @@
 		</div>
 		<div class="form-group col-sm-3">
 		<input type='hidden' name='id' id='id' class='form-control' value="<?php echo $item->id; ?>">
+		<input type='hidden' name='imprimir' id='imprimir' class='form-control' value="0">
 			<button type="submit" class="btn btn-success boton" id="boton">Buscar</button>
 
 		</div>
@@ -52,26 +53,30 @@
 	</div>
 	</div>
 </form>
+<?php if(count($datos)>0):?>
+<div class="col-sm-12 rows" style="text-align: right; padding: 10px;">
+				<button class="btn btn-primary btn-xs" id="imprimirBtn">Imprimir</button>								
+			</div>
 
-<table class="table">
-<tr><th colspan="4" style="text-align: center;">Tabla de Consumo del Servicio de Confronta</th></tr>
-<tr><td>Nombre</td><td><?php echo $item->nombres ." ". $item->apellidos; ?></td><td>Identificación</td><td><?php echo $item->identificacion?></td></tr>
+<table class="table table-bordered ">
+<tr><th colspan="4" style="text-align: center;">Tabla de Consumo del Servicio de Confronta <?php echo $parametros['unidad'];?></th></tr>
+<tr><td><b>Nombre</b></td><td><?php echo $item->nombres ." ". $item->apellidos; ?></td><td><b>Identificación</b></td><td><?php echo $item->identificacion?></td></tr>
 <?php foreach ($datos as $item):?>
 <tr>
 <td colspan="4">
-Mes <?php $total = 0; $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?>
-<table>
-<tr><th></th><th>Cantidad</th><th>Total</th></tr>
-<tr><td>Desayuno</td><td><?php echo $item->desayuno;?></td><td><?php $total = $total + $item->desayuno * $precioDes; echo $item->desayuno * $precioDes; ?></td></tr>
-<tr><td>Almuerzo</td><td><?php echo $item->almuerzo;?></td><td><?php $total = $total + $item->almuerzo * $precioAlm; echo $item->almuerzo * $precioAlm; ?></td></tr>
-<tr><td>Merienda</td><td><?php echo $item->merienda;?></td><td><?php $total = $total + $item->merienda * $precioMer; echo $item->merienda * $precioMer; ?></td></tr>
-<tr><td>Total</td><td></td><td><?php echo $total; ?></td></tr>
+<div style="font-weight: bold; padding: 5px">Mes <?php $total = 0; $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></div>
+<table class="table table-bordered " style="width: 30%">
+<tr><th></th><th style="text-align: center;">Cantidad</th><th style="text-align: center;">Total</th></tr>
+<tr><td>Desayuno</td><td style="text-align: center;"><?php echo $item->desayuno;?></td><td style="text-align: center;"><?php $total = $total + $item->desayuno * $parametros['desayuno']; echo $item->desayuno * $parametros['desayuno']; ?></td></tr>
+<tr><td>Almuerzo</td><td style="text-align: center;"><?php echo $item->almuerzo;?></td><td style="text-align: center;"><?php $total = $total + $item->almuerzo * $parametros['almuerzo']; echo $item->almuerzo * $parametros['almuerzo']; ?></td></tr>
+<tr><td>Merienda</td><td style="text-align: center;"><?php echo $item->merienda;?></td><td style="text-align: center;"><?php $total = $total + $item->merienda * $parametros['merienda']; echo $item->merienda * $parametros['merienda']; ?></td></tr>
+<tr><td>Total</td><td></td><td style="text-align: center;"><?php echo $total; ?></td></tr>
 </table>
 </td>
 </tr>
 <?php endforeach;?>
 </table>
-
+			<?php endif;?>
 </div>
 
 <?php include_once PATH_TEMPLATE.'/footer.php';?>
@@ -82,8 +87,27 @@ Mes <?php $total = 0; $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]
 	rel="stylesheet">
 	
 <script type="text/javascript">
-$(document).ready(function() {
 
+function imprimir(){
+	var posicion_x; 
+	var posicion_y; 
+	var ancho = 900;
+	var alto = 550;
+	posicion_x=(screen.width/2)-(ancho/2); 
+	posicion_y=(screen.height/2)-(alto/2); 
+	var accion = "../imprimirIndividual/" + $('#id').val() + "&fecha_inicio=" + $('#fecha_inicio').val() + "&fecha_fin=" + $('#fecha_fin').val() + "&identificacion=" + $('#identificacion').val(); 
+	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
+	window.open(accion,"",opciones);
+}
+
+
+
+$(document).ready(function() {
+	
+	$('#imprimirBtn').click(function() {
+		imprimir();
+	});
+	
 	jQuery( "#fecha_inicio" ).datepicker({  
 		dateFormat: "yy-mm-dd",
 		onClose: function( selectedDate ) {
