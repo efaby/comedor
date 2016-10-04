@@ -16,11 +16,11 @@
       <body class="skin-black">        
          <div class="navbar navbar-inverse set-radius-zero">
         <div class="container">
-            <div class="navbar-header">                
+            <div class="navbar-header" style="width: 100%">                
                 <a class="navbar-brand" href="index.html">
                     <img src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" width="70px"/>
                 </a>
-                <h1>Sistema de Gestión de Confrontas</h1>
+                <h1 style="padding-top: 15px;">Sistema de Gestión de Confrontas</h1>
             </div>            
         </div>
     </div>
@@ -49,8 +49,10 @@
 	                            
 	                            <li class="<?php echo (strpos($url, '/Parametro/listar/'))?'menu-top-active':'';?>"><a href="../../Parametro/editar/">Configuración</a></li>
                             <?php endif;?>
-                            <?php if($_SESSION['SESSION_USER']->tipo==2):?>
+                            <?php if(($_SESSION['SESSION_USER']->tipo==2)||($_SESSION['SESSION_USER']->tipo==3)):?>
                             	<li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
+                            <?php endif;?>
+                            <?php if($_SESSION['SESSION_USER']->tipo==2):?>	
                             	<li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
                             	<li class="<?php echo (strpos($url, '/Unidad/configurar/'))?'menu-top-active':'';?>"><a href="../../Unidad/configurar/">Unidad</a></li>
@@ -65,7 +67,10 @@
 									</ul>
 	                            </li>
                             	<?php endif;?>
-							
+							<?php if($_SESSION['SESSION_USER']->tipo==3):?>
+                            	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
+                            	<li class="<?php echo (strpos($url, '/Reporte/consolidado/'))?'menu-top-active':'';?>"><a href="../../Reporte/consolidado/">Reporte</a></li>
+                            <?php endif;?>
                         </ul>
                         
                         <div class="navbar-right">

@@ -8,7 +8,7 @@ class UsuarioController {
 	
 	public function listar() {
 		$model = new UsuarioModel();
-		$datos = $model->getlistadoUsuario();
+		$datos = $model->getlistadoUsuario($_SESSION['SESSION_USER']->id);
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.list.php";
 	}

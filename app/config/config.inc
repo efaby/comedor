@@ -19,7 +19,7 @@
 	define('PRIVATE_URLS', serialize(
 			array(
 			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad'),
-			'SUPER_URLS' => array('Seguridad'),
+			'SUPER_URLS' => array('Seguridad','Persona','Confrontaconsolidado','Reporteconsolidado'),
 			'RANCH_URLS' => array('Seguridad'),
 			'AMANA_URLS' => array('Seguridad','Persona','Confronta','Novedad','Unidadconfigurar','UnidadguardarConfiguracion','Consumo')
 			)));	
