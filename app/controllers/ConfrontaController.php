@@ -1,6 +1,7 @@
 <?php
 require_once (PATH_MODELS . "/ConfrontaModel.php");
 require_once(PATH_MODELS."/ParametroModel.php");
+require_once (PATH_HELPERS. "/File.php");
 
 class ConfrontaController {
 	
@@ -153,8 +154,7 @@ class ConfrontaController {
 	}
 	
 	public function verGeneral(){
-		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
-		$unidad = $this->getUnidad();
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;		
 		$model = new ConfrontaModel();
 		$general = $model->getGeneral($confrontaId);	
 		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
@@ -164,11 +164,40 @@ class ConfrontaController {
 		require_once PATH_VIEWS."/Confronta/view.verGeneral.php";
 	}
 
+	public function downloadFile(){
+		$nombre = $_GET['nameFile'];
+		$upload = new File();
+		return $upload->download($nombre);
+	}
+	
 	private function getUnidad(){
 		$unidad_id = 0;
 		if($_SESSION['SESSION_USER']->tipo==2){
 			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		} else {
+			$unidad_id = isset($_GET['valor'])?$_GET['valor']:0;
 		}
 		return $unidad_id;
 	}
+	
+	public function consolidado(){
+		$model = new ConfrontaModel();
+		$unidad = $this->getUnidad();
+		$fecha = isset($_POST['fecha'])?$_POST['fecha']:date('Y-m-d');
+		$datos = $model->getlistadoConsolidado($fecha);
+		$message = "";
+		require_once PATH_VIEWS."/Confronta/view.consolidado.php";
+	}
+	
+	public function imprimirConsolidado(){
+		$model = new ConfrontaModel();
+		$unidad = $this->getUnidad();
+		$fecha = isset($_GET['valor'])?$_GET['valor']:date('Y-m-d');
+		$datos = $model->getlistadoConsolidado($fecha);
+		$message = "";
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		require_once PATH_VIEWS."/Confronta/view.imprimirConsolidado.php";
+	}
+	
+	
 }

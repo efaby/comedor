@@ -46,7 +46,7 @@
 							<td style="text-align: center;"><?php echo ($item->almuerzo)?'<i class="fa fa-check">':'<i class="fa fa-times">'; ?></td>
 							<td style="text-align: center;"><?php echo ($item->merienda)?'<i class="fa fa-check">':'<i class="fa fa-times">'; ?></td>
 							<?php else:?>
-							<td colspan='3' style='text-align: center;'><?php echo $item->nombre; ?></td>
+							<td colspan='3' style='text-align: center;'><a href="../downloadFile/?nameFile=<?php echo $item->url;?>"><?php echo $item->nombre; ?></a></td>
 							<?php endif;?>
 						</tr>
 								<?php endforeach;?>

@@ -24,21 +24,22 @@ class ConfrontaModel {
 		$model = new BaseModel();
 		$parametros =  array($unidad);
 		if($confronta>0){
-			$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, t.id as novedad, c.almuerzo, c.desayuno, c.merienda from persona as p
+			$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, n.url, n.id as novedad, c.almuerzo, c.desayuno, c.merienda from persona as p
 				inner join grado_persona as g on g.id = p.grado_persona_id
-				left join novedad as n on p.id = n.persona_id and ('".date('Y-m-d')."' between n.fecha_inicio and n.fecha_fin) and n.activo = 1
-                left join tipo_novedad as t on t.id = n.tipo_novedad_id
 				left join confronta as c on c.persona_id = p.id
+				left join novedad as n on n.id = c.novedad_id
+                left join tipo_novedad as t on t.id = n.tipo_novedad_id				
 				where p.unidad_id = ? and c.confronta_general_id = ?";		
 			$parametros[] = $confronta;
 		} else {
-			$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, t.id as novedad, 1 as almuerzo, 1 as desayuno, 1 as merienda from persona as p
+			$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, n.id as novedad, 1 as almuerzo, 1 as desayuno, 1 as merienda from persona as p
 				inner join grado_persona as g on g.id = p.grado_persona_id
 				left join novedad as n on p.id = n.persona_id and ('".date('Y-m-d')."' between n.fecha_inicio and n.fecha_fin) and n.activo = 1
                 left join tipo_novedad as t on t.id = n.tipo_novedad_id				
 				where p.unidad_id = ?";
 		}
         $sql .= " group by p.id";
+
 		return $model->execSql($sql, $parametros,true);
 	}
 	
@@ -78,5 +79,13 @@ class ConfrontaModel {
 		$model = new BaseModel();
 		$model->deleteMultipleData($confrontaId);
 	}	
+	
+	public function getlistadoConsolidado($fecha){
+		$model = new BaseModel();
+		$sql = "select c.*, u.abreviatura as unidad from confronta_general as c
+				inner join unidad as u on u.id = c.unidad_id
+				where c.fecha_registro = ?";
+		return $model->execSql($sql, array($fecha),true);
+	}
 
 }
