@@ -40,9 +40,9 @@
 <div style="font-weight: bold; padding: 5px">Mes <?php $total = 0; $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></div>
 <table class="table table-bordered " style="width: 40%">
 <tr><th></th><th style="text-align: center;">Cantidad</th><th style="text-align: center;">Total</th></tr>
-<tr><td>Desayuno</td><td style="text-align: center;"><?php echo $item->desayuno;?></td><td style="text-align: center;"><?php $total = $total + $item->desayuno * $parametros['desayuno']; echo $item->desayuno * $parametros['desayuno']; ?></td></tr>
-<tr><td>Almuerzo</td><td style="text-align: center;"><?php echo $item->almuerzo;?></td><td style="text-align: center;"><?php $total = $total + $item->almuerzo * $parametros['almuerzo']; echo $item->almuerzo * $parametros['almuerzo']; ?></td></tr>
-<tr><td>Merienda</td><td style="text-align: center;"><?php echo $item->merienda;?></td><td style="text-align: center;"><?php $total = $total + $item->merienda * $parametros['merienda']; echo $item->merienda * $parametros['merienda']; ?></td></tr>
+<tr><td>Desayuno</td><td style="text-align: center;"><?php echo $item->desayuno;?></td><td style="text-align: center;"><?php $total = $total + $item->costo_desayuno; echo $item->costo_desayuno; ?></td></tr>
+<tr><td>Almuerzo</td><td style="text-align: center;"><?php echo $item->almuerzo;?></td><td style="text-align: center;"><?php $total = $total + $item->costo_almuerzo; echo $item->costo_almuerzo; ?></td></tr>
+<tr><td>Merienda</td><td style="text-align: center;"><?php echo $item->merienda;?></td><td style="text-align: center;"><?php $total = $total + $item->costo_merienda; echo $item->costo_merienda; ?></td></tr>
 <tr><td>Total</td><td></td><td style="text-align: center;"><?php echo $total; ?></td></tr>
 </table>
 </td>

@@ -62,7 +62,7 @@ class ConfrontaController {
 		$fieldsListado = array('persona_id', 'desayuno', 'almuerzo', 'merienda', 'fecha_acceso', 'fecha_registro', 'acceso','guardia','usuario_id','unidad_id','novedad_id','confronta_general_id');
 		$listado = $this->getConfrontaListado($model, $fecha, $nuevafecha, $usuario,$unidad);		
 		
-		$fieldsGeneral = array('desayuno_ofi','almuerzo_ofi','merienda_ofi','desayuno_vol','almuerzo_vol','merienda_vol','desayuno_con','almuerzo_con','merienda_con','estado','fecha_registro','fecha_acceso','usuario_id','unidad_id');
+		$fieldsGeneral = array('desayuno_ofi','almuerzo_ofi','merienda_ofi','desayuno_vol','almuerzo_vol','merienda_vol','desayuno_con','almuerzo_con','merienda_con','estado','fecha_registro','fecha_acceso','usuario_id','unidad_id','costo_desayuno','costo_merienda','costo_almuerzo');
 		
 		$general[] = $_POST ['desOfi'];
 		$general[] = $_POST ['almOfi'];
@@ -77,7 +77,14 @@ class ConfrontaController {
 		$general[] = $fecha;
 		$general[] = $nuevafecha;
 		$general[] = $usuario; 
-		$general[] = $unidad;
+		$general[] = $unidad;		
+		$modelP = new ParametroModel();
+		$parametro = $modelP->getsParametroByKey('confrontaKeyDesayuno');
+		$general[] = $parametro->valor;
+		$parametro = $modelP->getsParametroByKey('confrontaKeyMerienda');
+		$general[] = $parametro->valor;
+		$parametro = $modelP->getsParametroByKey('confrontaKeyAlmuerzo');
+		$general[] = $parametro->valor;
 		
 		$confronta_id = isset($_POST['confronta_id'])?$_POST['confronta_id']:0;
 
@@ -197,6 +204,7 @@ class ConfrontaController {
 		$datos = $model->getlistadoConsolidado($fecha);
 		$message = "";
 		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		
 		require_once PATH_VIEWS."/Confronta/view.imprimirConsolidado.php";
 	}
 	
@@ -207,16 +215,7 @@ class ConfrontaController {
 		if($fecha != ''){
 			$model = new ConfrontaModel();
 			$datos = $model->getReporteConsolidado($fecha);
-			$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-			
-			$model = new ParametroModel();
-			$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
-			$costo['desayuno'] = $parametro->valor;
-			$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
-			$costo['merienda'] = $parametro->valor;
-			$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
-			$costo['almuerzo'] = $parametro->valor;
-			
+			$meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");			
 		}
 		$message = "";
 		require_once PATH_VIEWS."/Confronta/view.reporteConsolidado.php";
@@ -227,16 +226,7 @@ class ConfrontaController {
 		$fecha = isset($_GET['fecha'])?$_GET['fecha']:date('Y-m');
 		$model = new ConfrontaModel();
 		$datos = $model->getReporteConsolidado($fecha);
-		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-			
-		$model = new ParametroModel();
-		$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
-		$costo['desayuno'] = $parametro->valor;
-		$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
-		$costo['merienda'] = $parametro->valor;
-		$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
-		$costo['almuerzo'] = $parametro->valor;
-
+		$meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
 		require_once PATH_VIEWS."/Confronta/view.imprimirReporteConsolidado.php";
 	}
 	

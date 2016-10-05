@@ -99,7 +99,10 @@ class ConfrontaModel {
 				sum(c.almuerzo_con) as almuerzo_con,
 				sum(c.merienda_ofi) as merienda_ofi,
 				sum(c.merienda_vol) as merienda_vol,
-				sum(c.merienda_con) as merienda_con
+				sum(c.merienda_con) as merienda_con,
+				sum(c.costo_desayuno * (c.desayuno_ofi + c.desayuno_vol + c.desayuno_con)) as costo_desayuno,
+				sum(c.costo_almuerzo * (c.almuerzo_ofi + c.almuerzo_vol + c.almuerzo_con)) as costo_almuerzo,
+				sum(c.costo_merienda * (c.merienda_ofi + c.merienda_vol + c.merienda_con)) as costo_merienda
  				FROM comedor.confronta_general as c
  							inner join unidad as u on u.id = c.unidad_id
  				where date_format(c.fecha_acceso, '%Y-%m') = ?

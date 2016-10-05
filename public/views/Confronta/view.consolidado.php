@@ -28,7 +28,7 @@
 		<div class="form-group col-sm-3" style="padding-top: 25px;">
 		<input type='hidden' name='id' id='id' class='form-control' value="<?php echo $item->id; ?>">
 		<input type='hidden' name='imprimir' id='imprimir' class='form-control' value="0">
-			<button type="submit" class="btn btn-success boton" id="boton">Buscar</button>
+			<button type="submit" class="btn btn-success boton" id="boton">Generar</button>
 
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 				<button class="btn btn-primary btn-xs" id="imprimirBtn">Imprimir</button>								
 			</div>
 
-
+<?php if(count($datos)>0):?>
 
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
@@ -107,6 +107,7 @@
     	<td></td></tr>
     </tbody>
     </table>
+    <?php endif;?>
 </div>
 
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   

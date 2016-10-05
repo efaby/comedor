@@ -48,27 +48,31 @@
 </tr>
 <?php 
 $totalDes = 0; $totalAlm = 0; $totalMer = 0;
+$cantDes = 0; $cantAlm = 0; $cantMer = 0;
 foreach ($datos as $item):
 $totalItem = 0;
 			echo "<tr><td>".$item->identificacion."</td>";
     		echo "<td>".$item->nombres." ".$item->apellidos."</td>";  
     		echo "<td>".$item->grado."</td>";
     		echo "<td>".$item->arma."</td>";
-    		$totalDes = $totalDes + $item->desayuno * $parametros['desayuno'];
-    		$totalItem = $totalItem + $item->desayuno * $parametros['desayuno'];
+    		$cantDes = $cantDes + $item->desayuno;
+    		$totalDes = $totalDes + $item->costo_desayuno;
+    		$totalItem = $totalItem + $item->costo_desayuno;
     		echo "<td style='text-align: center;'>".$item->desayuno."</td>";
-    		echo "<td style='text-align: center;'>".$item->desayuno * $parametros['desayuno']."</td>";
-    		$totalAlm = $totalAlm + $item->almuerzo * $parametros['almuerzo'];
-    		$totalItem = $totalItem + $item->almuerzo * $parametros['almuerzo'];
+    		echo "<td style='text-align: center;'>".$item->costo_desayuno."</td>";
+    		$cantAlm = $cantAlm + $item->almuerzo;
+    		$totalAlm = $totalAlm + $item->costo_almuerzo;
+    		$totalItem = $totalItem + $item->costo_almuerzo;
     		echo "<td style='text-align: center;'>".$item->almuerzo."</td>";
-    		echo "<td style='text-align: center;'>".$item->almuerzo * $parametros['almuerzo']."</td>";
-    		$totalMer = $totalMer + $item->merienda * $parametros['merienda'];
-    		$totalItem = $totalItem + $item->merienda * $parametros['merienda'];
+    		echo "<td style='text-align: center;'>".$item->costo_almuerzo."</td>";
+    		$cantMer = $cantMer + $item->merienda;
+    		$totalMer = $totalMer + $item->costo_merienda;
+    		$totalItem = $totalItem + $item->costo_merienda;
     		echo "<td style='text-align: center;'>".$item->merienda."</td>";
-    		echo "<td style='text-align: center;'>".$item->merienda * $parametros['merienda']."</td>";
+    		echo "<td style='text-align: center;'>".$item->costo_merienda."</td>";
     		echo "<td style='text-align: center;'>".$totalItem."</td>";
  endforeach;?>
- <tr><td colspan="4"><b>Total</b></td><td></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes;?></td><td></td><td style="text-align: center; font-weight: bold;"><?php echo $totalAlm;?></td><td></td><td style="text-align: center; font-weight: bold;"><?php echo $totalMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes + $totalAlm + $totalMer;?></td></tr>
+ <tr><td colspan="4"><b>Total</b></td><td style="text-align: center; font-weight: bold;"><?php echo $cantDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes + $totalAlm + $totalMer;?></td></tr>
 </table>
 			<?php endif;?>
 </div>

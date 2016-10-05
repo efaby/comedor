@@ -62,9 +62,10 @@
     </thead>
     <tbody>
     	<?php 
-    	$desOfi = $almOfi = $merOfi = 0;
+    	    	$desOfi = $almOfi = $merOfi = 0;
     	$desVol = $almVol = $merVol = 0;
     	$desCons = $almCons = $merCons = 0;
+    	$costo_desayuno = $costo_almuerzo =  $costo_merienda =0;
     	foreach ($datos as $item) {
     		echo "<tr><td>".$item->unidad."</td>";
     		$desOfi = $desOfi + $item->desayuno_ofi;
@@ -75,8 +76,7 @@
     		echo "<td style='text-align: center;'>".$item->desayuno_con."</td>";
     		$desayunos = $item->desayuno_con + $item->desayuno_vol + $item->desayuno_ofi;
     		echo "<td style='text-align: center;  font-weight: bold;'>".$desayunos."</td>";
-    		$valor = $desayunos * $costo['desayuno'];
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_desayuno."</td>";
     		echo "<td style='text-align: center;'>".$item->almuerzo_ofi."</td>";
     		$almOfi = $almOfi + $item->almuerzo_ofi;
     		echo "<td style='text-align: center;'>".$item->almuerzo_vol."</td>";
@@ -84,9 +84,8 @@
     		echo "<td style='text-align: center;'>".$item->almuerzo_con."</td>";
     		$almCons = $almCons + $item->almuerzo_con;
     		$almuerzos = $item->almuerzo_con + $item->almuerzo_vol + $item->almuerzo_ofi;
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$almuerzos."</td>";
-    		$valor = $almuerzos * $costo['almuerzo'];
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$almuerzos."</td>";    		
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_almuerzo."</td>";
     		echo "<td style='text-align: center;'>".$item->merienda_ofi."</td>";
     		$merOfi = $merOfi + $item->merienda_ofi;
     		echo "<td style='text-align: center;'>".$item->merienda_vol."</td>";
@@ -94,14 +93,16 @@
     		echo "<td style='text-align: center;'>".$item->merienda_con."</td>";
     		$merCons = $merCons + $item->merienda_con;
     		$meriendas = $item->merienda_con + $item->merienda_vol + $item->merienda_ofi;
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$meriendas."</td>";   
-    		$valor = $meriendas * $costo['merienda'];
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$meriendas."</td>";    		
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_merienda."</td>";
     		echo "</tr>";
+    		$costo_desayuno= $costo_desayuno + $item->costo_desayuno;
+    		$costo_almuerzo= $costo_almuerzo + $item->costo_almuerzo;
+    		$costo_merienda= $costo_merienda + $item->costo_merienda;
     	}?>
-    	<tr><td>Total</td><td style="text-align: center; font-weight: bold;"><?php echo $desOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons+$desOfi+$desVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($desCons+$desOfi+$desVol)*$costo['desayuno']; ?></td>
-    	<td style="text-align: center; font-weight: bold;"><?php echo $almOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons+$almOfi+$almVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($almCons+$almOfi+$almVol)*$costo['almuerzo']; ?></td>
-    	<td style="text-align: center; font-weight: bold;"><?php echo $merOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons+$merOfi+$merVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($merCons+$merOfi+$merVol)*$costo['merienda']; ?></td>
+    	<tr><td>Total</td><td style="text-align: center; font-weight: bold;"><?php echo $desOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons+$desOfi+$desVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_desayuno,2); ?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $almOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons+$almOfi+$almVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_almuerzo,2); ?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $merOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons+$merOfi+$merVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_merienda,2); ?></td>
     	</tr>
     </tbody>
     </table>

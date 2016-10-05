@@ -1,7 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/ConsumoModel.php");
 require_once (PATH_MODELS . "/PersonaModel.php");
-require_once(PATH_MODELS."/ParametroModel.php");
 require_once(PATH_MODELS."/UnidadModel.php");
 
 class ConsumoController {
@@ -41,13 +40,6 @@ class ConsumoController {
 	
 	
 	private function getParametros(){
-		$model = new ParametroModel();
-		$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
-		$result['desayuno'] = $parametro->valor;
-		$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
-		$result['merienda'] = $parametro->valor;
-		$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
-		$result['almuerzo'] = $parametro->valor;
 		$model = new UnidadModel();
 		$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
 		$unidad = $model->getUnidadById($unidad_id);		
