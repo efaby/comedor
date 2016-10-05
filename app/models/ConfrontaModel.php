@@ -87,5 +87,24 @@ class ConfrontaModel {
 				where c.fecha_registro = ?";
 		return $model->execSql($sql, array($fecha),true);
 	}
+	
+	public function getReporteConsolidado($fecha){
+		$model = new BaseModel();
+		$sql = "SELECT c.unidad_id, u.abreviatura as unidad,
+				sum(c.desayuno_ofi) as desayuno_ofi,
+				sum(c.desayuno_vol) as desayuno_vol,
+				sum(c.desayuno_con) as desayuno_con,
+				sum(c.almuerzo_ofi) as almuerzo_ofi,
+				sum(c.almuerzo_vol) as almuerzo_vol,
+				sum(c.almuerzo_con) as almuerzo_con,
+				sum(c.merienda_ofi) as merienda_ofi,
+				sum(c.merienda_vol) as merienda_vol,
+				sum(c.merienda_con) as merienda_con
+ 				FROM comedor.confronta_general as c
+ 							inner join unidad as u on u.id = c.unidad_id
+ 				where date_format(c.fecha_acceso, '%Y-%m') = ?
+ 				group by c.unidad_id, date_format(c.fecha_acceso, '%Y-%m')";
+		return $model->execSql($sql, array($fecha),true);
+	}
 
 }

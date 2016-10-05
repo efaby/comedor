@@ -69,7 +69,7 @@
                             	<?php endif;?>
 							<?php if($_SESSION['SESSION_USER']->tipo==3):?>
                             	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
-                            	<li class="<?php echo (strpos($url, '/Reporte/consolidado/'))?'menu-top-active':'';?>"><a href="../../Reporte/consolidado/">Reporte</a></li>
+                            	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
                             <?php endif;?>
                         </ul>
                         

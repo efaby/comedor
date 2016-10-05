@@ -2,6 +2,7 @@
 require_once (PATH_MODELS . "/ConfrontaModel.php");
 require_once(PATH_MODELS."/ParametroModel.php");
 require_once (PATH_HELPERS. "/File.php");
+require_once(PATH_MODELS."/ParametroModel.php");
 
 class ConfrontaController {
 	
@@ -198,6 +199,47 @@ class ConfrontaController {
 		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		require_once PATH_VIEWS."/Confronta/view.imprimirConsolidado.php";
 	}
+	
+	public function reporteConsolidado(){
+		
+		$fecha = isset($_POST['fecha'])?$_POST['fecha']:'';
+		$datos = array();
+		if($fecha != ''){
+			$model = new ConfrontaModel();
+			$datos = $model->getReporteConsolidado($fecha);
+			$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+			
+			$model = new ParametroModel();
+			$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
+			$costo['desayuno'] = $parametro->valor;
+			$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
+			$costo['merienda'] = $parametro->valor;
+			$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
+			$costo['almuerzo'] = $parametro->valor;
+			
+		}
+		$message = "";
+		require_once PATH_VIEWS."/Confronta/view.reporteConsolidado.php";
+	}
+	
+	public function imprimirReporteConsolidado(){
+	
+		$fecha = isset($_GET['fecha'])?$_GET['fecha']:date('Y-m');
+		$model = new ConfrontaModel();
+		$datos = $model->getReporteConsolidado($fecha);
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+			
+		$model = new ParametroModel();
+		$parametro = $model->getsParametroByKey('confrontaKeyDesayuno');
+		$costo['desayuno'] = $parametro->valor;
+		$parametro = $model->getsParametroByKey('confrontaKeyMerienda');
+		$costo['merienda'] = $parametro->valor;
+		$parametro = $model->getsParametroByKey('confrontaKeyAlmuerzo');
+		$costo['almuerzo'] = $parametro->valor;
+
+		require_once PATH_VIEWS."/Confronta/view.imprimirReporteConsolidado.php";
+	}
+	
 	
 	
 }

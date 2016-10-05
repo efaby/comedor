@@ -125,7 +125,7 @@ $(document).ready(function() {
 					fecha_inicio: {
 						 validators: {
 							 notEmpty: {
-								 message: 'La fecha de inicio es requerida y no puede ser vacia'
+								 message: 'El mes es requerido y no puede ser vacio'
 							 },							 
 							 regexp: {
 									regexp: /^[0-9]{4}-(0[1-9]|1[0-2])$/,

@@ -19,7 +19,7 @@
 <form id="frmUsuario" method="post" action="" >
 	<div class="col-lg-12">
 		<div class="form-group col-sm-3">
-		<label class="control-label">Día Consolidado</label>
+		<label class="control-label">Mes Consolidado</label>
 		<input type="text"
 			name='fecha' id='fecha' class='form-control'
 			value="<?php echo $fecha; ?>">
@@ -43,26 +43,30 @@
 
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
+    <tr><th colspan="13" style="text-align: center;">CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha = explode('-', $fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
 	    <tr>
 	    	<th rowspan="2">Unidad</th>
-		    <th colspan="4" style="text-align: center;">Desayunos</th>
-		    <th colspan="4" style="text-align: center;">Almuerzos</th>
-		    <th colspan="4" style="text-align: center;">Meriendas</th>
-		    <th rowspan="2" style="text-align: center; width: 20%">Acciones</th>
+		    <th colspan="5" style="text-align: center;">Desayunos</th>
+		    <th colspan="5" style="text-align: center;">Almuerzos</th>
+		    <th colspan="5" style="text-align: center;">Meriendas</th>
+		   
 	    </tr>
 	    <tr>
 	    	<th>OFI</th>
 	    	<th>VOL</th>
 	    	<th>CON</th>
 	    	<th>Total</th>
+	    	<th>Valor</th>
 	    	<th>OFI</th>
 	    	<th>VOL</th>
 	    	<th>CON</th>
 	    	<th>Total</th>
+	    	<th>Valor</th>
 	    	<th>OFI</th>
-	    	<th>VOL</th>
+	    	<th>VOL</th>	    	
 	    	<th style="border-right: 1px solid #ddd;">CON</th>	 
-	    	<th>Total</th>   	
+	    	<th>Total</th>  
+	    	<th>Valor</th> 	
 	    </tr>
     </thead>
     <tbody>
@@ -80,6 +84,8 @@
     		echo "<td style='text-align: center;'>".$item->desayuno_con."</td>";
     		$desayunos = $item->desayuno_con + $item->desayuno_vol + $item->desayuno_ofi;
     		echo "<td style='text-align: center;  font-weight: bold;'>".$desayunos."</td>";
+    		$valor = $desayunos * $costo['desayuno'];
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
     		echo "<td style='text-align: center;'>".$item->almuerzo_ofi."</td>";
     		$almOfi = $almOfi + $item->almuerzo_ofi;
     		echo "<td style='text-align: center;'>".$item->almuerzo_vol."</td>";
@@ -88,6 +94,8 @@
     		$almCons = $almCons + $item->almuerzo_con;
     		$almuerzos = $item->almuerzo_con + $item->almuerzo_vol + $item->almuerzo_ofi;
     		echo "<td style='text-align: center;  font-weight: bold;'>".$almuerzos."</td>";
+    		$valor = $almuerzos * $costo['almuerzo'];
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
     		echo "<td style='text-align: center;'>".$item->merienda_ofi."</td>";
     		$merOfi = $merOfi + $item->merienda_ofi;
     		echo "<td style='text-align: center;'>".$item->merienda_vol."</td>";
@@ -95,16 +103,15 @@
     		echo "<td style='text-align: center;'>".$item->merienda_con."</td>";
     		$merCons = $merCons + $item->merienda_con;
     		$meriendas = $item->merienda_con + $item->merienda_vol + $item->merienda_ofi;
-    		echo "<td style='text-align: center;  font-weight: bold;'>".$meriendas."</td>";   		
-    		echo "<td align='center'>
-		    		<a href='javascript:imprimir(".$item->id.",\"verGeneral\",0);' class='btn btn-info btn-sm' title='Ver Resumen'><i class='fa fa-file-text-o'></i></a>  
-		    		<a href='javascript:imprimir(".$item->id.",\"verListado\",".$item->unidad_id.");' class='btn btn-success btn-sm' title='Ver Listado'><i class='fa fa-book'></i></a>		    		  
-		    		</td></tr>";
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$meriendas."</td>";   
+    		$valor = $meriendas * $costo['merienda'];
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$valor."</td>";
+    		echo "</tr>";
     	}?>
-    	<tr><td>Total</td><td style="text-align: center; font-weight: bold;"><?php echo $desOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons+$desOfi+$desVol; ?></td>
-    	<td style="text-align: center; font-weight: bold;"><?php echo $almOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons+$almOfi+$almVol; ?></td>
-    	<td style="text-align: center; font-weight: bold;"><?php echo $merOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons+$merOfi+$merVol; ?></td>
-    	<td></td></tr>
+    	<tr><td>Total</td><td style="text-align: center; font-weight: bold;"><?php echo $desOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons+$desOfi+$desVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($desCons+$desOfi+$desVol)*$costo['desayuno']; ?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $almOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $almCons+$almOfi+$almVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($almCons+$almOfi+$almVol)*$costo['almuerzo']; ?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $merOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $merCons+$merOfi+$merVol; ?></td><td style="text-align: center; font-weight: bold;"><?php echo ($merCons+$merOfi+$merVol)*$costo['merienda']; ?></td>
+    	</tr>
     </tbody>
     </table>
 </div>
@@ -116,17 +123,15 @@
 
 <script type="text/javascript">
 
-function imprimir(id,url,valor){
+function imprimir(url,valor){
 	var posicion_x; 
 	var posicion_y; 
 	var ancho = 900;
 	var alto = 550;
 	posicion_x=(screen.width/2)-(ancho/2); 
 	posicion_y=(screen.height/2)-(alto/2); 
-	var accion = "../"+url+"/" + id;
-	if(valor!=0){
-		accion = accion + "&valor=" + valor; 
-	}
+	var accion = "../"+url+"/" + "?fecha=" + valor; 
+	
 	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
 	window.open(accion,"",opciones);
 }
@@ -139,12 +144,16 @@ function imprimir(id,url,valor){
 $(document).ready(function() {
 	
 	$('#imprimirBtn').click(function() {
-		imprimir(0,'imprimirConsolidado',$('#fecha').val());
+		imprimir('imprimirReporteConsolidado',$('#fecha').val());
 	});
 	
 	jQuery( "#fecha" ).datepicker({  
-		dateFormat: "yy-mm-dd",
-		onClose: function( selectedDate ) {
+		changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'yy-mm',
+        onClose: function(dateText, inst) { 
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
             $('#frmUsuario').formValidation('revalidateField', 'fecha');
         }		
 	});
@@ -161,12 +170,12 @@ $(document).ready(function() {
 					fecha: {
 						 validators: {
 							 notEmpty: {
-								 message: 'La fecha es requerida y no puede ser vacia'
+								 message: 'El mes es requerido y no puede ser vacio'
 							 },
-							 date:{	 
-								    format: 'YYYY-MM-DD',
-				                    message: 'La fecha no es válida.'				                    
-							 },
+							 regexp: {
+									regexp: /^[0-9]{4}-(0[1-9]|1[0-2])$/,
+									message: 'Ingrese un mes válido.'
+								},
 							 							 
 						 }
 					 },
@@ -175,7 +184,11 @@ $(document).ready(function() {
 	});
 });
 </script>
-
+<style>
+.ui-datepicker-calendar {
+    display: none;
+    }
+</style>
 
 
 </body>
