@@ -69,5 +69,22 @@ class ExtraConfrontaModel {
 		return $model->execSql($sql, array($fecha,$unidad),true);
 	}	
 	
+	public function getExtraConfrontaUnidades($fecha){
+		$model = new BaseModel();
+		$sql = "SELECT p.unidad_id, u.abreviatura as unidad,
+					SUM(case when c.tipo_servicio = 1 then 1 else 0 end)  as desayuno,
+ 					SUM(case when c.tipo_servicio = 2 then 1 else 0 end)  as almuerzo,
+ 					SUM(case when c.tipo_servicio = 3 then 1 else 0 end)  as merienda,
+ 					SUM(case when c.tipo_servicio = 1 then c.precio else 0 end)  as costo_desayuno,
+ 					SUM(case when c.tipo_servicio = 2 then c.precio else 0 end)  as costo_almuerzo,
+ 					SUM(case when c.tipo_servicio = 3 then c.precio else 0 end)  as costo_merienda
+ 				FROM extra_confronta as c
+ 					inner join persona as p on p.id = c.persona_id 	
+					inner join unidad as u on u.id = p.unidad_id
+ 				where date_format(c.fecha, '%Y-%m') = ? 
+ 				group by unidad_id, date_format(c.fecha, '%Y-%m')";
+		return $model->execSql($sql, array($fecha),true);
+	}
+	
 	
 }

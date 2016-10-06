@@ -3,6 +3,7 @@ require_once (PATH_MODELS . "/ConfrontaModel.php");
 require_once(PATH_MODELS."/ParametroModel.php");
 require_once (PATH_HELPERS. "/File.php");
 require_once(PATH_MODELS."/ParametroModel.php");
+require_once(PATH_MODELS."/ExtraConfrontaModel.php");
 
 class ConfrontaController {
 	
@@ -211,11 +212,13 @@ class ConfrontaController {
 	public function reporteConsolidado(){
 		
 		$fecha = isset($_POST['fecha'])?$_POST['fecha']:'';
-		$datos = array();
+		$datos = $extraConfronta = array();
 		if($fecha != ''){
 			$model = new ConfrontaModel();
 			$datos = $model->getReporteConsolidado($fecha);
-			$meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");			
+			$meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
+			$modelEC = new ExtraConfrontaModel();
+			$extraConfronta = $modelEC->getExtraConfrontaUnidades($fecha);
 		}
 		$message = "";
 		require_once PATH_VIEWS."/Confronta/view.reporteConsolidado.php";
@@ -227,6 +230,8 @@ class ConfrontaController {
 		$model = new ConfrontaModel();
 		$datos = $model->getReporteConsolidado($fecha);
 		$meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
+		$modelEC = new ExtraConfrontaModel();
+		$extraConfronta = $modelEC->getExtraConfrontaUnidades($fecha);
 		require_once PATH_VIEWS."/Confronta/view.imprimirReporteConsolidado.php";
 	}
 	

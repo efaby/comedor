@@ -43,7 +43,7 @@
 <?php if(count($datos)>0):?>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
-    <tr><th colspan="16" style="text-align: center;">CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha = explode('-', $fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
+    <tr><th colspan="16" style="text-align: center;">CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha1 = explode('-', $fecha); echo $meses[$fecha1[1]-1]." del ".$fecha1[0];?></th></tr>
 	    <tr>
 	    	<th rowspan="2">Unidad</th>
 		    <th colspan="5" style="text-align: center;">Desayunos</th>
@@ -52,7 +52,7 @@
 		   
 	    </tr>
 	    <tr>
-	    	<th>OFI</th>
+	    	<th >OFI</th>
 	    	<th>VOL</th>
 	    	<th>CON</th>
 	    	<th>Total</th>
@@ -115,6 +115,56 @@
     	</tr>
     </tbody>
     </table>
+    
+    <?php if(count($extraConfronta)>0):?>
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <thead>
+    <tr><th colspan="16" style="text-align: center;">EXTRA CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha = explode('-', $fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
+	    <tr>
+	    	<th rowspan="2">Unidad</th>
+		    <th colspan="2" style="text-align: center;">Desayunos</th>
+		    <th colspan="2" style="text-align: center;">Almuerzos</th>
+		    <th colspan="2" style="text-align: center;">Meriendas</th>
+		   
+	    </tr>
+	    <tr>
+	    	<th style="text-align: center;" >Cantidad</th>
+	    	<th style="text-align: center;">Total</th>
+	    	<th style="text-align: center;">Cantidad</th>
+	    	<th style="text-align: center;">Total</th>
+	    	<th style="text-align: center;">Cantidad</th>
+	    	<th style="text-align: center;">Total</th>	
+	    </tr>
+    </thead>
+    <tbody>
+    	<?php 
+    	$des = $alm = $mer = 0;
+    	$costo_desayuno = $costo_almuerzo =  $costo_merienda =0;
+    	foreach ($extraConfronta as $item) {
+    		echo "<tr><td>".$item->unidad."</td>";
+    		$des = $des + $item->desayuno;
+    		echo "<td style='text-align: center;'>".$item->desayuno."</td>";    		
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_desayuno."</td>";
+    		echo "<td style='text-align: center;'>".$item->almuerzo."</td>";
+    		$alm = $alm + $item->almuerzo;    		
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_almuerzo."</td>";
+    		echo "<td style='text-align: center;'>".$item->merienda."</td>";
+    		$mer = $mer + $item->merienda;   		
+    		echo "<td style='text-align: center;  font-weight: bold;'>".$item->costo_merienda."</td>";
+    		echo "</tr>";
+    		$costo_desayuno= $costo_desayuno + $item->costo_desayuno;
+    		$costo_almuerzo= $costo_almuerzo + $item->costo_almuerzo;
+    		$costo_merienda= $costo_merienda + $item->costo_merienda;
+    	}?>
+    	<tr><td>Total</td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $des;?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_desayuno,2);?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $alm;?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_almuerzo,2);?></td>
+    	<td style="text-align: center; font-weight: bold;"><?php echo $mer;?></td><td style="text-align: center; font-weight: bold;"><?php echo number_format($costo_merienda,2);?></td>
+    	</tr>
+    </tbody>
+    </table>
+    <?php endif;?>
+    
     <?php endif;?>
 </div>
 
