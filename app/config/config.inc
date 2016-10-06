@@ -20,7 +20,7 @@
 			array(
 			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad'),
 			'SUPER_URLS' => array('Seguridad','Persona','Confronta'),
-			'RANCH_URLS' => array('Seguridad'),
+			'RANCH_URLS' => array('Seguridad','ExtraConfronta'),
 			'AMANA_URLS' => array('Seguridad','Persona','Confronta','Novedad','Unidadconfigurar','UnidadguardarConfiguracion','Consumo')
 			)));	
 	
