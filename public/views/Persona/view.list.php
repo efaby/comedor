@@ -43,7 +43,7 @@
     		echo "<td>".$item->nombre." -".$item->grado." </td>";  
     		echo "<td>".$item->arma."</td>";
     		echo "<td align='center'>
-					<a href='javascript: loadModal(".$item->id.")' class='btn btn-primary btn-sm' title='Generar Tarjeta' ><i class='fa fa-credit-card'></i></a>
+					<a href='javascript: generarCodigo(".$item->id.")' class='btn btn-primary btn-sm' title='Generar Tarjeta' ><i class='fa fa-credit-card'></i></a>
 					<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>					
 					<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a>
 				</td>";
@@ -76,6 +76,22 @@
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 
+	
+<script type="text/javascript">
+
+function generarCodigo(id){
+	var posicion_x; 
+	var posicion_y; 
+	var ancho = 450;
+	var alto = 350;
+	posicion_x=(screen.width/2)-(ancho/2); 
+	posicion_y=(screen.height/2)-(alto/2); 
+	var accion = "../generarCodigo/" + id; 
+	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
+	window.open(accion,"",opciones);
+}
+
+</script>
 
 </body>
 </html>

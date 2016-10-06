@@ -1,5 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/PersonaModel.php");
+require_once (PATH_HELPERS. "/code/Code.php");
 
 
 class PersonaController {
@@ -80,5 +81,17 @@ class PersonaController {
 			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
 		}
 		return $unidad_id;
+	}
+	
+	public function generarCodigo(){
+		$model = new PersonaModel();
+		$item = $model->getPersona();		
+		$message = "";
+		require_once PATH_VIEWS."/Persona/view.generarCodigo.php";
+	}
+	
+	public function codigo(){
+		$code = new Code();
+		$code->generarCodigo($_GET['ci']);
 	}
 }
