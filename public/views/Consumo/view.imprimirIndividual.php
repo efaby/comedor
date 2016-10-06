@@ -48,6 +48,24 @@
 </td>
 </tr>
 <?php endforeach;?>
+<?php if(count($extraConfronta)>0):?>
+<tr>
+<td colspan="4">
+<div style="font-weight: bold; padding: 5px">Extra Confronta</div>
+<table class="table table-bordered " style="width: 40%">
+<tr><th>Mes</th><th style="text-align: center;">Servicio</th><th style="text-align: center;">Cantidad</th><th style="text-align: center;">Total</th></tr>
+<?php foreach ($extraConfronta as $item):?>
+<tr><td><?php  $fecha = explode('-', $item->fecha); echo $meses[$fecha[1]-1]." ".$fecha[0];?></td>
+<td><?php echo $servicio[$item->tipo_servicio];?></td>
+<td style="text-align: center;"><?php echo $item->cantidad; ?></td>
+<td style="text-align: center;"><?php echo $item->valor; ?></td>
+</tr>
+<?php endforeach;?>
+</table>
+
+</td>
+</tr>
+<?php endif;?>
 </table>
 		</div>
 	</div>

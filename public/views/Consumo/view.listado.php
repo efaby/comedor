@@ -74,6 +74,45 @@ $totalItem = 0;
  endforeach;?>
  <tr><td colspan="4"><b>Total</b></td><td style="text-align: center; font-weight: bold;"><?php echo $cantDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes + $totalAlm + $totalMer;?></td></tr>
 </table>
+
+<?php if(count($extraConfronta)>0):?>
+<table class="table table-bordered ">
+<tr><th colspan="11" style="text-align: center;">Tabla de Extra Confronta <?php echo $parametros['unidad'];?><br>Correspondiente al mes de <?php $fecha = explode('-', $fechaInicio); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
+<tr>
+<th style="vertical-align: middle" rowspan="2">Indentificación</th><th style="vertical-align: middle" rowspan="2">Nombres</th><th style="vertical-align: middle" rowspan="2">Grado</th><th style="vertical-align: middle" rowspan="2">Arma</th>
+	    	<th colspan="2" style='text-align: center;'>Desayuno</th><th colspan="2" style='text-align: center;'>Almuerzo</th><th colspan="2" style='text-align: center;'>Merienda</th><th style="vertical-align: middle" rowspan="2">Total</th>
+<tr><td style='text-align: center;'>Cant.</td><td style='text-align: center;'>Total</td><td style='text-align: center;'>Cant</td><td style='text-align: center;'>Total</td><td style='text-align: center;'>Cant</td><td style='text-align: center;'>Total</td>
+	    	
+</tr>
+<?php 
+$totalDes = 0; $totalAlm = 0; $totalMer = 0;
+$cantDes = 0; $cantAlm = 0; $cantMer = 0;
+foreach ($extraConfronta as $item):
+$totalItem = 0;
+			echo "<tr><td>".$item->identificacion."</td>";
+    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";  
+    		echo "<td>".$item->grado."</td>";
+    		echo "<td>".$item->arma."</td>";
+    		$cantDes = $cantDes + $item->desayuno;
+    		$totalDes = $totalDes + $item->costo_desayuno;
+    		$totalItem = $totalItem + $item->costo_desayuno;
+    		echo "<td style='text-align: center;'>".$item->desayuno."</td>";
+    		echo "<td style='text-align: center;'>".$item->costo_desayuno."</td>";
+    		$cantAlm = $cantAlm + $item->almuerzo;
+    		$totalAlm = $totalAlm + $item->costo_almuerzo;
+    		$totalItem = $totalItem + $item->costo_almuerzo;
+    		echo "<td style='text-align: center;'>".$item->almuerzo."</td>";
+    		echo "<td style='text-align: center;'>".$item->costo_almuerzo."</td>";
+    		$cantMer = $cantMer + $item->merienda;
+    		$totalMer = $totalMer + $item->costo_merienda;
+    		$totalItem = $totalItem + $item->costo_merienda;
+    		echo "<td style='text-align: center;'>".$item->merienda."</td>";
+    		echo "<td style='text-align: center;'>".$item->costo_merienda."</td>";
+    		echo "<td style='text-align: center;'>".$totalItem."</td>";
+ endforeach;?>
+ <tr><td colspan="4"><b>Total</b></td><td style="text-align: center; font-weight: bold;"><?php echo $cantDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalAlm;?></td><td style="text-align: center; font-weight: bold;"><?php echo $cantMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalMer;?></td><td style="text-align: center; font-weight: bold;"><?php echo $totalDes + $totalAlm + $totalMer;?></td></tr>
+</table>
+<?php endif;?>
 			<?php endif;?>
 </div>
 

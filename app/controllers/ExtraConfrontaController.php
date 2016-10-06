@@ -1,6 +1,7 @@
 <?php
 require_once (PATH_MODELS . "/ExtraConfrontaModel.php");
 require_once (PATH_MODELS . "/PersonaModel.php");
+require_once(PATH_MODELS."/ParametroModel.php");
 
 class ExtraConfrontaController {
 	
@@ -27,7 +28,21 @@ class ExtraConfrontaController {
 		if($item ['id']==0){
 			$item ['fecha'] = date('Y-m-d');
 		}		
-		$item ['usuario_id'] = $_SESSION['SESSION_USER']->id;		
+		$item ['usuario_id'] = $_SESSION['SESSION_USER']->id;	
+		
+		$modelP = new ParametroModel();
+		if($item ['tipo_servicio']==1){
+			$parametro = $modelP->getsParametroByKey('confrontaKeyDesayuno');
+		} else {
+			if($item ['tipo_servicio']==2){
+				$parametro = $modelP->getsParametroByKey('confrontaKeyAlmuerzo');
+			} else {
+				$parametro = $modelP->getsParametroByKey('confrontaKeyMerienda');
+			}
+		}
+		
+		$item ['precio'] = $parametro->valor;
+	
 		$model = new ExtraConfrontaModel();
 		try {
 			$datos = $model->saveExtraConfronta($item);

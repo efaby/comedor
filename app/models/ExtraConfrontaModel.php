@@ -41,5 +41,33 @@ class ExtraConfrontaModel {
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array($item),false,true);
 	}
-
+	
+	public function getExtraConfrontaByPersona($usuario,$fechaInicio,$fechaFin){
+		$model = new BaseModel();
+		$sql = "select persona_id, tipo_servicio, count(id) as cantidad, sum(precio) as valor, date_format(c.fecha, '%Y-%m') as fecha
+				from extra_confronta as c	
+				where c.persona_id = ? and fecha >= ? and fecha <= ?
+				group by persona_id, date_format(c.fecha, '%Y-%m'),tipo_servicio
+				";
+		return $model->execSql($sql, array($usuario,$fechaInicio,$fechaFin),true);
+	}
+	
+	public function getExtraConfrontaListado($fecha,$unidad){
+		$model = new BaseModel();
+		$sql = "SELECT c.persona_id, p.identificacion, p.nombres, p.apellidos, p.arma, g.abreviatura as grado,
+					SUM(case when c.tipo_servicio = 1 then 1 else 0 end)  as desayuno,
+ 					SUM(case when c.tipo_servicio = 2 then 1 else 0 end)  as almuerzo,
+ 					SUM(case when c.tipo_servicio = 3 then 1 else 0 end)  as merienda,
+ 					SUM(case when c.tipo_servicio = 1 then c.precio else 0 end)  as costo_desayuno,
+ 					SUM(case when c.tipo_servicio = 2 then c.precio else 0 end)  as costo_almuerzo,
+ 					SUM(case when c.tipo_servicio = 3 then c.precio else 0 end)  as costo_merienda		
+ 				FROM extra_confronta as c
+ 							inner join persona as p on p.id = c.persona_id
+ 							inner join grado_persona as g on g.id = p.grado_persona_id 							
+ 				where date_format(c.fecha, '%Y-%m') = ? and p.unidad_id = ?
+ 				group by persona_id, date_format(c.fecha, '%Y-%m')";
+		return $model->execSql($sql, array($fecha,$unidad),true);
+	}	
+	
+	
 }
