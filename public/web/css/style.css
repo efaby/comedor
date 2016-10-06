@@ -1,4 +1,4 @@
-﻿
+
 /*=============================================================
     Authour URL: www.designbootstrap.com
     
@@ -19,7 +19,7 @@
    GENERAL STYLES
  ============================================================ */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto); /* FREE GOOGLE FONT */
+@import url(google.css); /* FREE GOOGLE FONT */
 
 /*body {
     font-family: 'Roboto', sans-serif;
