@@ -43,7 +43,7 @@
 <?php if(count($datos)>0):?>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
-    <tr><th colspan="13" style="text-align: center;">CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha = explode('-', $fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
+    <tr><th colspan="16" style="text-align: center;">CONFRONTA CONSOLIDADA DEL MES DE <?php $fecha = explode('-', $fecha); echo $meses[$fecha[1]-1]." del ".$fecha[0];?></th></tr>
 	    <tr>
 	    	<th rowspan="2">Unidad</th>
 		    <th colspan="5" style="text-align: center;">Desayunos</th>
