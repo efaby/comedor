@@ -4,7 +4,7 @@ require_once (PATH_HELPERS. "/code/Barcode.php");
 class Code{
 	
 	private $font;
-	private $type = 'code11';
+	private $type = 'code128';
 	private $heightSize = 200;
 	private $widthSize = 300;
 	private $fontSize = 10;   // GD1 in px ; GD2 in point

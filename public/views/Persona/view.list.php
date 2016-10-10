@@ -14,8 +14,8 @@
 								  <?php echo $_SESSION['message'];$_SESSION['message'] = ''?>
 								</div>
 		<?php endif;?>
-<div class="row">
-	<div class="col-lg-12">
+<div class="row table-responsive">
+	<div class="col-lg-12 ">
 		<button class="btn btn-primary" id="modalOpen">
 			<i class="glyphicon glyphicon-plus"></i> Nuevo
 		</button>

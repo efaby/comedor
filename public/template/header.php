@@ -12,11 +12,17 @@
     <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="<?php echo PATH_CSS; ?>/style.css" rel="stylesheet" type="text/css" />
+     <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
       </head>
       <body class="skin-black">        
          <div class="navbar navbar-inverse set-radius-zero">
         <div class="container">
-            <div class="navbar-header" style="width: 100%">                
+            <div class="navbar-header" style="width: 100%">  
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>              
                 <a class="navbar-brand" href="index.html">
                     <img src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" width="70px"/>
                 </a>
