@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+ <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
     <title>Sistema Confrontas</title>
     <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo PATH_CSS; ?>/login.css" rel="stylesheet">
