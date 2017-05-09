@@ -33,7 +33,7 @@
 		<div class="col-sm-12 rows">
 			<table class="table table-bordered ">
 
-<tr><td><b>Nombre</b></td><td><?php echo $item->nombres ." ". $item->apellidos; ?></td><td><b>Identificación</b></td><td><?php echo $item->identificacion?></td></tr>
+<tr><td><b>Nombre</b></td><td><?php echo $item->apellidos ." ". $item->nombres; ?></td><td><b>Identificación</b></td><td><?php echo $item->identificacion?></td></tr>
 <?php foreach ($datos as $item):?>
 <tr>
 <td colspan="4">

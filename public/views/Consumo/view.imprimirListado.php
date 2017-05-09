@@ -47,9 +47,10 @@ $cantDes = 0; $cantAlm = 0; $cantMer = 0;
 foreach ($datos as $item):
 $totalItem = 0;
 			echo "<tr><td>".$item->identificacion."</td>";
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";  
-    		echo "<td>".$item->grado."</td>";
-    		echo "<td>".$item->arma."</td>";
+			echo "<td>".$item->grado."</td>";
+			echo "<td>".$item->arma."</td>";
+    		echo "<td>".$item->apellidos." ".$item->nombres."</td>";  
+    		
     		$cantDes = $cantDes + $item->desayuno;
     		$totalDes = $totalDes + $item->costo_desayuno;
     		$totalItem = $totalItem + $item->desayuno;
@@ -85,9 +86,10 @@ $cantDes = 0; $cantAlm = 0; $cantMer = 0;
 foreach ($extraConfronta as $item):
 $totalItem = 0;
 			echo "<tr><td>".$item->identificacion."</td>";
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";  
-    		echo "<td>".$item->grado."</td>";
-    		echo "<td>".$item->arma."</td>";
+			echo "<td>".$item->grado."</td>";
+			echo "<td>".$item->arma."</td>";
+    		echo "<td>".$item->apellidos." ".$item->nombres."</td>";  
+    		
     		$cantDes = $cantDes + $item->desayuno;
     		$totalDes = $totalDes + $item->costo_desayuno;
     		$totalItem = $totalItem + $item->costo_desayuno;

@@ -1,7 +1,7 @@
 <?php 	
 	define('HOSTNAME_DATABASE', 'localhost');
 	define('USERNAME', 'root');
-	define('PASSWORD', 'sistemas');
+	define('PASSWORD', '123456');
 	define('DATABASE', 'comedor'); 	 
 	define('URL_BASE', '/comedor/');
 	define('PATH_MODELS', PATH_ROOT."/app/models");
@@ -18,9 +18,8 @@
 	
 	define('PRIVATE_URLS', serialize(
 			array(
-			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad'),
-			'SUPER_URLS' => array('Seguridad','Persona','Confronta'),
-			'RANCH_URLS' => array('Seguridad','ExtraConfronta'),
+			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad','Persona','Confronta'),
+			'RANCH_URLS' => array('Seguridad','ExtraConfronta','Confronta'),
 			'AMANA_URLS' => array('Seguridad','Persona','Confronta','Novedad','Unidadconfigurar','UnidadguardarConfiguracion','Consumo')
 			)));	
 	

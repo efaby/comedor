@@ -78,10 +78,10 @@
     <thead>
 	    <tr>
 	    	<th class="ci">Indentificación</th>
-		    <th class="texto">Nombres</th>
-		    <th class="texto">Apellidos</th>
-		    <th class="tipo">Grado</th>
+	    	<th class="tipo">Grado</th>
 		    <th class="tipo">Arma</th>
+		    <th class="texto">Apellidos</th>
+		    <th class="texto">Nombres</th>	    
 	    	<th class='servicio'>DES</th>
 	    	<th class='servicio'>ALM</th>
 	    	<th class='servicio'>MER</th>
@@ -91,10 +91,11 @@
     <?php $des = $alm = $mer = $desOfi = $almOfi = $merOfi = 0; ?>
     	<?php foreach ($listado as $item) {
     		echo "<tr><td class='ci'>".$item->identificacion."</td>";
-    		echo "<td class='texto'>".$item->nombres."</td>";
-    		echo "<td class='texto'>".$item->apellidos."</td>";  
     		echo "<td class='tipo'>".$item->grado."</td>";
-    		echo "<td class='tipo'>".$item->arma."</td>"; 
+    		echo "<td class='tipo'>".$item->arma."</td>";
+    		echo "<td class='texto'>".$item->apellidos."</td>";
+    		echo "<td class='texto'>".$item->nombres."</td>";   		
+    		
     		if($item->nombre == ''){
     			if($item->tipo == 1){
     				$almOfi = $merOfi = $desOfi = $desOfi + 1;

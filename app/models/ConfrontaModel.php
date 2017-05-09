@@ -38,7 +38,7 @@ class ConfrontaModel {
                 left join tipo_novedad as t on t.id = n.tipo_novedad_id				
 				where p.unidad_id = ?";
 		}
-        $sql .= " group by p.id";
+       // $sql .= " group by p.id";
 
 		return $model->execSql($sql, $parametros,true);
 	}

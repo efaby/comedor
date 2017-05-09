@@ -7,7 +7,7 @@ class PersonaController {
 	
 	public function listar() {
 		$model = new PersonaModel();
-		$unidad_id = $this->getUnidad();
+		$unidad_id = $this->getUnidad(true);
 		$datos = $model->getlistadoPersona($unidad_id);
 		$message = "";
 		require_once PATH_VIEWS."/Persona/view.list.php";
@@ -19,7 +19,7 @@ class PersonaController {
 		$unidades = $model->getCatalogo('unidad');
 		$tipos = $model->getCatalogo('tipo_persona');
 		$grados = $model->getCatalogo('grado_persona');
-		$unidad_id = $this->getUnidad();
+		$unidad_id = $this->getUnidad(false);
 		$message = "";
 		require_once PATH_VIEWS."/Persona/view.form.php";
 	}
@@ -75,10 +75,16 @@ class PersonaController {
 		echo json_encode ($validate);
 	}
 	
-	private function getUnidad(){
+	private function getUnidad($band=false){
 		$unidad_id = 0;
 		if($_SESSION['SESSION_USER']->tipo==2){
 			$unidad_id = $_SESSION['SESSION_USER']->unidad_id;
+		}
+		if($_SESSION['SESSION_USER']->tipo==1){
+			if($band){
+				$unidad_id = isset($_GET['id'])?$_GET['id']:0;
+			}
+			
 		}
 		return $unidad_id;
 	}

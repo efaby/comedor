@@ -25,11 +25,12 @@
 	    <tr>
 	   		<th>Id</th>
 	    	<th>Identificación</th>
-		    <th>Nombres</th>
+	    	<th>Grado</th>
+		    <th>Arma</th>
 		    <th>Apellidos</th>
+		    <th>Nombres</th>		    
 		    <th>Unidad</th>
-		    <th>Grado</th>
-		    <th>Arma</th>		     
+		    		     
 		    <th style="text-align: center;">Acciones</th>
 	    </tr>
     </thead>
@@ -37,11 +38,12 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->identificacion."</td>";
-    		echo "<td>".$item->nombres."</td>";
-    		echo "<td>".$item->apellidos."</td>";
-    		echo "<td>".$item->unidad."</td>";
-    		echo "<td>".$item->nombre." -".$item->grado." </td>";  
+    		echo "<td>".$item->grado." </td>";
     		echo "<td>".$item->arma."</td>";
+    		echo "<td>".$item->apellidos."</td>";
+    		echo "<td>".$item->nombres."</td>";    		
+    		echo "<td>".$item->unidad."</td>";
+    		
     		echo "<td align='center'>
 					<a href='javascript: generarCodigo(".$item->id.")' class='btn btn-primary btn-sm' title='Generar Tarjeta' ><i class='fa fa-credit-card'></i></a>
 					<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>					

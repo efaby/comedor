@@ -52,13 +52,14 @@
 									     <li class="sub-menu <?php echo (strpos($url, '/Grado/listar/'))?'menu-top-active':'';?>"><a href="../../Grado/listar/">Grados de Personal</a></li>
 									</ul>
 	                            </li>
-	                            
+	                            <li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
+	                            <li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
+                            	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
 	                            <li class="<?php echo (strpos($url, '/Parametro/listar/'))?'menu-top-active':'';?>"><a href="../../Parametro/editar/">Configuración</a></li>
                             <?php endif;?>
-                            <?php if(($_SESSION['SESSION_USER']->tipo==2)||($_SESSION['SESSION_USER']->tipo==3)):?>
-                            	<li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
-                            <?php endif;?>
+                            
                             <?php if($_SESSION['SESSION_USER']->tipo==2):?>	
+                            	<li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
                             	<li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
                             	<li class="<?php echo (strpos($url, '/Unidad/configurar/'))?'menu-top-active':'';?>"><a href="../../Unidad/configurar/">Unidad</a></li>
@@ -73,10 +74,7 @@
 									</ul>
 	                            </li>
                             	<?php endif;?>
-							<?php if($_SESSION['SESSION_USER']->tipo==3):?>
-                            	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
-                            	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
-                            <?php endif;?>
+
                             <?php if($_SESSION['SESSION_USER']->tipo==4):?>
                             	<li class="<?php echo (strpos($url, '/ExtraConfronta/listar/'))?'menu-top-active':'';?>"><a href="../../ExtraConfronta/listar/">Extra Confronta</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>

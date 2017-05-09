@@ -26,9 +26,9 @@
 		<thead class="the-box dark full">
 						<tr>
 							<th>Identificación</th>
-							<th>Nombres</th>
 							<th>Grado</th>
 							<th>Arma</th>
+							<th>Nombres</th>							
 							<th>DES</th>
 							<th>ALM</th>
 							<th>MER</th>
@@ -38,9 +38,10 @@
 							<?php foreach ($listado as $item): ?>
 						<tr>
 							<td><?php echo $item->identificacion ?></td>
-							<td><?php echo $item->nombres; ?> <?php echo $item->apellidos; ?></td>
 							<td><?php echo $item->grado; ?></td>
 							<td><?php echo $item->arma; ?></td>
+							<td><?php echo $item->apellidos; ?> <?php echo $item->nombres; ?></td>
+							
 							<?php if($item->nombre == ''):?>
 							<td style="text-align: center;"><?php echo ($item->desayuno)?'<i class="fa fa-check">':'<i class="fa fa-times">'; ?> </i></td>
 							<td style="text-align: center;"><?php echo ($item->almuerzo)?'<i class="fa fa-check">':'<i class="fa fa-times">'; ?></td>

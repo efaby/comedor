@@ -26,7 +26,7 @@
 		<div class="form-group col-sm-4">
 			<label class="control-label">Persona</label> <input type='text'
 				name='nombres' class='form-control' readonly="readonly"
-				value="<?php echo $item->nombres ." ". $item->apellidos; ?>" id="nombres">
+				value="<?php echo $item->apellidos ." ". $item->nombres; ?>" id="nombres">
 
 		</div>
 		<div class="form-group col-sm-3" style="padding-top: 25px;">
@@ -60,7 +60,7 @@
 
 <table class="table table-bordered ">
 <tr><th colspan="4" style="text-align: center;">Tabla de Consumo del Servicio de Confronta <?php echo $parametros['unidad'];?></th></tr>
-<tr><td><b>Nombre</b></td><td><?php echo $item->nombres ." ". $item->apellidos; ?></td><td><b>Identificación</b></td><td><?php echo $item->identificacion?></td></tr>
+<tr><td><b>Nombre</b></td><td><?php echo $item->apellidos ." ". $item->nombres; ?></td><td><b>Identificación</b></td><td><?php echo $item->identificacion?></td></tr>
 <?php foreach ($datos as $item):?>
 <tr>
 <td colspan="4">
