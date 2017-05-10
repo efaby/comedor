@@ -17,46 +17,101 @@ class ConfrontaController {
 	
 	public function editar(){
 		$confrontaId = isset($_GET['id'])?$_GET['id']:0;
+		$confrontaItems = false;
+		$disabled = '';
+		if($confrontaId > 0){
+			$confrontaItems = true;
+			$disabled = "disabled=disabled";
+		}
+		$nuevafecha = strtotime ( '+1 day' , strtotime (date('Y-m-d')) ) ;
+		if(isset($_POST['fecha'])){
+			$fecha = $_POST['fecha'];
+			$confrontaItems = true;			
+		} else {
+			$fecha = date ( 'Y-m-d' , $nuevafecha );
+		}	
+		
 		$unidad = $this->getUnidad(); 
-		$model = new ConfrontaModel();		
-		if($this->validarHorario($confrontaId, $model,$unidad)){
+		$model = new ConfrontaModel();
+		$unidadObj = $model->getUnidad($unidad);
+		$desCon = $almCon = $merCon = $cons = $unidadObj->num_conscriptos;
+		
+		if($this->validarHorario($confrontaId, $model,$unidad, $fecha, $confrontaItems)){
 			$listado = $model->getListadoPersonaUnidad($unidad,$confrontaId);
 			$general = $model->getGeneral($confrontaId);
-			$unidad = $model->getUnidad($unidad);
-			$desCon = $almCon = $merCon = $cons = $unidad->num_conscriptos;
+			if($confrontaId > 0){
+				$fecha = $general->fecha_acceso;
+			}
+			
 			$message = "";
 			require_once PATH_VIEWS."/Confronta/view.confronta.php";
 		} else {
 			$_SESSION ['message'] = "No se puede realizar la acción solicitada porque No esta dentro de la hora definida para realizar esta accion";
-			header ( "Location: ../listar/" );
+			if($confrontaId){
+				header ( "Location: ../listar/" );
+			} else {
+				$confrontaItems = false;
+				require_once PATH_VIEWS."/Confronta/view.confronta.php";
+			}
+			
 		}	
 		
 	}
 	
-	private function validarHorario($confrontaId,$modelConfronta,$unidadId){
-		$model = new ParametroModel();
-		$parametro = $model->getsParametroByKey('confrontaKeyHora');
+	private function validarHorario($confrontaId,$modelConfronta,$unidadId,$fecha,$confrontaItems ){
 		$result =  false;
-		if(strtotime(date('H:i'))<= strtotime($parametro->valor)){
-			$confrontas = $modelConfronta->getlistadoConfrontaHoy($unidadId);
-			if(count($confrontas)>0){
-				if($confrontas[0]->id==$confrontaId){
-					$result = true;
-				}				
-			} else {
-				if($confrontaId==0){
-					$result = true;
+		if($confrontaId == 0 && !$confrontaItems){
+			$result = true;
+		} else {
+			$model = new ParametroModel();
+			$parametro = $model->getsParametroByKey('confrontaKeyHora');
+			$nuevafecha = strtotime ( '+1 day' , strtotime (date('Y-m-d')) ) ;
+			$fechamin = date ( 'Y-m-d' , $nuevafecha ); 
+			
+			
+			if($confrontaId == 0){
+				$confrontas = $modelConfronta->getlistadoConfrontaFecha($unidadId,$fecha);
+				
+				if(count($confrontas)==0){
+					if($fecha == $fechamin){
+						if(strtotime(date('H:i'))<= strtotime($parametro->valor)){
+							$result = true;
+						}
+					}else {
+						if($fecha > $fechamin){
+							$result = true;
+						}
+					}
 				}
+				
+			} else {				
+				$confrontas = $modelConfronta->getlistadoConfrontaGetId($confrontaId);
+				if(count($confrontas)>0){
+					$fecha = $confrontas[0]->fecha_acceso;
+					
+				}
+				if($fecha == $fechamin){
+					if(strtotime(date('H:i'))<= strtotime($parametro->valor)){
+						$result = true;
+					}
+				}else {
+					if($fecha > $fechamin){
+						$result = true;
+					}
+				}
+				
+				
 			}
-		} 
+		}
+		
 		return $result;		
 	}
 	
 	public function guardar() {
 		$model = new ConfrontaModel();
 		$fecha = date('Y-m-d');
-		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
-		$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+		
+		$nuevafecha = $_POST ['fecha_acceso'];
 		$usuario = $_SESSION['SESSION_USER']->id;
 		$unidad = $this->getUnidad();
 		

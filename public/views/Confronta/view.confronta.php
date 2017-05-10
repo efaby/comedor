@@ -72,8 +72,25 @@
 								</div>
 		<?php endif;?>
 <div class="row">
+<form id="frmUsuario" method="post" action="" >
+	<div class="col-lg-12">
+		<div class="form-group col-sm-3">
+		<label class="control-label">Día confronta</label>
+		<input type="text"
+			name='fecha' id='fecha' class='form-control'
+			value="<?php echo $fecha; ?>" <?php echo $disabled; ?>>
+
+	</div>
+	<button type="submit" class="btn btn-success boton" id="boton" style=" margin-top: 25px;" <?php echo $disabled; ?>>Generar</button>
+	</div>
+</form>
+
+<?php if($confrontaItems):?>
 
 <form id="frmItem" method="post" action="../guardar/">
+
+	
+
 	<table class="table table1 table-striped table-hover" id="dataTables-example1">
     <thead>
 	    <tr>
@@ -203,11 +220,13 @@
     </div>
     <div class="form-group col-sm-12">
     	<input type="hidden" name="confronta_id" value="<?php echo $confronta_id; ?>">
+    	<input type="hidden" name="fecha_acceso" value="<?php echo $fecha; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>
 		<a href="../listar/" class="btn btn-info">Cancelar</a>		
 	</div>
     
     </form>
+    <?php endif; ?>
 </div>
 
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
@@ -246,7 +265,16 @@ function calcularTotal1(tipo){
 };
 
 $(document).ready(function() {
-
+	var date = new Date();
+	
+	jQuery( "#fecha" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(date.getTime() + (24 * 3600 * 1000)),
+		onClose: function( selectedDate ) {
+            $('#frmUsuario').formValidation('revalidateField', 'fecha');
+        }		
+	});
+	
 	$("#desCons").keyup(function(){
 	   calcularTotal1('des');
 	});
@@ -341,7 +369,30 @@ $(document).ready(function() {
         $form.formValidation('disableSubmitButtons', false);
     });
 	
-	
+	$('#frmUsuario').formValidation({
+    	message: 'This value is not valid',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {			
+
+					fecha: {
+						 validators: {
+							 notEmpty: {
+								 message: 'La fecha es requerida y no puede ser vacia'
+							 },
+							 date:{	 
+								    format: 'YYYY-MM-DD',
+				                    message: 'La fecha no es válida.'				                    
+							 },
+							 							 
+						 }
+					 },
+		}
+		 
+	});
 		
 });
 

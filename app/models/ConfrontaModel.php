@@ -19,6 +19,20 @@ class ConfrontaModel {
 		return $model->execSql($sql, array($unidad,date('Y-m-d')),true);
 	}
 	
+	public function getlistadoConfrontaGetId($id){
+		$model = new BaseModel();
+		$sql = "select c.* from confronta_general as c
+				where id = ?";
+		return $model->execSql($sql, array($id),true);
+	}
+	
+	public function getlistadoConfrontaFecha($unidad,$fecha){
+		$model = new BaseModel();
+		$sql = "select c.* from confronta_general as c
+				where unidad_id = ? and fecha_acceso = ?";
+		return $model->execSql($sql, array($unidad,$fecha),true);
+	}
+	
 	public function getListadoPersonaUnidad($unidad,$confronta){
 
 		$model = new BaseModel();
@@ -84,7 +98,7 @@ class ConfrontaModel {
 		$model = new BaseModel();
 		$sql = "select c.*, u.abreviatura as unidad from confronta_general as c
 				inner join unidad as u on u.id = c.unidad_id
-				where c.fecha_registro = ?";
+				where c.fecha_acceso = ?";
 		return $model->execSql($sql, array($fecha),true);
 	}
 	
