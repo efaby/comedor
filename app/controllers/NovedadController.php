@@ -63,9 +63,9 @@ class NovedadController {
 	}
 	
 	public function getPersona() {
-		$cedula = $_GET ['identificacion'];
-		$model = new PersonaModel();
-		$persona = $model->getPersonaPorCedula($cedula);
+		$term = $_GET ['term'];
+		$model = new NovedadModel();
+		$persona = $model->getPersona($term);
 		echo json_encode ($persona);
 	}
 	

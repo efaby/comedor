@@ -229,6 +229,19 @@ class ConfrontaController {
 		require_once PATH_VIEWS."/Confronta/view.verGeneral.php";
 	}
 
+	public function verExtraconfronta(){
+		$confrontaId = isset($_GET['id'])?$_GET['id']:0;	
+		$unidad = $this->getUnidad();	
+		$model = new ConfrontaModel();
+		$general = $model->getGeneral($confrontaId);	
+		$extraconfronta = $model->getExtraConfronta($confrontaId,$unidad);
+		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$fecha = $dias[date('w',strtotime($general->fecha_acceso))]." ".date('d',strtotime($general->fecha_acceso))." de ".$meses[date('n',strtotime($general->fecha_acceso))-1]. " del ".date('Y',strtotime($general->fecha_acceso)) ;
+	
+		require_once PATH_VIEWS."/Confronta/view.verExtraconfronta.php";
+	}
+
 	public function downloadFile(){
 		$nombre = $_GET['nameFile'];
 		$upload = new File();
@@ -339,6 +352,19 @@ class ConfrontaController {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../accesoDiario/" );
+	}
+
+	public function reporteMensual() {
+		$fecha1 = $_GET['fecha'];	
+		$unidad = $_GET['id'];	
+		$model = new ConfrontaModel();
+		$items = $model->getReporteMensual($unidad, $fecha1);
+		$unidad = $model->getUnidad($unidad);
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$fechaArray = explode("-", $fecha1);
+		$fecha = $meses[$fechaArray[1]-1]." del ".$fechaArray[0];
+		require_once PATH_VIEWS."/Confronta/view.reporteMensual.php";
+
 	}
 
 }

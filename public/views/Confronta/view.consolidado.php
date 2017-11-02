@@ -98,7 +98,8 @@
     		echo "<td style='text-align: center;  font-weight: bold;'>".$meriendas."</td>";   		
     		echo "<td align='center'>
 		    		<a href='javascript:imprimir(".$item->id.",\"verGeneral\",0);' class='btn btn-info btn-sm' title='Ver Resumen'><i class='fa fa-file-text-o'></i></a>  
-		    		<a href='javascript:imprimir(".$item->id.",\"verListado\",".$item->unidad_id.");' class='btn btn-success btn-sm' title='Ver Listado'><i class='fa fa-book'></i></a>		    		  
+		    		<a href='javascript:imprimir(".$item->id.",\"verListado\",".$item->unidad_id.");' class='btn btn-success btn-sm' title='Ver Listado'><i class='fa fa-book'></i></a>		
+		    		<a href='javascript:imprimir(".$item->id.",\"verExtraconfronta\",".$item->unidad_id.");' class='btn btn-warning btn-sm' title='Ver Extraconfronta'><i class='fa fa-coffee'></i></a>      		  
 		    		</td></tr>";
     	}?>
     	<tr><td>Total</td><td style="text-align: center; font-weight: bold;"><?php echo $desOfi;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desVol;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons;?></td><td style="text-align: center; font-weight: bold;"><?php echo $desCons+$desOfi+$desVol; ?></td>

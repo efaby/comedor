@@ -117,7 +117,7 @@ class ConfrontaModel {
 				sum(c.costo_desayuno * (c.desayuno_ofi + c.desayuno_vol + c.desayuno_con)) as costo_desayuno,
 				sum(c.costo_almuerzo * (c.almuerzo_ofi + c.almuerzo_vol + c.almuerzo_con)) as costo_almuerzo,
 				sum(c.costo_merienda * (c.merienda_ofi + c.merienda_vol + c.merienda_con)) as costo_merienda
- 				FROM comedor.confronta_general as c
+ 				FROM confronta_general as c
  							inner join unidad as u on u.id = c.unidad_id
  				where date_format(c.fecha_acceso, '%Y-%m') = ?
  				group by c.unidad_id, date_format(c.fecha_acceso, '%Y-%m')";
@@ -139,5 +139,25 @@ class ConfrontaModel {
 		return $model->execSql($sql, array(date('Y-m-d')),true);
 	}
 
-	
+	public function getExtraConfronta($confrontaId, $unidad){
+		$model = new BaseModel();
+		$sql = "SELECT u.nombre as unidad ,
+			count(CASE WHEN ex.tipo_servicio = 1 THEN ex.id ELSE null END) AS desayuno, 
+			count(CASE WHEN ex.tipo_servicio = 2 THEN ex.id ELSE null END) AS almuerzo,
+			count(CASE WHEN ex.tipo_servicio = 3 THEN ex.id ELSE null END) AS merienda
+			FROM comedor.extra_confronta as ex
+			inner join persona as p on p.id = ex.persona_id
+			inner join unidad as u on u.id = p.unidad_id
+			inner join confronta_general as cg on cg.fecha_acceso = ex.fecha
+			where u.id = ? and cg.id = ?";	
+		return $model->execSql($sql, array($unidad, $confrontaId));
+	}
+
+	public function getReporteMensual($unidad, $fecha){
+		$model = new BaseModel();
+		$sql = "select c.*, date_format(c.fecha_acceso, '%d') as dia from confronta_general as c		
+				where date_format(c.fecha_acceso, '%Y-%m') = ? and c.unidad_id = ?";
+		return $model->execSql($sql, array($fecha,$unidad),true);
+	}
+
 }

@@ -76,7 +76,7 @@
     	$desCons = $almCons = $merCons = 0;
     	$costo_desayuno = $costo_almuerzo =  $costo_merienda =0;
     	foreach ($datos as $item) {
-    		echo "<tr><td>".$item->unidad."</td>";
+    		echo "<tr><td><a href='javascript:imprimir1(".$item->unidad_id.",\"reporteMensual\");' >".$item->unidad."</a></td>";
     		$desOfi = $desOfi + $item->desayuno_ofi;
     		echo "<td style='text-align: center;'>".$item->desayuno_ofi."</td>";
     		$desVol = $desVol + $item->desayuno_vol;
@@ -174,6 +174,20 @@
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 
 <script type="text/javascript">
+
+function imprimir1(id,url){
+	var posicion_x; 
+	var posicion_y; 
+	var ancho = 900;
+	var alto = 550;
+	posicion_x=(screen.width/2)-(ancho/2); 
+	posicion_y=(screen.height/2)-(alto/2); 
+	var accion = "../"+url+"/" + id + "&fecha=" + jQuery( "#fecha" ).val();
+	
+	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
+	window.open(accion,"",opciones);
+}
+
 
 function imprimir(url,valor){
 	var posicion_x; 

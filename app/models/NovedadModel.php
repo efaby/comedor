@@ -46,4 +46,12 @@ class NovedadModel {
 		$model = new BaseModel();
 		return $model->getCatalogo('tipo_novedad');
 	}
+
+	public function getPersona($term){
+		$model =  new BaseModel();
+		$term = str_replace(" ","%", $term);
+		$sql = "select id as data, concat(identificacion , \" - \", nombres, \" \", apellidos) as value, identificacion, unidad_id  from persona 
+		where identificacion LIKE '".$term."%' or concat(nombres, \" \", apellidos) LIKE '%".$term."%'";
+		return $model->execSql($sql, array(),true);
+	}
 }

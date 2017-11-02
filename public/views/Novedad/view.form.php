@@ -76,6 +76,46 @@ $(document).ready(function() {
 	        $( "#fecha_inicio" ).datepicker( "option", "maxDate", selectedDate );
 	      }  		
 	});
+
+	$("#identificacion").autocomplete({
+        source : "../getPersona/",
+        minLength: 4,
+        appendTo: "#confirm-submit",
+        select: function(event, ui) {
+            event.preventDefault();
+            jQuery("#nombres").val('');
+        	jQuery("#unidad").val('');
+        	jQuery("#persona_id").val(0);
+        	var data = ui.item;
+	        if(data){
+		        if(jQuery("#unidad_id").val()==0||jQuery("#unidad_id").val()==data.unidad_id){
+		        	jQuery("#nombres").val(data.value);
+		        	jQuery("#unidad").val(data.unidad_id);		        	
+		        	jQuery("#persona_id").val(data.data);
+		        	jQuery("#identificacion").val(data.identificacion);
+		        	$('#frmUsuario').formValidation('revalidateField', 'unidad_id');
+		        	$('#frmUsuario').formValidation('revalidateField', 'usuario');
+		        	$('#frmUsuario').formValidation('revalidateField', 'identificacion');
+		        	jQuery("#boton").removeClass('disabled');
+		        } else {
+		        	alert("La persona no pertenece a su Unidad. Usted solo puede registrar novedades de miembros de su Unidad.");
+					jQuery("#boton").addClass('disabled');
+		        }		        	
+	        	
+	        } else {
+				alert("La persona no exite por favor regístrelo en la sección Personal");
+				jQuery("#boton").addClass('disabled');
+	        }
+        	            
+         }
+    });
+
+
+
+
+
+
+	/*
 	$('#identificacion').keyup(function(){
 	    var ci = jQuery("#identificacion").val();
 	    if(ci.length == 10){
@@ -112,7 +152,7 @@ $(document).ready(function() {
 		    });
 	    }
 	});
-
+*/
 		
     $('#frmUsuario').formValidation({
     	message: 'This value is not valid',
@@ -202,4 +242,8 @@ $(document).ready(function() {
         z-index: 1200   !important;
     }
     
+    .ui-autocomplete.ui-front
+{
+z-index: 1051;
+}
 </style>
