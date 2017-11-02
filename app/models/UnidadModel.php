@@ -5,7 +5,17 @@ class UnidadModel {
 
 	public function getlistadoUnidad(){
 		$model = new BaseModel();	
-		$sql = "select * from unidad where activo = 1";		
+		$sql = "SELECT u.nombre, u.id, 
+			count(CASE WHEN gp.tipo_persona_id = 1 THEN p.id ELSE null END) AS oficiales, 
+			count(CASE WHEN gp.tipo_persona_id = 2 THEN p.id ELSE null END) AS voluntarios,
+			u.num_conscriptos,
+			u.hora_inicio,
+			u.hora_fin 
+			FROM comedor.persona as p
+			inner join grado_persona as gp on gp.id = p.grado_persona_id 
+			inner join unidad as u on u.id = p.unidad_id
+			where u.activo = 1
+			group by u.id";		
 		return $model->execSql($sql, array(),true);
 	}	
 	

@@ -25,7 +25,8 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Nombre</th>
-		    <th>Abreviatura</th>
+		    <th>Voluntarios</th>
+		    <th>Oficiales</th>
 		    <th>Conscriptos</th>
 		    <th>Hora Almuerzo</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
@@ -35,7 +36,8 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->abreviatura."</td>";  
+    		echo "<td>".$item->oficiales."</td>"; 
+    		echo "<td>".$item->voluntarios."</td>";  
     		echo "<td>".$item->num_conscriptos."</td>";
     		echo "<td style='text-align: center;'>".date('H:i',strtotime($item->hora_inicio))." - ".date('H:i',strtotime($item->hora_fin))."</td>";
     		

@@ -63,6 +63,7 @@
                             	<li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
                             	<li class="<?php echo (strpos($url, '/Unidad/configurar/'))?'menu-top-active':'';?>"><a href="../../Unidad/configurar/">Unidad</a></li>
+                                <li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
                             	<li class="dropdown <?php echo ((strpos($url, '/Consumo/')))?'menu-top-active':'';?>">
 	                            	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Consumos
 	                            		<span class="caret"></span>
@@ -76,7 +77,8 @@
                             	<?php endif;?>
 
                             <?php if($_SESSION['SESSION_USER']->tipo==4):?>
-                            	<li class="<?php echo (strpos($url, '/ExtraConfronta/listar/'))?'menu-top-active':'';?>"><a href="../../ExtraConfronta/listar/">Extra Confronta</a></li>
+                            	<li class="<?php echo (strpos($url, '/Confronta/accesoDiario/'))?'menu-top-active':'';?>"><a href="../../Confronta/accesoDiario/">Personal</a></li>
+                                <li class="<?php echo (strpos($url, '/ExtraConfronta/listar/'))?'menu-top-active':'';?>"><a href="../../ExtraConfronta/listar/">Extra Confronta</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
                             	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
                             <?php endif;?>

@@ -48,10 +48,19 @@
 					<a href='javascript: generarCodigo(".$item->id.")' class='btn btn-primary btn-sm' title='Generar Tarjeta' ><i class='fa fa-credit-card'></i></a>
 					<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>					
 					<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a>
+					<a href='javascript: openIndividual(".$item->id.",\"".$item->identificacion."\")' class='btn btn-success btn-sm' title='Consumo Individual' ><i class='fa fa-coffee'></i></a>
 				</td>";
     	}?>
     </tbody>
     </table>
+    <form id='frmConsumo' method='post' action='../../Consumo/individual/'>
+		<input type='hidden' name='id' id="id" class='form-control' value='0'>
+		<input type='hidden' name='identificacion' id="identificacion" class='form-control' value='0'>
+		<input type='hidden' name='imprimir' class='form-control' value='0'>
+		<input type='hidden' name='fecha_inicio' class='form-control' value='<?php echo date("Y-m")."-01"; ?>'>
+		<input type='hidden' name='fecha_fin' class='form-control' value='<?php echo date("Y-m")."-30"; ?>'>
+		
+	</form>
 </div>
 <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,6 +100,12 @@ function generarCodigo(id){
 	var accion = "../generarCodigo/" + id; 
 	var opciones="toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width="+ancho+",height="+alto+",left="+posicion_x+",top="+posicion_y;
 	window.open(accion,"",opciones);
+}
+
+function openIndividual(id,ci){
+	$("#id").val(id);
+	$("#identificacion").val(ci);
+	$("#frmConsumo").submit();
 }
 
 </script>

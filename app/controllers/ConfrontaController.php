@@ -4,6 +4,7 @@ require_once(PATH_MODELS."/ParametroModel.php");
 require_once (PATH_HELPERS. "/File.php");
 require_once(PATH_MODELS."/ParametroModel.php");
 require_once(PATH_MODELS."/ExtraConfrontaModel.php");
+require_once(PATH_MODELS."/PersonaModel.php");
 
 class ConfrontaController {
 	
@@ -248,7 +249,7 @@ class ConfrontaController {
 		$model = new ConfrontaModel();
 		$unidad = $this->getUnidad();
 		$fecha = isset($_POST['fecha'])?$_POST['fecha']:date('Y-m-d');
-		$datos = $model->getlistadoConsolidado($fecha);
+		$datos = $model->getlistadoConsolidado($fecha,$unidad);
 		$message = "";
 		require_once PATH_VIEWS."/Confronta/view.consolidado.php";
 	}
@@ -290,6 +291,54 @@ class ConfrontaController {
 		require_once PATH_VIEWS."/Confronta/view.imprimirReporteConsolidado.php";
 	}
 	
+	public function accesoDiario(){
+		$model = new ConfrontaModel();
+		$listado = $model->getListadoPersonasAcceso();		
+		$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$fecha = $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+		
+		require_once PATH_VIEWS."/Confronta/view.verListadoAcceso.php";
+	}
 	
+	public function extraconfronta() {
+		$personaId = isset($_GET['id'])?$_GET['id']:0;
+		$model = new PersonaModel();
+		$item = $model->getPersona();
+		require_once PATH_VIEWS."/Confronta/view.extraconfronta.php";
+	}
+
+	public function guardarExtraconfronta() {
+		
+		$item ['id'] = 0;
+		$item ['persona_id'] = $_POST ['persona_id'];
+		$item ['tipo_servicio'] = $_POST ['tipo_servicio'];
+		if($item ['id']==0){
+			$item ['fecha'] = date('Y-m-d');
+		}		
+		$item ['usuario_id'] = $_SESSION['SESSION_USER']->id;	
+		
+		$modelP = new ParametroModel();
+		if($item ['tipo_servicio']==1){
+			$parametro = $modelP->getsParametroByKey('confrontaKeyDesayuno');
+		} else {
+			if($item ['tipo_servicio']==2){
+				$parametro = $modelP->getsParametroByKey('confrontaKeyAlmuerzo');
+			} else {
+				$parametro = $modelP->getsParametroByKey('confrontaKeyMerienda');
+			}
+		}
+		
+		$item ['precio'] = $parametro->valor;
 	
+		$model = new ExtraConfrontaModel();
+		try {
+			$datos = $model->saveExtraConfronta($item);
+			$_SESSION ['message'] = "Datos almacenados correctamente.";
+		} catch ( Exception $e ) {
+			$_SESSION ['message'] = $e->getMessage ();
+		}
+		header ( "Location: ../accesoDiario/" );
+	}
+
 }

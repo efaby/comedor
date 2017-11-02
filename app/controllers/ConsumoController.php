@@ -13,6 +13,7 @@ class ConsumoController {
 		$fechaFin = (isset($_POST ['fecha_fin']))?$_POST ['fecha_fin']:'';
 		$item = (object) array('persona_id'=>0,'identificacion' =>'','nombres'=>'','apellidos'=>'');			;
 		$datos =  $extraConfronta = array();
+
 		if($usuario > 0){
 			$model = new ConsumoModel();
 			$datos = $model->getConsumo($usuario, $fechaInicio, $fechaFin,$_SESSION['SESSION_USER']->unidad_id);
@@ -25,6 +26,7 @@ class ConsumoController {
 			$extraConfronta = $modelEC->getExtraConfrontaByPersona($usuario, $fechaInicio, $fechaFin);
 			$servicio = array(1=>'Desayuno',2=>'Almuerzo',3 =>'Merienda');
 		}
+
 		require_once PATH_VIEWS."/Consumo/view.individual.php";		
 	}
 	

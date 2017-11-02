@@ -94,12 +94,12 @@ class ConfrontaModel {
 		$model->deleteMultipleData($confrontaId);
 	}	
 	
-	public function getlistadoConsolidado($fecha){
+	public function getlistadoConsolidado($fecha, $unidad){
 		$model = new BaseModel();
 		$sql = "select c.*, u.abreviatura as unidad from confronta_general as c
 				inner join unidad as u on u.id = c.unidad_id
-				where c.fecha_acceso = ?";
-		return $model->execSql($sql, array($fecha),true);
+				where c.fecha_acceso = ? and (0 = ? or c.unidad_id = ?)" ;
+		return $model->execSql($sql, array($fecha,$unidad,$unidad),true);
 	}
 	
 	public function getReporteConsolidado($fecha){
@@ -124,4 +124,20 @@ class ConfrontaModel {
 		return $model->execSql($sql, array($fecha),true);
 	}
 
+	public function getListadoPersonasAcceso(){
+
+		$model = new BaseModel();
+		$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, n.url, n.id as novedad, c.almuerzo, c.desayuno, c.merienda, u.nombre as unidad from persona as p
+				inner join grado_persona as g on g.id = p.grado_persona_id
+				inner join unidad as u on u.id = p.unidad_id
+				left join confronta as c on c.persona_id = p.id
+				left join novedad as n on n.id = c.novedad_id
+                left join tipo_novedad as t on t.id = n.tipo_novedad_id	
+                inner join confronta_general as cg on cg.id = c.confronta_general_id			
+				where p.activo = 1 and cg.fecha_acceso = ?";	
+
+		return $model->execSql($sql, array(date('Y-m-d')),true);
+	}
+
+	
 }

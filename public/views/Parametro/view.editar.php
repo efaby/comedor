@@ -45,7 +45,6 @@
     <?php endforeach;?>
     </div>
     <div class="form-group col-sm-12">
-    	<input type="hidden" name="confronta_id" value="<?php echo $confronta_id; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>	
 	</div>
     
