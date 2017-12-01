@@ -52,11 +52,13 @@
 			<input type='file' name='url' id="url" class="file">	
 		<?php endif;?>
 	</div>
-	<div class="form-group">
+	<div class="form-group row">
+	<div class="col-sm-12">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
 	<input type='hidden' name='persona_id' id='persona_id' class='form-control' value="<?php echo $item->persona_id; ?>">
 	<input type='hidden' name='unidad_id' id='unidad_id' class='form-control' value="<?php echo $unidad_id; ?>">
 		<button type="submit" class="btn btn-success boton" id="boton">Guardar</button>
+	</div>
 	</div>
 
 </form>
@@ -166,11 +168,11 @@ $(document).ready(function() {
 				message: 'El Número de Identificación no es válido',
 				validators: {
 							notEmpty: {
-								message: 'El Número de Identificación no puede ser vacío.'
+								message: 'La Identificación no puede ser vacía.'
 							},					
 							regexp: {
-								regexp: /^(?:\+)?\d{10,13}$/,
-								message: 'Ingrese un Número de Identificación válido.'
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9_ ,-\.]+$/,
+								message: 'Ingrese una Identificación válida.'
 							}
 						}
 					},
@@ -209,13 +211,13 @@ $(document).ready(function() {
 	        },
 	        url: {
 				validators: {
-					notEmpty: {
+					/*notEmpty: {
 						message: 'Seleccione un Archivo.'
-					},
+					},*/
 					file: {
 	                    extension: 'pdf,docx,doc',
 	                    maxSize: 2097152,
-	                    message: 'Seleccione un archivo válido. (pdf, doc, docx) y no mayor a 2 MB.'
+	                    message:'Seleccione un archivo válido. (pdf, doc, docx) y no mayor a 2 MB.'
 	                }
 				}
 			},

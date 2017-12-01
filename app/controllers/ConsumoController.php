@@ -11,7 +11,7 @@ class ConsumoController {
 		$imprimir = (isset($_POST ['imprimir']))?$_POST ['imprimir']:0;
 		$fechaInicio = (isset($_POST ['fecha_inicio']))?$_POST ['fecha_inicio']:'';	
 		$fechaFin = (isset($_POST ['fecha_fin']))?$_POST ['fecha_fin']:'';
-		$item = (object) array('persona_id'=>0,'identificacion' =>'','nombres'=>'','apellidos'=>'');			;
+		$item = (object) array('persona_id'=>0,'identificacion' =>'','nombres'=>'','apellidos'=>'', 'id' => 0);			;
 		$datos =  $extraConfronta = array();
 
 		if($usuario > 0){
