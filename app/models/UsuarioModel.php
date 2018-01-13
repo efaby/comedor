@@ -11,7 +11,7 @@ class UsuarioModel {
 				inner join tipo_usuario as t on t.id = u.tipo_usuario_id
 				inner join persona as p on p.id = u.persona_id
 				left join unidad as n on n.id = u.unidad_id
-				where u.activo = 1 and u.id <> ?";		
+				where u.activo = 1 and u.id <> ? and p.activo = 1";		
 		return $model->execSql($sql, array($usuario),true);
 	}	
 	
@@ -22,7 +22,7 @@ class UsuarioModel {
 		if($usuario > 0){
 			$sql = "select u.*, p.identificacion, p.nombres, p.apellidos from usuario as u
 					inner join persona as p on p.id = u.persona_id
-					where u.id = ?";
+					where u.id = ? and p.activo = 1";
 			$result = $model->execSql($sql, array($usuario));
 			$result->password = $result->password1 = $this->pattern;
 			$result->nombres = $result->nombres ." ". $result->apellidos;

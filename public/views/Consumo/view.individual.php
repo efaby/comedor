@@ -18,7 +18,7 @@
 <form id="frmUsuario" method="post" action="" >
 	<div class="col-lg-12">
 		<div class="form-group col-sm-3">
-			<label class="control-label">Identificación</label> <input
+			<label class="control-label">Identificación *</label> <input
 				type='text' name='identificacion' class='form-control'
 				value="<?php echo $item->identificacion; ?>" id="identificacion">
 
@@ -38,14 +38,14 @@
 	</div>
 	<div class="col-lg-12">
 	<div class="form-group col-sm-3">
-		<label class="control-label">Desde</label>
+		<label class="control-label">Desde *</label>
 		<input type="text"
 			name='fecha_inicio' id='fecha_inicio' class='form-control'
 			value="<?php echo $fechaInicio; ?>">
 
 	</div>
 	<div class="form-group col-sm-3">
-		<label class="control-label">Hasta</label>
+		<label class="control-label">Hasta *</label>
 		<input type="text"
 			name='fecha_fin' id='fecha_fin' class='form-control'
 			value="<?php echo $fechaFin; ?>">

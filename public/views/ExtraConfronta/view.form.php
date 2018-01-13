@@ -1,7 +1,7 @@
 <form id="frmItem" method="post" action="../guardar/">
 
 <div class="form-group  col-sm-12">
-		<label class="control-label">Identificación</label> <input type='text'
+		<label class="control-label">Identificación *</label> <input type='text'
 			name='identificacion' class='form-control'
 			value="<?php echo $item->identificacion; ?>" id="identificacion">
 	</div>
@@ -12,7 +12,7 @@
 	</div>
 	
 	<div class="form-group col-sm-12">
-		<label class="control-label">Servicio</label>	<br>
+		<label class="control-label">Servicio *</label>	<br>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="1" <?php echo ($item->tipo_servicio == 1 )?'checked':'';?>>Desayuno</label>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="2" <?php echo ($item->tipo_servicio == 2 )?'checked':'';?>>Almuerzo</label>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="3" <?php echo ($item->tipo_servicio == 3 )?'checked':'';?>>Merienda</label>

@@ -1,7 +1,7 @@
 <form id="frmUsuario" method="post" action="../guardar/" enctype="multipart/form-data">
 <div style="overflow: auto;">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Tipo Novedad</label>
+		<label class="control-label">Tipo Novedad *</label>
 		<select class='form-control' name="tipo_novedad_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tipos as $dato) { ?>
@@ -11,7 +11,7 @@
 
 	</div>
 	<div class="form-group col-sm-6">
-		<label class="control-label">Identificación</label> <input type='text'
+		<label class="control-label">Identificación *</label> <input type='text'
 			name='identificacion' class='form-control'
 			value="<?php echo $item->identificacion; ?>" id="identificacion">
 
@@ -28,14 +28,14 @@
 	</div>
 	
 	<div class="form-group col-sm-6">
-		<label class="control-label">Fecha Inicio</label>
+		<label class="control-label">Fecha Inicio *</label>
 		<input type="text"
 			name='fecha_inicio' id='fecha_inicio' class='form-control'
 			value="<?php echo $item->fecha_inicio; ?>">
 
 	</div>
 	<div class="form-group col-sm-6">
-		<label class="control-label">Fecha Fin</label>
+		<label class="control-label">Fecha Fin *</label>
 		<input type="text"
 			name='fecha_fin' id='fecha_fin' class='form-control'
 			value="<?php echo $item->fecha_fin; ?>">

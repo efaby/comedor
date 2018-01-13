@@ -47,7 +47,7 @@ class PersonaModel {
 	
 	public function getPersonaPorCedula($cedula){
 		$model =  new BaseModel();
-		$sql = "select * from persona where identificacion = ? ";
+		$sql = "select * from persona where identificacion = ? and activo = 1";
 		return $model->execSql($sql, array($cedula));
 	}
 	

@@ -24,7 +24,7 @@
     
     <div class="form-group col-sm-12">
     		<div class="col-sm-4">
-    			<label class="control-label"><?php echo $item->etiqueta;?></label>
+    			<label class="control-label"><?php echo $item->etiqueta;?> *</label>
     		</div>
     		<div class="col-sm-8">
     			<input type="<?php echo $item->tipo;?>" name="<?php echo $item->clave;?>" id="<?php echo $item->clave;?>" value="<?php echo $item->valor;?>" class="form-control">

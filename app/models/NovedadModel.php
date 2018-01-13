@@ -8,7 +8,7 @@ class NovedadModel {
 		$sql = "select n.*, p.nombres, p.apellidos, p.identificacion, t.nombre from novedad as n
 				inner join persona as p on p.id = n.persona_id
 				inner join tipo_novedad as t on t.id = n.tipo_novedad_id
-				where n.activo = 1 and (p.unidad_id = ? or 0 = ?)";		
+				where n.activo = 1 and (p.unidad_id = ? or 0 = ?) and p.activo = 1";		
 		return $model->execSql($sql, array($unidad_id,$unidad_id),true);
 	}	
 	
@@ -51,7 +51,7 @@ class NovedadModel {
 		$model =  new BaseModel();
 		$term = str_replace(" ","%", $term);
 		$sql = "select id as data, concat(identificacion , \" - \", nombres, \" \", apellidos) as value, identificacion, unidad_id  from persona 
-		where identificacion LIKE '".$term."%' or concat(nombres, \" \", apellidos) LIKE '%".$term."%'";
+		where identificacion LIKE '".$term."%' or concat(nombres, \" \", apellidos) LIKE '%".$term."%'and activo = 1 ";
 		return $model->execSql($sql, array(),true);
 	}
 }

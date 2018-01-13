@@ -7,7 +7,7 @@
 	</div>
 	
 	<div class="form-group col-sm-12">
-		<label class="control-label">Servicio</label>	<br>
+		<label class="control-label">Servicio *</label>	<br>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="1" >Desayuno</label>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="2" >Almuerzo</label>
 		<label class="radio-inline"><input type="radio" name="tipo_servicio" value="3" >Merienda</label>

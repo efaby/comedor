@@ -1,7 +1,7 @@
 <form id="frmUsuario" method="post" action="../guardar/">
 <div style="overflow: auto;">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Tipo Usuario</label>
+		<label class="control-label">Tipo Usuario *</label>
 		<select class='form-control' name="tipo_usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tipos as $dato) { ?>
@@ -11,7 +11,7 @@
 
 	</div>
 	<div class="form-group col-sm-6">
-		<label class="control-label">Identificación</label> <input type='text'
+		<label class="control-label">Identificación *</label> <input type='text'
 			name='identificacion' class='form-control'
 			value="<?php echo $item->identificacion; ?>" id="identificacion">
 
@@ -27,7 +27,7 @@
 
 	</div>
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Unidad</label>
+		<label class="control-label">Unidad *</label>
 		<select class='form-control' name="unidad_id" id="unidad">
 			<option value="" >Seleccione</option>
 		<?php foreach ($unidades as $dato) { ?>
@@ -37,7 +37,7 @@
 
 	</div>
 	<div class="form-group col-sm-12">
-		<label class="control-label">Nombre de Usuario</label> <input type='text'
+		<label class="control-label">Nombre de Usuario *</label> <input type='text'
 			name='usuario' class='form-control'
 			value="<?php echo $item->usuario; ?>" id="usuario">
 
@@ -45,14 +45,14 @@
 	
 
 	<div class="form-group col-sm-6">
-		<label class="control-label">Contraseña</label>
+		<label class="control-label">Contraseña *</label>
 		<input type="password"
 			name='password' class='form-control'
 			value="<?php echo $item->password; ?>">
 
 	</div>
 	<div class="form-group col-sm-6">
-		<label class="control-label">Repetir Contraseña</label>
+		<label class="control-label">Repetir Contraseña *</label>
 		<input type="password"
 			name='password1' class='form-control'
 			value="<?php echo $item->password1; ?>">

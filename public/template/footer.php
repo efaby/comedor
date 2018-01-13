@@ -2,7 +2,7 @@
                 <div class="col-xs-12">
                     <hr />
                     <footer class="text-center well">
-                        <p>Copyright ©2016</p>
+                        <p>Copyright ©2018</p>
                     </footer>                
                 </div>    
             </div>      

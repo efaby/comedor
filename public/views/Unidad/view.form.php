@@ -1,21 +1,21 @@
 <form id="frmItem" method="post" action="../guardar/">
 
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Nombre</label>
+		<label class="control-label">Nombre *</label>
 		<input type='text'
 			name='nombre' class='form-control'
 			value="<?php echo $item->nombre; ?>">
 
 	</div>
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Abreviatura</label>
+		<label class="control-label">Abreviatura *</label>
 		<input type='text'
 			name='abreviatura' class='form-control'
 			value="<?php echo $item->abreviatura; ?>">
 
 	</div>
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Número de Conscriptos</label>
+		<label class="control-label">Número de Conscriptos </label>
 		<input type='text'
 			name='num_conscriptos' class='form-control'
 			value="<?php echo $item->num_conscriptos; ?>">
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<div class="form-group col-sm-12">
-		<label class="control-label">Descripción</label>	
+		<label class="control-label">Descripción *</label>	
 		<textarea name='descripcion' style="width: 100%"><?php echo $item->descripcion; ?></textarea>
 
 	</div>

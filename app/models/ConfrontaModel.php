@@ -43,14 +43,14 @@ class ConfrontaModel {
 				left join confronta as c on c.persona_id = p.id
 				left join novedad as n on n.id = c.novedad_id
                 left join tipo_novedad as t on t.id = n.tipo_novedad_id				
-				where p.unidad_id = ? and c.confronta_general_id = ?";		
-			$parametros[] = $confronta;
+				where p.unidad_id = ? and c.confronta_general_id = ? and p.activo = 1 ";		
+			$parametros[] = $confronta; 
 		} else {
 			$sql = "select p.*, g.abreviatura as grado, g.tipo_persona_id as tipo, t.nombre, n.id as novedad, 1 as almuerzo, 1 as desayuno, 1 as merienda from persona as p
 				inner join grado_persona as g on g.id = p.grado_persona_id
 				left join novedad as n on p.id = n.persona_id and ('".date('Y-m-d')."' between n.fecha_inicio and n.fecha_fin) and n.activo = 1
                 left join tipo_novedad as t on t.id = n.tipo_novedad_id				
-				where p.unidad_id = ?";
+				where p.unidad_id = ? and p.activo = 1";
 		}
        // $sql .= " group by p.id";
 
@@ -149,7 +149,7 @@ class ConfrontaModel {
 			inner join persona as p on p.id = ex.persona_id
 			inner join unidad as u on u.id = p.unidad_id
 			inner join confronta_general as cg on cg.fecha_acceso = ex.fecha
-			where u.id = ? and cg.id = ?";	
+			where u.id = ? and cg.id = ? and and p.activo = 1";	
 		return $model->execSql($sql, array($unidad, $confrontaId));
 	}
 
