@@ -11,12 +11,18 @@
 		</select>
 
 	</div>
-	<div class="form-group col-sm-6">
-		<label class="control-label">Arma</label> <input type='text'
-			name='arma' class='form-control'
-			value="<?php echo $item->arma; ?>">
+
+	<div class="form-group  col-sm-6">
+		<label class="control-label">Arma *</label>
+		<select class='form-control' name="arma_id" >
+			<option value="" >Seleccione</option>
+		<?php foreach ($armas as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->arma_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
 
 	</div>
+
 	</div>
 	<div style="overflow: auto;">
 	<div class="form-group  col-sm-6"> <!-- desactivar si es de un amanuence poner por defecto la unidad selecionada -->
@@ -62,7 +68,7 @@
 	<div class="form-group col-sm-6">
 		<label class="control-label">Teléfono</label>
 		<input type='text'
-			name='telefono' class='form-control'
+			name='telefono' id='telefono' class='form-control'
 			value="<?php echo $item->telefono; ?>">
 
 	</div>
@@ -82,9 +88,14 @@
 
 </form>
 
+<script src="<?php echo PATH_JS; ?>/jquery.maskedinput.min.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
+
+	$("#telefono").mask("99-9999999");
+
     $('#frmUsuario').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
@@ -189,7 +200,7 @@ $(document).ready(function() {
 				message: 'El Número de Teléfono no es válido',
 				validators: {												
 							regexp: {
-								regexp: /^(?:\+)?\d{9}$/,
+								regexp: /^(?:\+)?\d{2}?[-]?\d{7}$/,
 								message: 'Ingrese un Número de Teléfono válido.'
 							}
 						}

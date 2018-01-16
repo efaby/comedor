@@ -19,6 +19,7 @@ class PersonaController {
 		$unidades = $model->getCatalogo('unidad');
 		$tipos = $model->getCatalogo('tipo_persona');
 		$grados = $model->getCatalogo('grado_persona');
+		$armas = $model->getCatalogo('arma');
 		$unidad_id = $this->getUnidad(false);
 		$message = "";
 		require_once PATH_VIEWS."/Persona/view.form.php";
@@ -32,7 +33,7 @@ class PersonaController {
 		$persona ['identificacion'] = $_POST ['identificacion'];
 		$persona ['nombres'] = $_POST ['nombres'];
 		$persona ['apellidos'] = $_POST ['apellidos'];
-		$persona ['arma'] = $_POST ['arma'];
+		$persona ['arma_id'] = $_POST ['arma_id'];
 		$persona ['telefono'] = $_POST ['telefono'];
 		$persona ['celular'] = $_POST ['celular'];
 		$persona ['usuario_id'] = $_SESSION['SESSION_USER']->id; // getUserSesion

@@ -5,10 +5,11 @@ class PersonaModel {
 
 	public function getlistadoPersona($unidad_id){
 		$model = new BaseModel();	
-		$sql = "select p.id, p.identificacion, p.nombres, p.apellidos, p.arma, u.abreviatura as unidad, g.abreviatura as grado, t.nombre from persona as p 
+		$sql = "select p.id, p.identificacion, p.nombres, p.apellidos, a.nombre as arma, u.abreviatura as unidad, g.abreviatura as grado, t.nombre from persona as p 
 				inner join unidad as u on u.id = p.unidad_id
 				inner join grado_persona as g on g.id = p.grado_persona_id
 				inner join tipo_persona as t on t.id = g.tipo_persona_id
+				inner join arma as a on a.id = p.arma_id
 				where p.activo = 1 and (u.id = ? or 0 = ?)";		
 		return $model->execSql($sql, array($unidad_id,$unidad_id),true);
 	}	
@@ -21,7 +22,7 @@ class PersonaModel {
 			$sql = "select * from persona where id = ?";
 			$result = $model->execSql($sql, array($unidad));				
 		} else {
-			$result = (object) array('id'=>0,'tipo_persona_id'=>0,'grado_persona_id'=>0,'unidad_id'=>0,'identificacion'=>'','nombres'=>'','apellidos'=>'','arma'=>'', 'telefono'=>'','celular'=>'');			
+			$result = (object) array('id'=>0,'tipo_persona_id'=>0,'grado_persona_id'=>0,'unidad_id'=>0,'identificacion'=>'','nombres'=>'','apellidos'=>'','arma_id'=>0, 'telefono'=>'','celular'=>'');			
 		}
 		
 		return $result;

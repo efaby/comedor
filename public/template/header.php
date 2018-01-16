@@ -48,6 +48,7 @@
 	                            	<ul class="dropdown-menu">
 									     <li class="sub-menu <?php echo (strpos($url, '/Unidad/listar/'))?'menu-top-active':'';?>"><a href="../../Unidad/listar/">Unidades</a></li>
 									     <li class="sub-menu <?php echo (strpos($url, '/Tipo/listar/'))?'menu-top-active':'';?>"><a href="../../Tipo/listar/">Tipos de Personal</a></li>
+                                         <li class="sub-menu <?php echo (strpos($url, '/Arma/listar/'))?'menu-top-active':'';?>"><a href="../../Arma/listar/">Armas de Personal</a></li>
 									     <li class="sub-menu <?php echo (strpos($url, '/TipoNovedad/listar/'))?'menu-top-active':'';?>"><a href="../../TipoNovedad/listar/">Tipos de Novedades</a></li>
 									     <li class="sub-menu <?php echo (strpos($url, '/Grado/listar/'))?'menu-top-active':'';?>"><a href="../../Grado/listar/">Grados de Personal</a></li>
 									</ul>

@@ -18,7 +18,7 @@
 	
 	define('PRIVATE_URLS', serialize(
 			array(
-			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad','Persona','Confronta','Consumo'),
+			'ADMIN_URLS' => array('Seguridad','Parametro','Grado','Unidad','Tipo','Usuario','TipoNovedad','Persona','Confronta','Consumo', 'Arma'),
 			'RANCH_URLS' => array('Seguridad','ExtraConfronta','Confronta'),
 			'AMANA_URLS' => array('Seguridad','Persona','Confronta','Novedad','Unidadconfigurar','UnidadguardarConfiguracion','Consumo')
 			)));	
